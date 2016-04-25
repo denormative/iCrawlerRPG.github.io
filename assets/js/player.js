@@ -154,7 +154,7 @@ game.controller('playerStatusController', function($scope, player) {
     $scope.getStatPercent = function(stat) {
         var experience = stat.experience;
         var nextLevel = stat.nextLevel;
-        return (100 * experience/nextLevel);
+        return Math.round(100*(100 * experience/nextLevel))/100;
     };
 
     $scope.getCurrentFloor = function() {

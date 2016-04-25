@@ -4,6 +4,10 @@ game.service('system', function() {
     this.theGame;
     this.version = "alpha v0.9.2";
     this.ticks = 0;
+    this.refreshSpeed = 100;
+    this.init = false;
+    this.idleHealthSlider;
+    this.idleManaSlider;
 
     //Save Function
     this.save = function() {
@@ -20,6 +24,22 @@ game.service('system', function() {
             this.ticks = systemSave.savedTicks;
         }
     };
+
+    this.loadIdleHealthSlider = function() {
+        this.idleHealthSlider = new Slider("#idleRest", {
+            ticks: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+            ticks_snap_bounds: 10,
+            value: 100
+        });
+    };
+
+    this.loadIdleManaSlider = function() {
+        this.idleManaSlider = new Slider("#idleMpRest", {
+            ticks: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+            ticks_snap_bounds: 10,
+            value: 100
+        });
+    };
 });
 
 game.controller('systemController', function($scope, $document, $interval, system, player) {
@@ -31,92 +51,34 @@ game.controller('systemController', function($scope, $document, $interval, syste
         return system.ticks;
     };
 
-    system.load();
-    player.load();
-    system.save();
-    player.save();
+    $scope.test = function() {
+        player.gainExperience(player.strength, 1);
+        $scope.saveAll();
+    };
+
+    $scope.main = function() {
+        $interval($scope.test, system.refreshSpeed);
+    };
+
+    $scope.runGame = function() {
+        $scope.loadAll();
+        $document.ready($scope.main);
+    };
+
+    $scope.saveAll = function() {
+        system.save();
+        player.save();
+    };
+
+    $scope.loadAll = function() {
+        system.load();
+        player.load();
+    }
+
+    $scope.runGame();
 });
 
 /*var System = function() {
-    var ticks = 0;
-    var refreshSpeed = 1000;
-
-    var init = false;
-    var idleMode = false;
-
-    var theGame;
-    var idleHealthSlider;
-    var idleManaSlider;
-
-    var self = this;
-    //Save Method
-    var save = function() {
-        var systemSave = {
-            savedTicks: ticks
-        };
-        localStorage.setItem("systemSave",JSON.stringify(systemSave));
-    };
-
-    var saveAll = function() {
-        save();
-        player.save();
-        spells.save();
-        upgrades.save();
-        buffs.save();
-        monsters.save();
-        tower.save();
-        inventory.save();
-    };
-
-    //Load Method
-    var load = function() {
-        var systemSave = JSON.parse(localStorage.getItem("systemSave"));
-        if (systemSave) {
-            if (systemSave.savedTicks !== undefined) {
-                ticks = systemSave.savedTicks;
-            }
-        }
-    };
-
-    var loadAll = function() {
-        load();
-        player.load();
-        spells.load();
-        upgrades.load();
-        buffs.load();
-        monsters.load();
-        tower.load();
-        inventory.load();
-    };
-
-    //Getters
-    self.getIdleMode = function() {
-        return idleMode;
-    };
-
-    //Setters
-
-    //Other Methods
-    var loadIdleHealthSlider = function() {
-        idleHealthSlider = new Slider("#idleRest", {
-            ticks: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
-            ticks_snap_bounds: 10,
-            value: 100
-        });
-    };
-
-    var loadIdleManaSlider = function() {
-        idleManaSlider = new Slider("#idleMpRest", {
-            ticks: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
-            ticks_snap_bounds: 10,
-            value: 100
-        });
-    };
-
-    self.runGame = function() {
-        theGame = window.setInterval(main, refreshSpeed);
-    };
-
     self.gameSpeed = function(number) {
         if (idleMode) {
             refreshSpeed = number;

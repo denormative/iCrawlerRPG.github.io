@@ -97,7 +97,7 @@
                                                     <div class="row">
                                                         <div class="col-xs-1">MP: </div>
                                                         <div class="col-xs-11">
-                                                            <div class="progress" data-toggle="tooltip" data-placement="top" title="Your health. You die if this gets to 0." style="margin-bottom: 0px;">
+                                                            <div class="progress" data-toggle="tooltip" data-placement="top" title="Your mana. You can't cast spells without this." style="margin-bottom: 0px;">
                                                                 <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{getManaPercentage()}}%;">
                                                                     {{getMana().currentValue}} / {{getMana().maximumValue}}
                                                                 </div>
@@ -182,7 +182,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-xs-12">
-                                    <div ng-controller="towerController" class="panel panel-default">
+                                    <div class="panel panel-default">
                                     </div>
                                 </div>
                             </div>
