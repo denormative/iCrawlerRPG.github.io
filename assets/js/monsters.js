@@ -1,4 +1,4 @@
-var Monsters = function() {
+/*var Monsters = function() {
     var inBossBattle = false;
     var monsterList = [
         //First Tier
@@ -448,4 +448,4 @@ var Monsters = function() {
     }
 };
 
-var monsters = new Monsters();
+var monsters = new Monsters();*/

@@ -67,7 +67,7 @@ game.controller('towerController', function($scope, tower, player, buffs) {
     $scope.explorationPercent = function() {
         var explored = tower.floors[tower.currentFloor].explored;
         var size = tower.floors[tower.currentFloor].size;
-        return (100 * explored/size);
+        return Math.round(100 * (100 * explored/size))/100;
     };
 
     $scope.returnButton = function() {
@@ -100,6 +100,22 @@ game.controller('towerController', function($scope, tower, player, buffs) {
         return button;
     };
 
+    $scope.restButton = function() {
+        var button = {text: 'Rest', color: 'btn-default', disabled: false};
+        if (player.resting) {
+            button.text = 'Stop Resting';
+            button.color = 'btn-success';
+        } else if (player.inBattle) {
+            button.color = 'btn-danger';
+            button.disabled = true;
+        }
+        return button;
+    };
+
+    $scope.toggleRest = function() {
+        player.toggleRest();
+    };
+
     $scope.changeFloor = function(number) {
         tower.currentFloor += number;
     };
@@ -117,7 +133,7 @@ game.controller('towerController', function($scope, tower, player, buffs) {
                 explored = explorationLeft;
             }
             floor.explored += explored;
-            if (hasFoundStairs(tower.floors[tower.currentFloor]) && !tower.floors[tower.currentFloor].canAdvance && tower.currentFloor < tower.totalFloors) {
+            if ($scope.hasFoundStairs(tower.floors[tower.currentFloor]) && !tower.floors[tower.currentFloor].canAdvance && tower.currentFloor < tower.totalFloors) {
                 if (tower.currentFloor % 10 !== 0) {
                     tower.floors[tower.currentFloor].canAdvance = true;
                 } else {
@@ -126,9 +142,9 @@ game.controller('towerController', function($scope, tower, player, buffs) {
             }
             var experience = 5 * explored * buffs.levelingSpeedMultiplier;
             player.gainExperience(player.speed, experience);
-            if (!$scope.checkFloorEvent()) {
+            /*if (!$scope.checkFloorEvent()) {
                 //battle chance
-            }
+            }*/
         } else {
             //battle
         }
@@ -164,7 +180,7 @@ game.controller('towerController', function($scope, tower, player, buffs) {
         floors[player.getCurrentFloor()].canAdvance = true;
         self.loadTowerScreen();
     };
-    
+
     var checkFloorEvent = function() {
         var eventChance = 10;
         var eventRoll = Math.floor(Math.random()*100);

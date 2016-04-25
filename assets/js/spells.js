@@ -1,4 +1,4 @@
-var Spells = function() {
+/*var Spells = function() {
 	var arcania = 0;
 
 	var spellbook = [];
@@ -555,4 +555,4 @@ var Spells = function() {
     };
 };
 
-var spells = new Spells();
+var spells = new Spells();*/

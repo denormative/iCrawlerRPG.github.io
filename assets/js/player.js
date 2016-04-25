@@ -1,4 +1,4 @@
-game.service('player', function() {
+game.service('player', function(buffs) {
     this.name = "Crawler";
     this.health = {currentValue: 100, maximumValue: 100};
     this.mana = {currentValue: 50, maximumValue: 50};
@@ -118,6 +118,33 @@ game.service('player', function() {
     this.totalStat = function(stat) {
         return (stat.level + stat.bonus);
     };
+
+    this.toggleRest = function() {
+        this.resting = !this.resting;
+    };
+
+    this.rest = function() {
+        var healthRecovery = 5 * this.constitution.level * buffs.restingMultiplier;
+        var manaRecovery = 5 * this.magic.level * buffs.restingMultiplier;
+        this.updateCondition(this.health, healthRecovery);
+        this.updateCondition(this.mana, manaRecovery);
+    };
+
+    this.updateCondition = function(condition, number) {
+        condition.currentValue += number;
+        if (condition.currentValue > condition.maximumValue) {
+            condition.currentValue = condition.maximumValue;
+        } else if (condition.currentValue < 0) {
+            condition.currentValue = 0;
+        }
+    };
+
+    this.isFullyRested = function() {
+        if (this.health.currentValue == this.health.maximumValue && this.mana.currentValue == this.mana.maximumValue) {
+            return true;
+        }
+        return false;
+    }
 });
 
 game.controller('playerStatusController', function($scope, system, player) {

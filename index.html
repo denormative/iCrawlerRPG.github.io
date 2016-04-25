@@ -91,7 +91,7 @@
                                                         <div class="col-xs-11">
                                                             <div class="progress" data-toggle="tooltip" data-placement="top" title="Your health. You die if this gets to 0." style="margin-bottom: 5px;">
                                                                 <div class="progress-bar progress-bar-danger" role="progressbar" style="width: {{getHealthPercentage()}}%;">
-                                                                    {{print(getHealth().maximumValue)}} / {{print(getHealth().maximumValue)}}
+                                                                    {{print(getHealth().currentValue)}} / {{print(getHealth().maximumValue)}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -217,7 +217,7 @@
                                                         <button class="btn btn-block {{exploreButton().color}}" ng-disabled="exploreButton().disabled" ng-click="exploreFloor()">{{exploreButton().text}}</button>
                                                     </div>
                                                     <div class="col-xs-3">
-                                                        rest button
+                                                        <button class="btn btn-block {{restButton().color}}" ng-disabled="restButton().disabled" ng-click="toggleRest()">{{restButton().text}}</button>
                                                     </div>
                                                     <div class="col-xs-3">
                                                         <button class="btn btn-block {{nextButton().color}}" ng-disabled="nextButton().disabled" ng-click="changeFloor(1)">{{nextButton().text}}</button>

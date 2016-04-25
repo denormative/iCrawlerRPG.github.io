@@ -86,6 +86,13 @@ game.controller('systemController', function($scope, $document, $interval, syste
     };
 
     $scope.main = function() {
+        if (player.resting) {
+            player.rest();
+            if (player.isFullyRested()) {
+                player.toggleRest();
+            }
+        }
+        player.gainExperience(player.constitution, 10);
         $scope.saveAll();
     };
 

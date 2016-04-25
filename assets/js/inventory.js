@@ -1,4 +1,4 @@
-var Inventory = function() {
+/*var Inventory = function() {
     var gold = 0;
     var keys = 0;
     var bag = [];
@@ -609,4 +609,4 @@ var Inventory = function() {
     };
 };
 
-var inventory = new Inventory();
+var inventory = new Inventory();*/

@@ -1,4 +1,4 @@
-var Upgrades = function() {
+/*var Upgrades = function() {
     var excelia = 0;
 
     var upgradeList = [];
@@ -378,4 +378,4 @@ var Upgrades = function() {
     };
 };
 
-var upgrades = new Upgrades();
+var upgrades = new Upgrades();*/
