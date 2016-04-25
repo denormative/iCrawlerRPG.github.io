@@ -1,4 +1,43 @@
-var System = function() {
+var game = angular.module('system', []);
+
+game.service('system', function() {
+    this.theGame;
+    this.version = "alpha v0.9.2";
+    this.ticks = 0;
+
+    //Save Function
+    this.save = function() {
+        var systemSave = {
+            savedTicks: this.ticks
+        };
+        localStorage.setItem("systemSave", JSON.stringify(systemSave));
+    };
+
+    //Load Function
+    this.load = function() {
+        var systemSave = JSON.parse(localStorage.getItem("systemSave"));
+        if (systemSave.savedTicks !== undefined) {
+            this.ticks = systemSave.savedTicks;
+        }
+    };
+});
+
+game.controller('systemController', function($scope, $document, $interval, system, player) {
+    $scope.getVersion = function() {
+        return system.version;
+    };
+
+    $scope.getTicks = function() {
+        return system.ticks;
+    };
+
+    system.load();
+    player.load();
+    system.save();
+    player.save();
+});
+
+/*var System = function() {
     var ticks = 0;
     var refreshSpeed = 1000;
 
@@ -253,4 +292,4 @@ $.get( "https://raw.githubusercontent.com/iCrawlerRPG/iCrawlerRPG.github.io/mast
 });
 
 var system = new System();
-system.runGame();
+system.runGame();*/
