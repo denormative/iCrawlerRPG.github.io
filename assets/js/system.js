@@ -3,28 +3,11 @@ var game = angular.module('system', []);
 game.service('system', function() {
     this.theGame;
     this.version = "alpha v0.9.2";
-    this.ticks = 0;
     this.refreshSpeed = 1000;
     this.init = false;
     this.idleMode;
     this.idleHealthSlider;
     this.idleManaSlider;
-
-    //Save Function
-    this.save = function() {
-        var systemSave = {
-            savedTicks: this.ticks
-        };
-        localStorage.setItem("systemSave", JSON.stringify(systemSave));
-    };
-
-    //Load Function
-    this.load = function() {
-        var systemSave = JSON.parse(localStorage.getItem("systemSave"));
-        if (systemSave.savedTicks !== undefined) {
-            this.ticks = systemSave.savedTicks;
-        }
-    };
 
     this.loadIdleHealthSlider = function() {
         this.idleHealthSlider = new Slider("#idleRest", {
@@ -74,122 +57,37 @@ game.controller('systemController', function($scope, $document, $interval, syste
     };
 
     $scope.saveAll = function() {
-        system.save();
         player.save();
         tower.save();
     };
 
     $scope.loadAll = function() {
-        system.load();
         player.load();
         tower.load();
     };
 
     $scope.main = function() {
+        if (!system.init) {
+            //$scope.startTheEngine();
+        }
         if (player.resting) {
             player.rest();
             if (player.isFullyRested()) {
                 player.toggleRest();
             }
         }
-        player.gainExperience(player.constitution, 10);
-        $scope.saveAll();
-    };
-
-    $scope.runGame = function() {
-        $scope.loadAll();
-        system.theGame = $document.ready($interval($scope.main, system.refreshSpeed));
-    };
-
-    $scope.gameSpeed = function(number) {
         if (system.idleMode) {
-            system.refreshSpeed = number;
-            $interval.cancel(system.theGame);
-            $scope.runGame();
-        }
-    };
+            if (!player.inBattle) {
 
-    $scope.exportGame = function() {
-        $interval.cancel(system.theGame);
-        $scope.saveAll();
-        var exportedData = {
-            systemSave: localStorage.getItem('systemSave'),
-            playerSave: localStorage.getItem('playerSave'),
-            spellsSave: localStorage.getItem('spellsSave'),
-            upgradesSave: localStorage.getItem('upgradesSave'),
-            buffsSave: localStorage.getItem('buffsSave'),
-            monstersSave: localStorage.getItem('monstersSave'),
-            towerSave: localStorage.getItem('towerSave'),
-            inventorySave: localStorage.getItem('inventorySave')
-        };
-        document.getElementById('dataContainer').innerHTML = JSON.stringify(exportedData);
-        $scope.runGame();
-    };
-
-    $scope.runGame();
-});
-
-/*var System = function() {
-
-    self.importGame = function() {
-        theGame = window.clearInterval(theGame);
-        try {
-            var text = document.getElementById('dataContainer').value;
-            var importedData = JSON.parse(text);
-
-            if (confirm("Are you sure you want to import this data? Your existing save will be wiped.")) {
-                localStorage.clear();
-
-                localStorage.setItem('systemSave', importedData.systemSave);
-                localStorage.setItem('playerSave', importedData.playerSave);
-                localStorage.setItem('spellsSave', importedData.spellsSave);
-                localStorage.setItem('upgradesSave', importedData.upgradesSave);
-                localStorage.setItem('buffsSave', importedData.buffsSave);
-                localStorage.setItem('monstersSave', importedData.monstersSave);
-                localStorage.setItem('towerSave', importedData.towerSave);
-                localStorage.setItem('inventorySave', importedData.inventorySave);
-
-                loadAll();
-                location.reload();
             }
-        } catch (e) {
-            console.warn(e);
-            alert('Unable to parse save game data!');
+            else {
+
+            }
         }
-        this.runGame();
+        $scope.saveAll();
     };
 
-    self.hardReset = function() {
-        theGame = window.clearInterval(theGame);
-        if (confirm("Are you sure you want to wipe all your progress?")) {
-            // localStorage.clear();
-                localStorage.removeItem('systemSave');
-                localStorage.removeItem('playerSave');
-                localStorage.removeItem('spellsSave');
-                localStorage.removeItem('upgradesSave');
-                localStorage.removeItem('buffsSave');
-                localStorage.removeItem('monstersSave');
-                localStorage.removeItem('towerSave');
-                localStorage.removeItem('inventorySave');
-
-            location.reload();
-        }
-        else {
-            this.runGame();
-        }
-    };
-
-    var updateTime = function(number) {
-        document.getElementById("seconds").innerHTML = number % 60;
-        number = Math.floor(number / 60);
-        document.getElementById("minutes").innerHTML = number % 60;
-        number = Math.floor(number / 60);
-        document.getElementById("hours").innerHTML = number % 24;
-        number = Math.floor(number / 24);
-        document.getElementById("days").innerHTML = number;
-    };
-
-    var main = function() {
+    /*var main = function() {
         if (!init) {
             startTheEngine();
         }
@@ -213,9 +111,82 @@ game.controller('systemController', function($scope, $document, $interval, syste
                 monsters.attackMelee();
             }
         }
-        updateTime(ticks);
-        saveAll();
+    };*/
+
+    $scope.runGame = function() {
+        $scope.loadAll();
+        system.theGame = $document.ready($interval($scope.main, system.refreshSpeed));
     };
+
+    $scope.gameSpeed = function(number) {
+        if (system.idleMode) {
+            system.refreshSpeed = number;
+            $interval.cancel(system.theGame);
+            $scope.runGame();
+        }
+    };
+
+    $scope.exportGame = function() {
+        $interval.cancel(system.theGame);
+        $scope.saveAll();
+        var exportedData = {
+            playerSave: localStorage.getItem('playerSave'),
+            spellsSave: localStorage.getItem('spellsSave'),
+            upgradesSave: localStorage.getItem('upgradesSave'),
+            buffsSave: localStorage.getItem('buffsSave'),
+            monstersSave: localStorage.getItem('monstersSave'),
+            towerSave: localStorage.getItem('towerSave'),
+            inventorySave: localStorage.getItem('inventorySave')
+        };
+        document.getElementById('dataContainer').innerHTML = JSON.stringify(exportedData);
+        $scope.runGame();
+    };
+
+    $scope.importGame = function() {
+        $interval.cancel(system.theGame);
+        try {
+            var text = document.getElementById('dataContainer').value;
+            var importedData = JSON.parse(text);
+            if (confirm("Are you sure you want to import this data? Your existing save will be wiped.")) {
+                localStorage.clear();
+                localStorage.setItem('playerSave', importedData.playerSave);
+                localStorage.setItem('spellsSave', importedData.spellsSave);
+                localStorage.setItem('upgradesSave', importedData.upgradesSave);
+                localStorage.setItem('buffsSave', importedData.buffsSave);
+                localStorage.setItem('monstersSave', importedData.monstersSave);
+                localStorage.setItem('towerSave', importedData.towerSave);
+                localStorage.setItem('inventorySave', importedData.inventorySave);
+                $scope.loadAll();
+                location.reload();
+            }
+        } catch (e) {
+            console.warn(e);
+            alert('Unable to parse save game data!');
+        }
+        $scope.runGame();
+    };
+
+    $scope.hardReset = function() {
+        $interval.cancel(system.theGame);
+        if (confirm("Are you sure you want to wipe all your progress?")) {
+            localStorage.removeItem('playerSave');
+            localStorage.removeItem('spellsSave');
+            localStorage.removeItem('upgradesSave');
+            localStorage.removeItem('buffsSave');
+            localStorage.removeItem('monstersSave');
+            localStorage.removeItem('towerSave');
+            localStorage.removeItem('inventorySave');
+            location.reload();
+        }
+        else {
+            $scope.runGame();
+        }
+    };
+
+    $scope.runGame();
+});
+
+/*var System = function() {
 
     self.toggleIdle = function() {
         if (player.getCurrentFloor() === 0) {

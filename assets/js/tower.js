@@ -1,6 +1,7 @@
 game.service('tower', function() {
     this.totalFloors = 50;
     this.currentFloor = 0;
+    this.floorLog = "";
     this.floors = [];
 
     this.fillFloors = function() {
@@ -121,6 +122,7 @@ game.controller('towerController', function($scope, tower, player, buffs) {
     };
 
     $scope.exploreFloor = function() {
+        tower.floorLog = "";
         var currentFloor = tower.currentFloor;
         if (buffs.manaPerSecond > 0) {
             player.gainMana(buffs.manaPerSecond);
@@ -142,9 +144,9 @@ game.controller('towerController', function($scope, tower, player, buffs) {
             }
             var experience = 5 * explored * buffs.levelingSpeedMultiplier;
             player.gainExperience(player.speed, experience);
-            /*if (!$scope.checkFloorEvent()) {
+            if (!$scope.checkFloorEvent()) {
                 //battle chance
-            }*/
+            }
         } else {
             //battle
         }
@@ -164,6 +166,29 @@ game.controller('towerController', function($scope, tower, player, buffs) {
         }
         return false;
     };
+
+    $scope.checkFloorEvent = function() {
+        var eventChance = 5;
+        var eventRoll = Math.floor(Math.random() * 100);
+        if (eventRoll <= eventChance) {
+            eventRoll = Math.random() * 100;
+            if (eventRoll < 25) {
+                var rarity = tower.CurrentFloor + Math.floor(Math.random() * tower.CurrentFloor);
+                tower.floorLog += "You turn a corner, finding a treasure chest."
+            } else {
+                var gold = Math.round(Math.random() * 50 * (tower.currentFloor + 1));
+                tower.floorLog += "You find the body of another adventurer. You check their pockets, obtaining " + gold + " gold.";
+            }
+            return true;
+        } else {
+            tower.floorLog += "You walk around for a bit, finding nothing of interest.";
+            return false;
+        }
+    };
+
+    $scope.printFloorLog = function() {
+        return tower.floorLog;
+    };
 });
 
 /*var Tower = function() {
@@ -179,29 +204,6 @@ game.controller('towerController', function($scope, tower, player, buffs) {
     self.bossDefeated = function() {
         floors[player.getCurrentFloor()].canAdvance = true;
         self.loadTowerScreen();
-    };
-
-    var checkFloorEvent = function() {
-        var eventChance = 10;
-        var eventRoll = Math.floor(Math.random()*100);
-        if (eventRoll <= eventChance) {
-            eventRoll = Math.random()*100;
-            if (eventRoll < 5) {
-                var rarity = player.getCurrentFloor() + Math.floor(Math.random() * player.getCurrentFloor());
-                document.getElementById("floorlog").innerHTML = "You turn a corner, finding a treasure chest."
-                inventory.findChest(rarity);
-            }
-            else {
-                var gold = Math.round(Math.random() * 50 * player.getCurrentFloor()) + 1;
-                document.getElementById("floorlog").innerHTML = "You find the body of another adventurer. You check their pockets, obtaining " + gold + " gold.";
-                inventory.setGold(inventory.getGold() + gold);
-            }
-            return true;
-        }
-        else {
-            document.getElementById("floorlog").innerHTML = "You walk around for a bit, finding nothing of interest."
-            return false;
-        }
     };
 };
 

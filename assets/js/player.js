@@ -204,75 +204,6 @@ game.controller('playerStatusController', function($scope, system, player) {
 });
 
 /*var Player = function() {
-    self.rest = function() {
-        if (resting) {
-            self.setHealthCurrentValue(health.currentValue + (5*constitution.level * buffs.getRestingMultiplier()));
-            self.setManaCurrentValue(mana.currentValue + (5*magic.level * buffs.getRestingMultiplier()));
-            if (self.isFullyRested()) {
-                self.toggleRest();
-            }
-        }
-    };
-
-    self.isFullyRested = function() {
-        if (health.currentValue == health.maximumValue && mana.currentValue == mana.maximumValue) {
-            return true;
-        }
-        return false;
-    };
-
-    self.loadExploreButton = function() {
-        if (currentFloor !== 0) {
-            if (inBattle || resting) {
-                if (tower.floorExplorationComplete(currentFloor)) {
-                    document.getElementById("exploreButton").innerHTML = '<button class="btn btn-danger btn-block" disabled="disabled">Find Monster</button>';
-                }
-                else {
-                    document.getElementById("exploreButton").innerHTML = '<button class="btn btn-danger btn-block" disabled="disabled">Explore</button>';
-                }
-            }
-            else {
-                if (tower.floorExplorationComplete(currentFloor)) {
-                    document.getElementById("exploreButton").innerHTML = '<button class="btn btn-default btn-block" onClick="tower.exploreFloor()">Find Monster</button>';
-                }
-                else {
-                    document.getElementById("exploreButton").innerHTML = '<button class="btn btn-default btn-block" onClick="tower.exploreFloor()">Explore</button>';
-                }
-            }
-        }
-        else {
-            document.getElementById("exploreButton").innerHTML = '';
-        }
-    };
-
-    self.loadRestButton = function() {
-        if (currentFloor !== 0) {
-            if (inBattle) {
-                document.getElementById("restButton").innerHTML = '<button class="btn btn-danger btn-block" disabled="disabled">Rest</button>';
-            }
-            else if (resting) {
-                document.getElementById("restButton").innerHTML = '<button class="btn btn-success btn-block" onClick="player.toggleRest()">Stop Resting</button>';
-            }
-            else {
-                document.getElementById("restButton").innerHTML = '<button class="btn btn-default btn-block" onClick="player.toggleRest()">Rest</button>';
-            }
-        }
-        else {
-            document.getElementById("restButton").innerHTML = '';
-        }
-    };
-
-    self.gainExperience = function(monster, attacking) {
-        var multiplier = buffs.getLevelingSpeedMultiplier();
-        if (attacking) {
-            self.setStrengthExperience(strength.experience + multiplier*(monster.strength/constitution.level));
-            self.setDexterityExperience(dexterity.experience + multiplier*(monster.dexterity/dexterity.level));
-        }
-        else {
-            self.setConstitutionExperience(constitution.experience + multiplier*(monster.strength/constitution.level));
-        }
-    };
-
     self.death = function(monster) {
         inBattle = false;
         if (monsters.getInBossBattle()) {
@@ -305,12 +236,6 @@ game.controller('playerStatusController', function($scope, system, player) {
         self.setConstitutionExperience(0);
         self.setSpeedExperience(0);
         self.setMagicExperience(0);
-    };
-
-    self.toggleRest = function() {
-        resting = !resting;
-        self.loadRestButton();
-        self.loadExploreButton();
     };
 };
 
