@@ -10,7 +10,6 @@ game.service('player', function() {
     this.inBattle = false;
     this.resting = false;
 
-    //Save Function
     this.save = function() {
         var playerSave = {
             savedName: this.name,
@@ -26,7 +25,6 @@ game.service('player', function() {
         localStorage.setItem("playerSave", JSON.stringify(playerSave));
     };
 
-    //Load Function
     this.load = function() {
         var playerSave = JSON.parse(localStorage.getItem("playerSave"));
         if (playerSave) {
@@ -86,6 +84,15 @@ game.service('player', function() {
         }
         if (savedStat.bonus !== undefined) {
             stat.bonus = savedStat.bonus;
+        }
+    };
+
+    this.gainMana = function(number) {
+        this.mana.currentValue += number;
+        if (this.mana.currentValue > this.mana.maximumValue) {
+            this.mana.currentValue = this.mana.maximumValue;
+        } else if (this.mana.currentValue < 0) {
+            this.mana.maximumValue = 0;
         }
     };
 

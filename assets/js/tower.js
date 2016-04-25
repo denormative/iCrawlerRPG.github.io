@@ -43,7 +43,7 @@ game.service('tower', function() {
     };
 });
 
-game.controller('towerController', function($scope, tower, player) {
+game.controller('towerController', function($scope, tower, player, buffs) {
     $scope.getCurrentFloor = function() {
         return tower.currentFloor;
     };
@@ -102,6 +102,47 @@ game.controller('towerController', function($scope, tower, player) {
     $scope.changeFloor = function(number) {
         tower.currentFloor += number;
     };
+
+    $scope.exploreFloor = function() {
+        var currentFloor = tower.currentFloor;
+        if (buffs.manaPerSecond > 0) {
+            player.gainMana(buffs.manaPerSecond);
+        }
+        if ($scope.explorationPercent() != 100) {
+
+        } else {
+            
+        }
+    };
+
+    self.exploreFloor = function() {
+        var currentFloor = player.getCurrentFloor();
+        player.setManaCurrentValue(player.getManaCurrentValue() + buffs.getManaPerSecond());
+        if (!self.floorExplorationComplete(currentFloor)) {
+            var explored = buffs.getExplorationSpeedMultiplier() * ((player.getSpeedLevel() + player.getSpeedBonus())/10);
+            var explorationLeft = floors[currentFloor].size - floors[currentFloor].explored;
+            if (explored > explorationLeft) {
+                explored = explorationLeft;
+            }
+            floors[currentFloor].explored += explored;
+            if (hasFoundStairs(currentFloor) && !floors[currentFloor].canAdvance && currentFloor < monsters.getMonsterList().length) {
+                if (currentFloor % 10 !== 0) {
+                    floors[currentFloor].canAdvance = true;
+                }
+                else {
+                    bossFound = true;
+                }
+            }
+            player.setSpeedExperience(player.getSpeedExperience() + 5*explored*buffs.getLevelingSpeedMultiplier()/buffs.getExplorationSpeedMultiplier());
+            self.loadTowerScreen();
+            if (!checkFloorEvent()) {
+                monsters.battleChance(false);
+            }
+        }
+        else {
+            monsters.battleChance(true);
+        }
+    };
 });
 
 /*var Tower = function() {
@@ -141,35 +182,6 @@ game.controller('towerController', function($scope, tower, player) {
             return true;
         }
         return false;
-    };
-
-    self.exploreFloor = function() {
-        var currentFloor = player.getCurrentFloor();
-        player.setManaCurrentValue(player.getManaCurrentValue() + buffs.getManaPerSecond());
-        if (!self.floorExplorationComplete(currentFloor)) {
-            var explored = buffs.getExplorationSpeedMultiplier() * ((player.getSpeedLevel() + player.getSpeedBonus())/10);
-            var explorationLeft = floors[currentFloor].size - floors[currentFloor].explored;
-            if (explored > explorationLeft) {
-                explored = explorationLeft;
-            }
-            floors[currentFloor].explored += explored;
-            if (hasFoundStairs(currentFloor) && !floors[currentFloor].canAdvance && currentFloor < monsters.getMonsterList().length) {
-                if (currentFloor % 10 !== 0) {
-                    floors[currentFloor].canAdvance = true;
-                }
-                else {
-                    bossFound = true;
-                }
-            }
-            player.setSpeedExperience(player.getSpeedExperience() + 5*explored*buffs.getLevelingSpeedMultiplier()/buffs.getExplorationSpeedMultiplier());
-            self.loadTowerScreen();
-            if (!checkFloorEvent()) {
-                monsters.battleChance(false);
-            }
-        }
-        else {
-            monsters.battleChance(true);
-        }
     };
 
     var checkFloorEvent = function() {
