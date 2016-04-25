@@ -1,5 +1,7 @@
 game.service('buffs', function() {
     this.manaPerSecond = 0;
+    this.explorationSpeedMultiplier = 1;
+    this.levelingSpeedMultiplier = 1;
 });
 
 /*var Buffs = function() {

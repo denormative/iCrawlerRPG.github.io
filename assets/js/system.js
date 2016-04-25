@@ -4,8 +4,9 @@ game.service('system', function() {
     this.theGame;
     this.version = "alpha v0.9.2";
     this.ticks = 0;
-    this.refreshSpeed = 100;
+    this.refreshSpeed = 1000;
     this.init = false;
+    this.idleMode;
     this.idleHealthSlider;
     this.idleManaSlider;
 
@@ -90,26 +91,20 @@ game.controller('systemController', function($scope, $document, $interval, syste
 
     $scope.runGame = function() {
         $scope.loadAll();
-        $document.ready($interval($scope.main, system.refreshSpeed));
+        system.theGame = $document.ready($interval($scope.main, system.refreshSpeed));
     };
 
-    $scope.runGame();
-});
-
-/*var System = function() {
-    self.gameSpeed = function(number) {
-        if (idleMode) {
-            refreshSpeed = number;
-            theGame = window.clearInterval(theGame);
-            self.runGame();
-            document.getElementById("speed").innerHTML = 1000/number;
+    $scope.gameSpeed = function(number) {
+        if (system.idleMode) {
+            system.refreshSpeed = number;
+            $interval.cancel(system.theGame);
+            $scope.runGame();
         }
     };
 
-    self.exportGame = function() {
-        theGame = window.clearInterval(theGame);
-        saveAll();
-
+    $scope.exportGame = function() {
+        $interval.cancel(system.theGame);
+        $scope.saveAll();
         var exportedData = {
             systemSave: localStorage.getItem('systemSave'),
             playerSave: localStorage.getItem('playerSave'),
@@ -120,10 +115,14 @@ game.controller('systemController', function($scope, $document, $interval, syste
             towerSave: localStorage.getItem('towerSave'),
             inventorySave: localStorage.getItem('inventorySave')
         };
-
         document.getElementById('dataContainer').innerHTML = JSON.stringify(exportedData);
-        this.runGame();
+        $scope.runGame();
     };
+
+    $scope.runGame();
+});
+
+/*var System = function() {
 
     self.importGame = function() {
         theGame = window.clearInterval(theGame);

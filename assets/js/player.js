@@ -108,6 +108,10 @@ game.service('player', function() {
     this.neededExperience = function(level) {
         return ((Math.pow(level, 2) + level) * 3);
     };
+
+    this.totalStat = function(stat) {
+        return (stat.level + stat.bonus);
+    };
 });
 
 game.controller('playerStatusController', function($scope, system, player) {

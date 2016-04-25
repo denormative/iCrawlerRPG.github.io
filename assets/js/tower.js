@@ -1,6 +1,22 @@
 game.service('tower', function() {
+    this.totalFloors = 50;
     this.currentFloor = 0;
     this.floors = [];
+
+    this.fillFloors = function() {
+        for (var i = 0; i <= this.totalFloors; i++) {
+            if (i === 0) {
+                this.floors.push({size: 100, explored: 100, canAdvance: true, stairsPosition: 0, monsterDensity: 0});
+            } else {
+                this.floors.push({size: Math.floor(2*this.floors[i-1].size),
+                    explored: 0,
+                    canAdvance: false,
+                    stairsPosition: Math.floor(Math.random() * Math.floor(2*this.floors[i-1].size)),
+                    monsterDensity: Math.floor(10 + Math.random() * 40)});
+            }
+        }
+    };
+    this.fillFloors();
 
     this.save = function() {
         var towerSave = {
@@ -34,7 +50,7 @@ game.service('tower', function() {
                 this.floors[i].canAdvance = savedFloors[i].canAdvance;
             }
             if (savedFloors[i].stairsPosition !== undefined) {
-                this.this.floors[i].stairsPosition = savedFloors[i].stairsPosition;
+                this.floors[i].stairsPosition = savedFloors[i].stairsPosition;
             }
             if (savedFloors[i].monsterDensity !== undefined) {
                 this.floors[i].monsterDensity = savedFloors[i].monsterDensity;
@@ -47,21 +63,6 @@ game.controller('towerController', function($scope, tower, player, buffs) {
     $scope.getCurrentFloor = function() {
         return tower.currentFloor;
     };
-
-    $scope.fillFloors = function() {
-        for (var i = 0; i <= 10; i++) {
-            if (i === 0) {
-                tower.floors.push({size: 100, explored: 100, canAdvance: true, stairsPosition: 0, monsterDensity: 0});
-            } else {
-                tower.floors.push({size: Math.floor(2*tower.floors[i-1].size),
-                    explored: 0,
-                    canAdvance: false,
-                    stairsPosition: Math.floor(Math.random() * Math.floor(2*tower.floors[i-1].size)),
-                    monsterDensity: Math.floor(10 + Math.random() * 40)});
-            }
-        }
-    };
-    $scope.fillFloors();
 
     $scope.explorationPercent = function() {
         var explored = tower.floors[tower.currentFloor].explored;
@@ -109,39 +110,43 @@ game.controller('towerController', function($scope, tower, player, buffs) {
             player.gainMana(buffs.manaPerSecond);
         }
         if ($scope.explorationPercent() != 100) {
-
-        } else {
-            
-        }
-    };
-
-    self.exploreFloor = function() {
-        var currentFloor = player.getCurrentFloor();
-        player.setManaCurrentValue(player.getManaCurrentValue() + buffs.getManaPerSecond());
-        if (!self.floorExplorationComplete(currentFloor)) {
-            var explored = buffs.getExplorationSpeedMultiplier() * ((player.getSpeedLevel() + player.getSpeedBonus())/10);
-            var explorationLeft = floors[currentFloor].size - floors[currentFloor].explored;
+            var floor = tower.floors[tower.currentFloor];
+            var explored = $scope.exploration();
+            var explorationLeft = floor.size - floor.explored;
             if (explored > explorationLeft) {
                 explored = explorationLeft;
             }
-            floors[currentFloor].explored += explored;
-            if (hasFoundStairs(currentFloor) && !floors[currentFloor].canAdvance && currentFloor < monsters.getMonsterList().length) {
-                if (currentFloor % 10 !== 0) {
-                    floors[currentFloor].canAdvance = true;
-                }
-                else {
-                    bossFound = true;
+            floor.explored += explored;
+            if (hasFoundStairs(tower.floors[tower.currentFloor]) && !tower.floors[tower.currentFloor].canAdvance && tower.currentFloor < tower.totalFloors) {
+                if (tower.currentFloor % 10 !== 0) {
+                    tower.floors[tower.currentFloor].canAdvance = true;
+                } else {
+
                 }
             }
-            player.setSpeedExperience(player.getSpeedExperience() + 5*explored*buffs.getLevelingSpeedMultiplier()/buffs.getExplorationSpeedMultiplier());
-            self.loadTowerScreen();
-            if (!checkFloorEvent()) {
-                monsters.battleChance(false);
+            var experience = 5 * explored * buffs.levelingSpeedMultiplier;
+            player.gainExperience(player.speed, experience);
+            if (!$scope.checkFloorEvent()) {
+                //battle chance
             }
+        } else {
+            //battle
         }
-        else {
-            monsters.battleChance(true);
+    };
+
+    $scope.exploration = function() {
+        var multiplier = buffs.explorationSpeedMultiplier;
+        var explored = player.totalStat(player.speed)/10;
+        return (multiplier * explored);
+    };
+
+    $scope.hasFoundStairs = function(floor) {
+        var stairsPosition = floor.stairsPosition;
+        var explored = floor.explored;
+        if (explored > stairsPosition) {
+            return true;
         }
+        return false;
     };
 });
 
