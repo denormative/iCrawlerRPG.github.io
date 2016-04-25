@@ -152,14 +152,6 @@ game.controller('towerController', function($scope, tower, player, buffs) {
 
 /*var Tower = function() {
 
-    //Other Methods
-    self.floorExplorationComplete = function(floor) {
-        if (floors[floor].size == floors[floor].explored) {
-            return true;
-        }
-        return false;
-    };
-
     self.startBossBattle = function() {
         if (!player.getInBattle()) {
             monsters.setInstancedMonster(monsters.getBossMonster((player.getCurrentFloor()/10)-1));
@@ -172,23 +164,7 @@ game.controller('towerController', function($scope, tower, player, buffs) {
         floors[player.getCurrentFloor()].canAdvance = true;
         self.loadTowerScreen();
     };
-
-    self.changeFloor = function(floorsChanged) {
-        if (!player.getInBattle()) {
-            player.setCurrentFloor(player.getCurrentFloor() + floorsChanged);
-            self.loadTowerScreen();
-            player.loadRestButton();
-            player.loadExploreButton();
-        }
-    };
-
-    var hasFoundStairs = function(currentFloor) {
-        if (floors[currentFloor].explored > floors[currentFloor].stairsPosition) {
-            return true;
-        }
-        return false;
-    };
-
+    
     var checkFloorEvent = function() {
         var eventChance = 10;
         var eventRoll = Math.floor(Math.random()*100);

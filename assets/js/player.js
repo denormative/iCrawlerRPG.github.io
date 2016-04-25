@@ -102,7 +102,13 @@ game.service('player', function() {
             stat.experience -= stat.nextLevel;
             stat.level++;
             stat.nextLevel = this.neededExperience(stat.level+1);
+            this.updateConditions();
         }
+    };
+
+    this.updateConditions = function() {
+        this.health.maximumValue = Math.pow(this.totalStat(this.constitution), 2) * 4;
+        this.mana.maximumValue = Math.pow(this.totalStat(this.magic), 2) * 2;
     }
 
     this.neededExperience = function(level) {
@@ -171,97 +177,6 @@ game.controller('playerStatusController', function($scope, system, player) {
 });
 
 /*var Player = function() {
-
-    //Setters
-    self.setInBattle = function(boolean) {
-        inBattle = boolean;
-    };
-
-    self.setCurrentFloor = function(newFloor) {
-        currentFloor = newFloor;
-    };
-
-    self.setHealthCurrentValue = function(newHealth) {
-        if (newHealth > health.maximumValue) {
-            newHealth = health.maximumValue;
-        }
-        health.currentValue = newHealth;
-        loadConditionScreen("hp", health);
-    };
-
-    self.setHealthMaximumValue = function(newHealth) {
-        health.maximumValue = newHealth;
-        loadConditionScreen("hp", health);
-    };
-
-    self.setManaCurrentValue = function(newMana) {
-        if (newMana > mana.maximumValue) {
-            newMana = mana.maximumValue;
-        }
-        mana.currentValue = newMana;
-        loadConditionScreen("mp", mana);
-    };
-
-    self.setManaMaximumValue = function(newMana) {
-        mana.maximumValue = newMana;
-        loadConditionScreen("mp", mana);
-    };
-
-    self.setStrengthBonus = function(bonus) {
-        strength.bonus = bonus;
-        loadStatScreen("str", strength);
-    };
-
-    self.setDexterityBonus = function(bonus) {
-        dexterity.bonus = bonus;
-        loadStatScreen("dex", dexterity);
-    };
-
-    self.setConstitutionBonus = function(bonus) {
-        constitution.bonus = bonus;
-        self.setHealthMaximumValue(Math.pow(constitution.level + constitution.bonus,2) * 4);
-        loadStatScreen("con", constitution);
-    };
-
-    self.setSpeedBonus = function(bonus) {
-        speed.bonus = bonus;
-        loadStatScreen("spd", speed);
-    };
-
-    self.setMagicBonus = function(bonus) {
-        magic.bonus = bonus;
-        self.setManaMaximumValue(Math.pow(magic.level + magic.bonus,2) * 2);
-        loadStatScreen("mgc", magic);
-    };
-
-    //Other Methods
-    self.loadPlayerScreen = function() {
-        //document.getElementById("name").innerHTML = name;
-        loadStatScreen("str", strength);
-        loadStatScreen("dex", dexterity);
-        loadStatScreen("con", constitution);
-        loadStatScreen("spd", speed);
-        loadStatScreen("mgc", magic);
-        loadConditionScreen("hp", health);
-        loadConditionScreen("mp", mana);
-    };
-
-    var loadStatScreen = function(statId, statName) {
-        document.getElementById(statId).innerHTML = Math.round(100*(statName.level + statName.bonus))/100;
-        document.getElementById(statId + "per").innerHTML = Math.round(100*(100*(statName.experience/statName.nextLevel)))/100 + "%";
-        document.getElementById(statId + "prog").style.width = 100*(statName.experience/statName.nextLevel) + "%";
-    };
-
-    var loadConditionScreen = function(conditionId, conditionName) {
-        document.getElementById(conditionId).innerHTML = Math.round(conditionName.currentValue);
-        document.getElementById(conditionId + "max").innerHTML = Math.round(conditionName.maximumValue);
-        document.getElementById(conditionId + "bar").style.width = 100*(conditionName.currentValue/conditionName.maximumValue) + "%";
-    };
-
-    var neededExperience = function(level) {
-        return ((Math.pow(level, 2) + level) * 3);
-    };
-
     self.rest = function() {
         if (resting) {
             self.setHealthCurrentValue(health.currentValue + (5*constitution.level * buffs.getRestingMultiplier()));
