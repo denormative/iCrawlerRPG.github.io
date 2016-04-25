@@ -7,7 +7,6 @@ game.service('player', function() {
     this.constitution = {level: 5, experience: 0, nextLevel: 100, bonus: 0};
     this.speed = {level: 5, experience: 0, nextLevel: 100, bonus: 0};
     this.magic = {level: 5, experience: 0, nextLevel: 100, bonus: 0};
-    this.currentFloor = 0;
     this.inBattle = false;
     this.resting = false;
 
@@ -22,7 +21,6 @@ game.service('player', function() {
             savedConstitution: this.constitution,
             savedSpeed: this.speed,
             savedMagic: this.magic,
-            savedCurrentFloor: this.currentFloor,
             savedInBattle: this.inBattle
         };
         localStorage.setItem("playerSave", JSON.stringify(playerSave));
@@ -155,10 +153,6 @@ game.controller('playerStatusController', function($scope, player) {
         var experience = stat.experience;
         var nextLevel = stat.nextLevel;
         return Math.round(100*(100 * experience/nextLevel))/100;
-    };
-
-    $scope.getCurrentFloor = function() {
-        return player.currentFloor;
     };
 });
 

@@ -1,47 +1,93 @@
-/*var Tower = function() {
-    var lastBossDefeated = 0;
-    var bossFound = false;
-    var floors = [];
+game.service('tower', function() {
+    this.currentFloor = 0;
+    this.floors = [];
 
-    for (var i = 0; i < monsters.getMonsterList().length; i++) {
-        if (i === 0) {
-            floors.push({size: 100, explored: 100, canAdvance: true, stairsPosition: 0, monsterDensity: 0});
-        }
-        else {
-            floors.push({size: Math.floor(2*floors[i-1].size),
-                explored: 0,
-                canAdvance: false,
-                stairsPosition: Math.floor(Math.random() * Math.floor(2*floors[i-1].size)),
-                monsterDensity: Math.floor(10 + Math.random()*40)});
-        }
-    }
-
-    var self = this;
-    //Save Method
-    self.save = function() {
+    this.save = function() {
         var towerSave = {
-            savedFloors: floors,
-            savedLastBossDefeated: lastBossDefeated,
-            savedBossFound: bossFound
+            savedCurrentFloor: this.currentFloor,
+            savedFloors: this.floors
         };
         localStorage.setItem("towerSave",JSON.stringify(towerSave));
     };
 
-    //Load Method
-    self.load = function() {
+    this.load = function() {
         var towerSave = JSON.parse(localStorage.getItem("towerSave"));
         if (towerSave) {
+            if (towerSave.savedCurrentFloor !== undefined) {
+                this.currentFloor = towerSave.savedCurrentFloor;
+            }
             if (towerSave.savedFloors !== undefined) {
-                loadFloors(towerSave.savedFloors);
-            }
-            if (towerSave.savedLastBossDefeated !== undefined) {
-                lastBossDefeated = towerSave.savedLastBossDefeated;
-            }
-            if (towerSave.savedBossFound !== undefined) {
-                bossFound = towerSave.savedBossFound;
+                this.loadFloors(towerSave.savedFloors);
             }
         }
     };
+
+    this.loadFloors = function(savedFloors) {
+        for (var i = 0; i < savedFloors.length; i++) {
+            if (i == this.floors.length) {
+                break;
+            }
+            if (savedFloors[i].explored !== undefined) {
+                this.floors[i].explored = savedFloors[i].explored;
+            }
+            if (savedFloors[i].canAdvance !== undefined) {
+                this.floors[i].canAdvance = savedFloors[i].canAdvance;
+            }
+            if (savedFloors[i].stairsPosition !== undefined) {
+                this.this.floors[i].stairsPosition = savedFloors[i].stairsPosition;
+            }
+            if (savedFloors[i].monsterDensity !== undefined) {
+                this.floors[i].monsterDensity = savedFloors[i].monsterDensity;
+            }
+        }
+    };
+});
+
+game.controller('towerController', function($scope, tower) {
+    $scope.getCurrentFloor = function() {
+        return tower.currentFloor;
+    };
+
+    $scope.fillFloors = function() {
+        for (var i = 0; i < 10; i++) {
+            if (i === 0) {
+                tower.floors.push({size: 100, explored: 100, canAdvance: true, stairsPosition: 0, monsterDensity: 0});
+            }
+            else {
+                tower.floors.push({size: Math.floor(2*tower.floors[i-1].size),
+                    explored: 0,
+                    canAdvance: false,
+                    stairsPosition: Math.floor(Math.random() * Math.floor(2*tower.floors[i-1].size)),
+                    monsterDensity: Math.floor(10 + Math.random() * 40)});
+            }
+        }
+    };
+    $scope.fillFloors();
+
+    $scope.explorationPercent = function() {
+        var explored = tower.floors[tower.currentFloor].explored;
+        var size = tower.floors[tower.currentFloor].size;
+        return (100 * explored/size);
+    };
+
+    $scope.returnButton = function() {
+        var button = {text: "Previous Floor", disabled: "", color: "btn-default"};
+        if (tower.currentFloor === 0) {
+            button.color = "btn-danger";
+            button.disabled = "disabled";
+        }
+        return button;
+    };
+
+    $scope.nextButton = function() {
+        
+    }
+});
+
+/*var Tower = function() {
+    var lastBossDefeated = 0;
+    var bossFound = false;
+
 
     var loadFloors = function(savedFloors) {
         for (var i = 0; i < savedFloors.length; i++) {

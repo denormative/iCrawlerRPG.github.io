@@ -42,7 +42,7 @@ game.service('system', function() {
     };
 });
 
-game.controller('systemController', function($scope, $document, $interval, system, player) {
+game.controller('systemController', function($scope, $document, $interval, system, player, tower) {
     $scope.getVersion = function() {
         return system.version;
     };
@@ -51,8 +51,19 @@ game.controller('systemController', function($scope, $document, $interval, syste
         return system.ticks;
     };
 
+    $scope.saveAll = function() {
+        system.save();
+        player.save();
+        tower.save();
+    };
+
+    $scope.loadAll = function() {
+        system.load();
+        player.load();
+        tower.load();
+    };
+
     $scope.test = function() {
-        player.gainExperience(player.strength, 1);
         $scope.saveAll();
     };
 
@@ -62,18 +73,8 @@ game.controller('systemController', function($scope, $document, $interval, syste
 
     $scope.runGame = function() {
         $scope.loadAll();
-        $document.ready($scope.main);
+        $document.ready($interval($scope.test, system.refreshSpeed));
     };
-
-    $scope.saveAll = function() {
-        system.save();
-        player.save();
-    };
-
-    $scope.loadAll = function() {
-        system.load();
-        player.load();
-    }
 
     $scope.runGame();
 });
