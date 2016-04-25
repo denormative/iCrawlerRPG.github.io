@@ -43,17 +43,16 @@ game.service('tower', function() {
     };
 });
 
-game.controller('towerController', function($scope, tower) {
+game.controller('towerController', function($scope, tower, player) {
     $scope.getCurrentFloor = function() {
         return tower.currentFloor;
     };
 
     $scope.fillFloors = function() {
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i <= 10; i++) {
             if (i === 0) {
                 tower.floors.push({size: 100, explored: 100, canAdvance: true, stairsPosition: 0, monsterDensity: 0});
-            }
-            else {
+            } else {
                 tower.floors.push({size: Math.floor(2*tower.floors[i-1].size),
                     explored: 0,
                     canAdvance: false,
@@ -71,57 +70,41 @@ game.controller('towerController', function($scope, tower) {
     };
 
     $scope.returnButton = function() {
-        var button = {text: "Previous Floor", disabled: "", color: "btn-default"};
+        var button = {text: 'Previous Floor', color: 'btn-default', disabled: false};
         if (tower.currentFloor === 0) {
-            button.color = "btn-danger";
-            button.disabled = "disabled";
+            button.disabled = true;
+            button.color = 'btn-danger';
         }
         return button;
     };
 
     $scope.nextButton = function() {
-        
-    }
+        var button = {text: 'Next Floor', color: 'btn-danger', disabled: true};
+        if (tower.floors[tower.currentFloor].canAdvance) {
+            button.disabled = false;
+            button.color = 'btn-default';
+        }
+        return button;
+    };
+
+    $scope.exploreButton = function() {
+        var button = {text: 'Explore', color: 'btn-default', disabled: false};
+        if ($scope.explorationPercent() == 100) {
+            button.text = 'Find Monster';
+        }
+        if (player.resting || player.inBattle || tower.currentFloor === 0) {
+            button.color = 'btn-danger';
+            button.disabled = true;
+        }
+        return button;
+    };
+
+    $scope.changeFloor = function(number) {
+        tower.currentFloor += number;
+    };
 });
 
 /*var Tower = function() {
-    var lastBossDefeated = 0;
-    var bossFound = false;
-
-
-    var loadFloors = function(savedFloors) {
-        for (var i = 0; i < savedFloors.length; i++) {
-            if (i == floors.length) {
-                break;
-            }
-            if (savedFloors[i].explored !== undefined) {
-                floors[i].explored = savedFloors[i].explored;
-            }
-            if (savedFloors[i].canAdvance !== undefined) {
-                floors[i].canAdvance = savedFloors[i].canAdvance;
-            }
-            if (savedFloors[i].stairsPosition !== undefined) {
-                floors[i].stairsPosition = savedFloors[i].stairsPosition;
-            }
-            if (savedFloors[i].monsterDensity !== undefined) {
-                floors[i].monsterDensity = savedFloors[i].monsterDensity;
-            }
-        }
-    };
-
-    //Getters
-    self.getFloorMonsterDensity = function(floor) {
-        return floors[floor].monsterDensity;
-    };
-
-    //Setters
-    self.setBossFound = function(boolean) {
-        bossFound = boolean;
-    };
-
-    self.setLastBossDefeated = function(floor) {
-        lastBossDefeated = floor;
-    };
 
     //Other Methods
     self.floorExplorationComplete = function(floor) {
@@ -129,38 +112,6 @@ game.controller('towerController', function($scope, tower) {
             return true;
         }
         return false;
-    };
-
-    self.loadTowerScreen = function() {
-        var currentFloor = player.getCurrentFloor();
-        document.getElementById("floor").innerHTML = currentFloor;
-        document.getElementById("explperc").innerHTML = Math.round(100*(floors[currentFloor].explored/floors[currentFloor].size)*100)/100 + "%";
-        document.getElementById("floorbar").style.width = 100*(floors[currentFloor].explored/floors[currentFloor].size) + "%";
-        if (floors[currentFloor].canAdvance && currentFloor < monsters.getMonsterList().length) {
-            document.getElementById("advbut").innerHTML = '<button class="btn btn-default btn-block" onClick="tower.changeFloor(1)">Next Floor</button>';
-        }
-        else if (bossFound) {
-            if (currentFloor % 10 !== 0) {
-                document.getElementById("advbut").innerHTML = '<button class="btn btn-default btn-block" onClick="tower.changeFloor(1)">Next Floor</button>';
-            }
-            else {
-                if (currentFloor <= lastBossDefeated) {
-                    document.getElementById("advbut").innerHTML = '<button class="btn btn-default btn-block" onClick="tower.changeFloor(1)">Next Floor</button>';
-                }
-                else {
-                    document.getElementById("advbut").innerHTML = '<button class="btn btn-danger btn-block" onClick="tower.startBossBattle()">Fight Floor Boss</button>';
-                }
-            }
-        }
-        else {
-            document.getElementById("advbut").innerHTML = '';
-        }
-        if (currentFloor !== 0) {
-            document.getElementById("retbut").innerHTML = '<button class="btn btn-default btn-block" onClick="tower.changeFloor(-1)">Previous Floor</button>';
-        }
-        else {
-            document.getElementById("retbut").innerHTML = '';
-        }
     };
 
     self.startBossBattle = function() {

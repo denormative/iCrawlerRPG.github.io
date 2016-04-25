@@ -32,8 +32,7 @@ game.service('player', function() {
         if (playerSave) {
             if (playerSave.savedName !== undefined) {
                 this.name = playerSave.savedName;
-            }
-            else {
+            } else {
                 this.name = prompt("Please, enter your name:", "Crawler");
             }
             if (playerSave.savedHealth !== undefined) {
@@ -104,7 +103,11 @@ game.service('player', function() {
     };
 });
 
-game.controller('playerStatusController', function($scope, player) {
+game.controller('playerStatusController', function($scope, system, player) {
+    $scope.print = function(number) {
+        return system.displayBigNumber(number);
+    };
+
     $scope.getName = function() {
         return player.name;
     };
@@ -114,8 +117,8 @@ game.controller('playerStatusController', function($scope, player) {
     };
 
     $scope.getHealthPercentage = function() {
-        var currentValue = $scope.getHealth().currentValue;
-        var maximumValue = $scope.getHealth().maximumValue;
+        var currentValue = player.health.currentValue;
+        var maximumValue = player.health.maximumValue;
         return (100 * currentValue/maximumValue);
     };
 

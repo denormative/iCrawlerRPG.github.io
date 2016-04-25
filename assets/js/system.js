@@ -40,6 +40,27 @@ game.service('system', function() {
             value: 100
         });
     };
+
+    this.displayBigNumber = function(number) {
+        var suffixes = ['', 'K', 'M', 'B', 'T', 'Qa'];
+        var order = 0;
+        var precision = 1;
+        while (number >= 1000) {
+            number = number/1000;
+            order++;
+        }
+        if (order > 0) {
+            if (number < 10) {
+                precision = 100;
+            } else if (number < 100) {
+                precision = 10;
+            } else {
+                precision = 1;
+            }
+            number = Math.round(precision*number)/precision;
+        }
+        return (number + suffixes[order]);
+    };
 });
 
 game.controller('systemController', function($scope, $document, $interval, system, player, tower) {
@@ -63,17 +84,13 @@ game.controller('systemController', function($scope, $document, $interval, syste
         tower.load();
     };
 
-    $scope.test = function() {
-        $scope.saveAll();
-    };
-
     $scope.main = function() {
-        $interval($scope.test, system.refreshSpeed);
+        $scope.saveAll();
     };
 
     $scope.runGame = function() {
         $scope.loadAll();
-        $document.ready($interval($scope.test, system.refreshSpeed));
+        $document.ready($interval($scope.main, system.refreshSpeed));
     };
 
     $scope.runGame();
