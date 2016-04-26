@@ -79,6 +79,65 @@ game.service('battle', function() {
         constitution: 0,
         status: 0
     };
+
+    this.save = function() {
+        var monstersSave = {
+            savedMonsterList: this.monsterList,
+            savedInstancedMonster: this.instancedMonster,
+            savedInBossBattle: this.inBossBattle
+        };
+        localStorage.setItem("monstersSave",JSON.stringify(monstersSave));
+    };
+
+    this.load = function() {
+        var monstersSave = JSON.parse(localStorage.getItem("monstersSave"));
+        if (monstersSave) {
+            if (monstersSave.savedMonsterList !== undefined) {
+                this.loadMonsterList(monstersSave.savedMonsterList);
+            }
+            if (monstersSave.savedInstancedMonster !== undefined) {
+                this.loadInstancedMonster(monstersSave.savedInstancedMonster);
+            }
+            if (monstersSave.savedInBossBattle !== undefined) {
+                this.inBossBattle = monstersSave.savedInBossBattle;
+            }
+        }
+    };
+
+    this.loadMonsterList = function(savedMonsterList) {
+        for (var i = 0; i < savedMonsterList.length; i++) {
+            if (i == battle.monsterList.length) {
+                break;
+            }
+            if (savedMonsterList[i].killed !== undefined) {
+                battle.monsterList[i].killed = savedMonsterList[i].killed;
+            }
+        }
+    };
+
+    this.loadInstancedMonster = function(savedInstancedMonster) {
+        if (savedInstancedMonster.name !== undefined) {
+            this.instancedMonster.name = savedInstancedMonster.name;
+        }
+        if (savedInstancedMonster.currentHealth !== undefined) {
+            this.instancedMonster.currentHealth = savedInstancedMonster.currentHealth;
+        }
+        if (savedInstancedMonster.maximumHealth !== undefined) {
+            this.instancedMonster.maximumHealth = savedInstancedMonster.maximumHealth;
+        }
+        if (savedInstancedMonster.strength !== undefined) {
+            this.instancedMonster.strength = savedInstancedMonster.strength;
+        }
+        if (savedInstancedMonster.dexterity !== undefined) {
+            this.instancedMonster.dexterity = savedInstancedMonster.dexterity;
+        }
+        if (savedInstancedMonster.constitution !== undefined) {
+            this.instancedMonster.constitution = savedInstancedMonster.constitution;
+        }
+        if (savedInstancedMonster.status !== undefined) {
+            this.instancedMonster.status = savedInstancedMonster.status;
+        }
+    };
 });
 
 game.controller('battleController', function($scope, battle, player) {
@@ -104,125 +163,10 @@ game.controller('battleController', function($scope, battle, player) {
 })
 
 /*var Monsters = function() {
-
-    var self = this;
-    //Save Method
-    self.save = function() {
-        var monstersSave = {
-            savedMonsterList: monsterList,
-            savedInstancedMonster: instancedMonster,
-            savedInBossBattle: inBossBattle
-        };
-        localStorage.setItem("monstersSave",JSON.stringify(monstersSave));
-    };
-
-    //Load Method
-    self.load = function() {
-        var monstersSave = JSON.parse(localStorage.getItem("monstersSave"));
-        if (monstersSave) {
-            if (monstersSave.savedMonsterList !== undefined) {
-                loadMonsterList(monstersSave.savedMonsterList);
-            }
-            if (monstersSave.savedInstancedMonster !== undefined) {
-                loadInstancedMonster(monstersSave.savedInstancedMonster);
-            }
-            if (monstersSave.savedInBossBattle !== undefined) {
-                inBossBattle = monstersSave.savedInBossBattle;
-            }
-        }
-    };
-
-    var loadMonsterList = function(savedMonsterList) {
-        for (var i = 0; i < savedMonsterList.length; i++) {
-            if (i == monsterList.length) {
-                break;
-            }
-            if (savedMonsterList[i].killed !== undefined) {
-                monsterList[i].killed = savedMonsterList[i].killed;
-            }
-        }
-    };
-
-    var loadInstancedMonster = function(savedInstancedMonster) {
-        if (savedInstancedMonster.name !== undefined) {
-            instancedMonster.name = savedInstancedMonster.name;
-        }
-        if (savedInstancedMonster.currentHealth !== undefined) {
-            instancedMonster.currentHealth = savedInstancedMonster.currentHealth;
-        }
-        if (savedInstancedMonster.maximumHealth !== undefined) {
-            instancedMonster.maximumHealth = savedInstancedMonster.maximumHealth;
-        }
-        if (savedInstancedMonster.strength !== undefined) {
-            instancedMonster.strength = savedInstancedMonster.strength;
-        }
-        if (savedInstancedMonster.dexterity !== undefined) {
-            instancedMonster.dexterity = savedInstancedMonster.dexterity;
-        }
-        if (savedInstancedMonster.constitution !== undefined) {
-            instancedMonster.constitution = savedInstancedMonster.constitution;
-        }
-        if (savedInstancedMonster.status !== undefined) {
-            instancedMonster.status = savedInstancedMonster.status;
-        }
-    };
-
-    //Getters
-    self.getMonsterList = function() {
-        return monsterList;
-    };
-
-    self.getInstancedMonster = function() {
-        return instancedMonster;
-    };
-
-    self.getBossMonster = function(number) {
-        return bossList[number];
-    };
-
-    self.getInBossBattle = function() {
-        return inBossBattle;
-    };
-
-    //Setters
-    self.setInstancedMonster = function(updatedMonster) {
-        instancedMonster = updatedMonster;
-    };
-
-    self.setInBossBattle = function(boolean) {
-        inBossBattle = boolean;
-    };
-
     //Other Methods
     self.attackMelee = function() {
         if(player.getInBattle()) {
             self.battle(instancedMonster, false);
-        }
-    };
-
-    self.loadMonsterInfo = function(monster) {
-        if (monster !== undefined) {
-            document.getElementById("monstername").innerHTML = monster.name;
-            document.getElementById("monsterhp").innerHTML = Math.round(monster.currentHealth);
-            document.getElementById("monsterstr").innerHTML = monster.strength;
-            document.getElementById("monsterdex").innerHTML = monster.dexterity;
-            document.getElementById("monstercon").innerHTML = monster.constitution;
-            document.getElementById("monsterbar").style.width = 100*(monster.currentHealth/monster.maximumHealth) + "%";
-            if (!inBossBattle) {
-                document.getElementById("combatlog").innerHTML = "You are attacked by a " + monster.name + "!<br>";
-            }
-            else {
-                document.getElementById("combatlog").innerHTML = "You challenge a floor boss! You begin fighting " + monster.name + "!<br>";
-            }
-            player.setInBattle(true);
-        }
-        else {
-            document.getElementById("monstername").innerHTML = "None";
-            document.getElementById("monsterhp").innerHTML = "0";
-            document.getElementById("monsterstr").innerHTML = "0";
-            document.getElementById("monsterdex").innerHTML = "0";
-            document.getElementById("monstercon").innerHTML = "0";
-            document.getElementById("monsterbar").style.width = "0%";
         }
     };
 
