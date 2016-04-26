@@ -1,4 +1,5 @@
-game.service('battle', function() {
+game.service('battle', function(player) {
+    this.combatLog = "";
     this.inBossBattle = false;
     this.monsterList = [
         //First Tier
@@ -106,11 +107,11 @@ game.service('battle', function() {
 
     this.loadMonsterList = function(savedMonsterList) {
         for (var i = 0; i < savedMonsterList.length; i++) {
-            if (i == battle.monsterList.length) {
+            if (i == this.monsterList.length) {
                 break;
             }
             if (savedMonsterList[i].killed !== undefined) {
-                battle.monsterList[i].killed = savedMonsterList[i].killed;
+                this.monsterList[i].killed = savedMonsterList[i].killed;
             }
         }
     };
@@ -138,6 +139,86 @@ game.service('battle', function() {
             this.instancedMonster.status = savedInstancedMonster.status;
         }
     };
+
+    this.battle = function(monster, spellCast) {
+        if (!player.inBattle) {
+            player.inBattle = true;
+            if (buffs.castFireballInBattle) {
+                //cast fireball
+            }
+        } else {
+            var isDead = false;
+            if (!spellCast) {
+                this.combatLog = "";
+                if (buffs.castCureInBattle /*&& check cure threshold*/) {
+                    if (true/*cast cure fail*/) {
+                        isDead = false//player attack
+                    } else {
+                        return true;
+                    }
+                }
+            }
+            if (!isDead) {
+                isDead = false//monster attack
+            }
+        }
+        //update turns buffs
+    };
+
+    this.battleChance = function(guaranteedBattle) {
+        if (guaranteedBattle) {
+            this.rollMonster();
+            return true;
+        } else {
+            var check = Math.random() * 100;
+            if (check <= tower.floors[tower.currentFloor].monsterDensity) {
+                this.rollMonster();
+                return true;
+            }
+            return false;
+        }
+    };
+
+    this.rollMonster = function() {
+        var tier = Math.floor((tower.currentFloor-1)/10);
+        var monster = Math.floor(Math.random()*10);
+        this.instancedMonster = createMonster((tier*10) + monster);
+        this.battle(this.instancedMonster, false);
+    };
+
+    this.createMonster = function(number) {
+        var tempMonster = {name: "", currentHealth: 0, maximumHealth: 0, strength: 0, dexterity: 0, constitution: 0, status: 0};
+        var statPool = Math.round((tower.currentFloor * 15) + (Math.pow(1.15, tower.currentFloor - 1) - 1));
+        var baseStat = Math.round(statPool/9);
+        tempMonster.name = battle.monsterList[number].name;
+        tempMonster.strength = baseStat;
+        tempMonster.dexterity = baseStat;
+        tempMonster.constitution = baseStat;
+        statPool -= baseStat*3;
+        distributeStats(tempMonster, statPool);
+        tempMonster.maximumHealth = this.calculateHealth(tempMonster.constitution);
+        tempMonster.currentHealth = tempMonster.maximumHealth;
+        return tempMonster;
+    };
+
+    this.distributeStats = function(monster, statPool) {
+        var choice;
+        while (statPool !== 0) {
+            choice = Math.floor(Math.random() * 3);
+            if (choice === 0) {
+                monster.strength++;
+            } else if (choice == 1) {
+                monster.dexterity++;
+            } else if (choice == 2) {
+                monster.constitution++;
+            }
+            statPool--;
+        }
+    };
+
+    this.calculateHealth = function(constitution) {
+        return (Math.pow(constitution, 2) * 4);
+    };
 });
 
 game.controller('battleController', function($scope, battle, player) {
@@ -160,49 +241,14 @@ game.controller('battleController', function($scope, battle, player) {
         }
         return false;
     };
+
+    $scope.attackMelee = function() {
+        battle.battle(instancedMonster, false);
+    };
 })
 
 /*var Monsters = function() {
     //Other Methods
-    self.attackMelee = function() {
-        if(player.getInBattle()) {
-            self.battle(instancedMonster, false);
-        }
-    };
-
-    self.battle = function(monster, spellCast) {
-        if(!player.getInBattle()) {
-            player.setInBattle(true);
-            player.loadRestButton();
-            player.loadExploreButton();
-            self.loadMonsterInfo(monster);
-            if (buffs.getCastFireballInBattle()) {
-                spells.castSpell("fireball");
-            }
-        }
-        else {
-            var isDead = false;
-            if (!spellCast) {
-                document.getElementById("combatlog").innerHTML = '';
-                if (buffs.getCastCureInBattle() && player.getHealthCurrentValue() <= player.getHealthMaximumValue()/2) {
-                    if (!spells.castSpell("cure")) {
-                        isDead = playerAttacks(monster);
-                    }
-                    else {
-                        buffs.updateTemporaryBuffs(true);
-                        return true;
-                    }
-                }
-                else {
-                    isDead = playerAttacks(monster);
-                }
-            }
-            if (!isDead) {
-                isDead = monsterAttacks(monster);
-            }
-        }
-        buffs.updateTemporaryBuffs(true);
-    };
 
     var playerAttacks = function(monster) {
         var damage = damageFormula(player.getStrengthLevel() + player.getStrengthBonus(), player.getDexterityLevel() + player.getDexterityBonus(), monster.constitution, monster.currentHealth);
@@ -329,69 +375,6 @@ game.controller('battleController', function($scope, battle, player) {
         }
         player.gainExperience(monster, false);
         return false;
-    };
-
-    self.battleChance = function(boolean) {
-        if (boolean) {
-            rollMonster();
-            return true;
-        }
-        else {
-            var check = Math.random()*100;
-            if (check <= tower.getFloorMonsterDensity(player.getCurrentFloor())) {
-                rollMonster();
-                return true;
-            }
-            return false;
-        }
-    };
-
-    var rollMonster = function() {
-        var tier = Math.floor((player.getCurrentFloor()-1)/10);
-        var monster = Math.floor(Math.random()*10);
-        while(monster == 10) {
-            monster = Math.floor(Math.random()*10);
-        }
-        instancedMonster = createMonster((tier*10) + monster);
-        self.battle(instancedMonster, false);
-    };
-
-    var createMonster = function(number) {
-        var tempMonster = {name: "", currentHealth: 0, maximumHealth:0 , strength: 0, dexterity: 0, constitution: 0, status: 0};
-        var statPool = Math.round((player.getCurrentFloor() * 15) + Math.pow(1.1, player.getCurrentFloor() - 1) - 1);
-        tempMonster.name = monsterList[number].name;
-        tempMonster.strength++;
-        tempMonster.dexterity++;
-        tempMonster.constitution++;
-        statPool -= 3;
-        distributeStats(tempMonster, statPool);
-        tempMonster.maximumHealth = calculateHealth(tempMonster.constitution);
-        tempMonster.currentHealth = tempMonster.maximumHealth;
-        return tempMonster;
-    };
-
-    var distributeStats = function(monster, statPool) {
-        var choice;
-        while (statPool !== 0) {
-            choice = Math.floor(Math.random()*3);
-            while (choice == 3) {
-                choice = Math.floor(Math.random()*3);
-            }
-            if (choice === 0) {
-                monster.strength++;
-            }
-            else if (choice == 1) {
-                monster.dexterity++;
-            }
-            else if (choice == 2) {
-                monster.constitution++;
-            }
-            statPool--;
-        }
-    };
-
-    var calculateHealth = function(constitution) {
-        return (Math.pow(constitution, 2) * 4);
     };
 
     self.runAway = function() {

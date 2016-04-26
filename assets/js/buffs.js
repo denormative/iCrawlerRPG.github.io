@@ -5,6 +5,7 @@ game.service('buffs', function() {
     this.restingMultiplier = 1;
     this.barrierLeft = 0;
     this.autoBarrierCast = false;
+    this.castFireballInBattle = false;
 });
 
 /*var Buffs = function() {

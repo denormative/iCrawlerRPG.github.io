@@ -47,7 +47,7 @@ game.service('system', function() {
     };
 });
 
-game.controller('systemController', function($scope, $document, $interval, system, player, tower, buffs) {
+game.controller('systemController', function($scope, $document, $interval, system, player, tower, buffs, battle) {
     $scope.getVersion = function() {
         return system.version;
     };
@@ -59,11 +59,13 @@ game.controller('systemController', function($scope, $document, $interval, syste
     $scope.saveAll = function() {
         player.save();
         tower.save();
+        battle.save();
     };
 
     $scope.loadAll = function() {
         player.load();
         tower.load();
+        battle.load();
     };
 
     $scope.main = function() {
