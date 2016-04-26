@@ -150,17 +150,17 @@ game.service('battle', function(player) {
             var isDead = false;
             if (!spellCast) {
                 this.combatLog = "";
-                if (buffs.castCureInBattle /*&& check cure threshold*/) {
-                    if (true/*cast cure fail*/) {
-                        isDead = false//player attack
+                /*if (buffs.castCureInBattle && check cure threshold) {
+                    if (cast cure fail) {
+                        isDead = player attack
                     } else {
                         return true;
                     }
-                }
+                }*/
             }
-            if (!isDead) {
-                isDead = false//monster attack
-            }
+            /*if (!isDead) {
+                isDead = monster attack
+            }*/
         }
         //update turns buffs
     };
@@ -219,6 +219,10 @@ game.service('battle', function(player) {
     this.calculateHealth = function(constitution) {
         return (Math.pow(constitution, 2) * 4);
     };
+
+    this.attackMelee = function() {
+        battle.battle(this.instancedMonster, false);
+    };
 });
 
 game.controller('battleController', function($scope, battle, player) {
@@ -243,7 +247,7 @@ game.controller('battleController', function($scope, battle, player) {
     };
 
     $scope.attackMelee = function() {
-        battle.battle(instancedMonster, false);
+        battle.attackMelee();
     };
 })
 

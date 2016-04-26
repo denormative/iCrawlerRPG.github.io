@@ -89,7 +89,7 @@ game.controller('systemController', function($scope, $document, $interval, syste
                     player.toggleRest();
                 }
             } else {
-                //attack melee
+                battle.attackMelee();
             }
         }
         $scope.saveAll();
