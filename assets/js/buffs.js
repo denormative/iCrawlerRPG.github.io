@@ -3,6 +3,8 @@ game.service('buffs', function() {
     this.explorationSpeedMultiplier = 1;
     this.levelingSpeedMultiplier = 1;
     this.restingMultiplier = 1;
+    this.barrierLeft = 0;
+    this.autoBarrierCast = false;
 });
 
 /*var Buffs = function() {

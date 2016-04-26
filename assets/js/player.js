@@ -160,20 +160,14 @@ game.controller('playerStatusController', function($scope, system, player) {
         return player.health;
     };
 
-    $scope.getHealthPercentage = function() {
-        var currentValue = player.health.currentValue;
-        var maximumValue = player.health.maximumValue;
+    $scope.getConditionPercentage = function(condition) {
+        var currentValue = condition.currentValue;
+        var maximumValue = condition.maximumValue;
         return (100 * currentValue/maximumValue);
     };
 
     $scope.getMana = function() {
         return player.mana;
-    };
-
-    $scope.getManaPercentage = function() {
-        var currentValue = $scope.getMana().currentValue;
-        var maximumValue = $scope.getMana().maximumValue;
-        return (100 * currentValue/maximumValue);
     };
 
     $scope.getStrength = function() {

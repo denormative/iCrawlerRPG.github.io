@@ -90,7 +90,7 @@
                                                         <div class="col-xs-1">HP: </div>
                                                         <div class="col-xs-11">
                                                             <div class="progress" data-toggle="tooltip" data-placement="top" title="Your health. You die if this gets to 0." style="margin-bottom: 5px;">
-                                                                <div class="progress-bar progress-bar-danger" role="progressbar" style="width: {{getHealthPercentage()}}%;">
+                                                                <div class="progress-bar progress-bar-danger" role="progressbar" style="width: {{getConditionPercentage(getHealth())}}%;">
                                                                     {{print(getHealth().currentValue)}} / {{print(getHealth().maximumValue)}}
                                                                 </div>
                                                             </div>
@@ -100,7 +100,7 @@
                                                         <div class="col-xs-1">MP: </div>
                                                         <div class="col-xs-11">
                                                             <div class="progress" data-toggle="tooltip" data-placement="top" title="Your mana. You can't cast spells without this." style="margin-bottom: 0px;">
-                                                                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{getManaPercentage()}}%;">
+                                                                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{getConditionPercentage(getMana())}}%;">
                                                                     {{print(getMana().currentValue)}} / {{print(getMana().maximumValue)}}
                                                                 </div>
                                                             </div>
@@ -238,6 +238,49 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" data-toggle="collapse" data-target="#collapseBattle">
+                                            <h3 class="panel-title" style="font-family: 'Germania One', cursive;">
+                                                <img src="assets/crossed-swords.png" style="height:25px;"> Battle Screen
+                                            </h3>
+                                        </div>
+                                        <div id="collapseBattle" class="panel-collapse collapse in">
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-xs-3">
+                                                        <div class="row">
+                                                            <div class="col-xs-12">
+                                                                Monster:
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-xs-12">
+                                                                STR:
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-xs-12">
+                                                                DEX:
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-xs-12">
+                                                                CON:
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-9">
+                                                        <div class="col-xs-12">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -252,31 +295,6 @@
             </div>
         </div>
         <!--
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading" data-toggle="collapse" data-target="#collapseBattle">
-                                            <h3 class="panel-title" style="font-family: 'Germania One', cursive;"><img src="assets/crossed-swords.png" style="height: 25px;"></img> Battle Screen</h3>
-                                        </div>
-                                        <div id="collapseBattle" class="panel-collapse collapse in">
-                                            <div class="panel-body">
-                                                <div class="row">
-                                                    <div class="col-xs-3">
-                                                        <div class="row">
-                                                            <div class="col-xs-12">
-                                                                Monster: <span id="monstername">None</span><br>
-                                                            </div>
-                                                            <div class="col-xs-12">
-                                                                STR: <span id="monsterstr">0</span><br>
-                                                            </div>
-                                                            <div class="col-xs-12">
-                                                                DEX: <span id="monsterdex">0</span><br>
-                                                            </div>
-                                                            <div class="col-xs-12">
-                                                                CON: <span id="monstercon">0</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                     <div class="col-xs-9">
                                                         <div class="row">
                                                             <div class="col-xs-12">

@@ -47,7 +47,7 @@ game.service('system', function() {
     };
 });
 
-game.controller('systemController', function($scope, $document, $interval, system, player, tower) {
+game.controller('systemController', function($scope, $document, $interval, system, player, tower, buffs) {
     $scope.getVersion = function() {
         return system.version;
     };
@@ -78,40 +78,29 @@ game.controller('systemController', function($scope, $document, $interval, syste
         }
         if (system.idleMode) {
             if (!player.inBattle) {
-
-            }
-            else {
-
+                if (buffs.barrierLeft === 0 && buffs.autoBarrierCast) {
+                    //cast barrier
+                }
+                if ($scope.checkSlider(player.health, system.idleHealthSlider) && $scope.checkSlider(player.mana, system.idleManaSlider)) {
+                    tower.exploreFloor();
+                } else if (!player.resting) {
+                    player.toggleRest();
+                }
+            } else {
+                //attack melee
             }
         }
         $scope.saveAll();
     };
 
-    /*var main = function() {
-        if (!init) {
-            startTheEngine();
+    $scope.checkSlider = function(condition, slider) {
+        var conditionPercentage = getConditionPercentage(condition);
+        var sliderPercentage = slider.getValue();
+        if (conditionPercentage >= sliderPercentage) {
+            return true;
         }
-        ticks++;
-        if (player.getResting()) {
-            player.rest();
-        }
-        if (idleMode) {
-            if (!player.getInBattle()) {
-                if (buffs.getBarrierLeft() === 0 && buffs.getAutoBarrierCast()) {
-                    spells.castSpell("barrier");
-                }
-                if ((100*(player.getHealthCurrentValue()/player.getHealthMaximumValue()) >= idleHealthSlider.getValue()) && (100*(player.getManaCurrentValue()/player.getManaMaximumValue())) >= idleManaSlider.getValue() && !player.getResting()) {
-                    tower.exploreFloor();
-                }
-                else if (!player.getResting() || player.isFullyRested()) {
-                    player.toggleRest();
-                }
-            }
-            else {
-                monsters.attackMelee();
-            }
-        }
-    };*/
+        return false;
+    };
 
     $scope.runGame = function() {
         $scope.loadAll();
@@ -186,6 +175,15 @@ game.controller('systemController', function($scope, $document, $interval, syste
     $scope.runGame();
 });
 
+$.get( "https://raw.githubusercontent.com/iCrawlerRPG/iCrawlerRPG.github.io/master/CHANGELOG.md", function( data ) {
+
+    var converter       = new showdown.Converter(),
+        md_content        = data,
+        md_to_html      = converter.makeHtml( md_content );
+    $("#changelog").html( md_to_html );
+
+});
+
 /*var System = function() {
 
     self.toggleIdle = function() {
@@ -237,16 +235,4 @@ game.controller('systemController', function($scope, $document, $interval, syste
             document.getElementById("idleSwitch").innerHTML = '<button class="btn btn-danger" onClick="system.toggleIdle()">Idle OFF</button>';
         }
     };
-};
-
-$.get( "https://raw.githubusercontent.com/iCrawlerRPG/iCrawlerRPG.github.io/master/CHANGELOG.md", function( data ) {
-
-    var converter       = new showdown.Converter(),
-        md_content        = data,
-        md_to_html      = converter.makeHtml( md_content );
-    $("#changelog").html( md_to_html );
-
-});
-
-var system = new System();
-system.runGame();*/
+};*/
