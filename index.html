@@ -20,6 +20,7 @@
         <script src="assets/js/player.js"></script>
         <script src="assets/js/tower.js"></script>
         <script src="assets/js/buffs.js"></script>
+        <script src="assets/js/monsters.js"></script>
         <script type="text/javascript">
             $(document).ready(function(){
                 $('[data-toggle="tooltip"]').tooltip();
@@ -240,7 +241,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-xs-12">
-                                    <div class="panel panel-default">
+                                    <div ng-controller="battleController" class="panel panel-default">
                                         <div class="panel-heading" data-toggle="collapse" data-target="#collapseBattle">
                                             <h3 class="panel-title" style="font-family: 'Germania One', cursive;">
                                                 <img src="assets/crossed-swords.png" style="height:25px;"> Battle Screen
@@ -252,27 +253,42 @@
                                                     <div class="col-xs-3">
                                                         <div class="row">
                                                             <div class="col-xs-12">
-                                                                Monster:
+                                                                Monster: {{getInstancedMonster().name}}
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-xs-12">
-                                                                STR:
+                                                                STR: {{getInstancedMonster().strength}}
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-xs-12">
-                                                                DEX:
+                                                                DEX: {{getInstancedMonster().dexterity}}
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-xs-12">
-                                                                CON:
+                                                                CON: {{getInstancedMonster().constitution}}
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-xs-9">
-                                                        <div class="col-xs-12">
+                                                        <div class="row">
+                                                            <div class="col-xs-12">
+                                                                <div class="progress">
+                                                                    <div class="progress-bar progress-bar-danger" role="progressbar" style="width: {{print(getHealthPercentage())}}%">
+                                                                        {{getInstancedMonster().currentHealth}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-xs-6">
+                                                                <button class="btn btn-block btn-danger" ng-disabled="!inBattle()" ng-click="">Fight</button>
+                                                            </div>
+                                                            <div class="col-xs-6">
+                                                                <button class="btn btn-block btn-warning" ng-disabled="!inBattle()" ng-click="">Run Away</button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -295,28 +311,6 @@
             </div>
         </div>
         <!--
-                                                    <div class="col-xs-9">
-                                                        <div class="row">
-                                                            <div class="col-xs-12">
-                                                                <div class="progress">
-                                                                    <div id="monsterbar" class="progress-bar progress-bar-danger" role="progressbar" style="width: 0%;">
-                                                                        <span id="monsterhp">0</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-xs-6">
-                                                                <button class="btn btn-block btn-danger" onClick="monsters.attackMelee()">Fight</button>
-                                                            </div>
-                                                            <div class="col-xs-6">
-                                                                <button class="btn btn-block btn-warning" onClick="monsters.runAway()">Run</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div class="panel-footer">
                                             <div class="row">
                                                 <div class="col-xs-12">

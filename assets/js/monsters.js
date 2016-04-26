@@ -1,6 +1,6 @@
-/*var Monsters = function() {
-    var inBossBattle = false;
-    var monsterList = [
+game.service('battle', function() {
+    this.inBossBattle = false;
+    this.monsterList = [
         //First Tier
         {name:"Rat", killed:0},
         {name:"Bat", killed:0},
@@ -62,7 +62,7 @@
         {name: "Frenzied Goblin", killed: 0}
     ];
 
-    var bossList = [
+    this.bossList = [
         {name: "The First Guardian, Alstroemeria", currentHealth: 91204, maximumHealth: 91204, strength: 151, dexterity: 151, constitution: 151, status: 0},
         {name: "The Second Guardian, Bouvardia", currentHealth: 372100, maximumHealth: 372100, strength: 305, dexterity: 305, constitution: 305, status: 0},
         {name: "The Third Guardian, Clarkia", currentHealth: 864900, maximumHealth: 864900, strength: 465, dexterity: 465, constitution: 465, status: 0},
@@ -70,8 +70,8 @@
         {name: "The Fifth Guardian, Erigeron", currentHealth: 2930944, maximumHealth: 2930944, strength: 856, dexterity: 856, constitution: 856, status: 0}
     ];
 
-    var instancedMonster = {
-        name: "",
+    this.instancedMonster = {
+        name: "None",
         currentHealth: 0,
         maximumHealth: 0,
         strength: 0,
@@ -79,6 +79,31 @@
         constitution: 0,
         status: 0
     };
+});
+
+game.controller('battleController', function($scope, battle, player) {
+    $scope.getInstancedMonster = function() {
+        return battle.instancedMonster;
+    };
+
+    $scope.getHealthPercentage = function() {
+        var current = battle.instancedMonster.currentHealth;
+        var maximum = battle.instancedMonster.maximumHealth;
+        if (maximum !== 0) {
+            return (100 * current/maximum);
+        }
+        return 0;
+    };
+
+    $scope.inBattle = function() {
+        if (player.inBattle || battle.inBossBattle) {
+            return true;
+        }
+        return false;
+    };
+})
+
+/*var Monsters = function() {
 
     var self = this;
     //Save Method
