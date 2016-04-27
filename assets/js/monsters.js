@@ -144,6 +144,7 @@ game.service('battle', function(player, tower, buffs) {
 
     this.battle = function(monster, spellCast) {
         if (!player.inBattle) {
+            this.combatLog = "";
             player.inBattle = true;
             if (buffs.castFireballInBattle) {
                 //cast fireball
@@ -159,15 +160,64 @@ game.service('battle', function(player, tower, buffs) {
                 }*/
                 isDead = this.playerAttacks(monster);
             }
-            /*if (!isDead) {
-                isDead = monster attack
-            }*/
+            if (!isDead) {
+                isDead = this.monsterAttacks(monster);
+            }
         }
         //update turns buffs
     };
 
+    this.monsterAttacks = function(monster) {
+        var damage = this.damageFormula(monster.strength, monster.dexterity, player.totalStat(player.constitution), player.health.currentValue);
+        if (buffs.rageTimeLeft !== 0) {
+            damage = damage*2;
+        }
+        if (buffs.aegisTimeLeft === 0) {
+            var barrier = buffs.barrierLeft;
+            if (barrier > 0) {
+                if (barrier >= damage) {
+                    buffs.barrierLeft -= damage;
+                    this.combatLog += "Your barrier absorbed " + Math.round(damage) + " damage from " + monster.name + "'s attack.";
+                    return false;
+                } else {
+                    this.combatLog += "Your barrier absorbed " + Math.round(barrier) + " damage from " + monster.name + "'s attack.\n";
+                    this.combatLog += "Your barrier has shattered.\n";
+                    damage -= barrier;
+                    buffs.barrierLeft = 0;
+                }
+            }
+            player.health.currentValue -= damage;
+            this.combatLog += "You took " + Math.round(damage) + " damage from the " + monster.name + "'s attack.";
+            if (player.health.currentValue === 0) {
+                this.playerDeath(monster);
+                return true;
+            }
+        } else {
+            this.combatLog += "Aegis absorbed " + Math.round(damage) + " damage from " + monster.name + "'s attack.";
+        }
+        player.gainExperience(monster, false);
+        return false;
+    };
+
+    this.death = function(monster) {
+        player.inBattle = false;
+        if (this.inBossBattle) {
+            this.inBossBattle = false;
+        }
+        this.combatLog += "You have been defeated by the " + monster.name + "!";
+        if (system.idleMode) {
+            //system.toggleIdle();
+        }
+        tower.changeFloor(-tower.currentFloor);
+        //upgrades.updateExcelia(-((100 - buffs.getExceliaSavedOnDeath()) * upgrades.getExcelia())/100);
+        player.loseStats(10 - buffs.deathPenaltyReduction);
+        player.loseAllExperience();
+        this.instancedMonster = {name: "None", currentHealth: 0, maximumHealth: 0, strength: 0, dexterity: 0, constitution: 0, status: 0};
+        player.toggleRest();
+    };
+
     this.playerAttacks = function(monster) {
-        var damage = damageFormula(player.totalStat(player.strength), player.totalStat(player.dexterity), monster.constitution, monster.currentHealth);
+        var damage = this.damageFormula(player.totalStat(player.strength), player.totalStat(player.dexterity), monster.constitution, monster.currentHealth);
         if (buffs.rageTimeLeft !== 0) {
             damage *= 5;
         }
@@ -191,7 +241,7 @@ game.service('battle', function(player, tower, buffs) {
     this.monsterDeath = function(monster) {
         player.inBattle = false;
         if (!this.inBossBattle) {
-            this.combatLog += "You have defeated the " + monster.name + "!\n";
+            this.combatLog += "You have defeated the " + monster.name + "!";
             if (Math.floor(Math.random()*100) < 10) {
                 //this.monsterCrystalDrop(monster);
                 //inventory.updateInventory();
@@ -209,7 +259,7 @@ game.service('battle', function(player, tower, buffs) {
         this.instancedMonster = {name: "None", currentHealth: 0, maximumHealth: 0, strength: 0, dexterity: 0, constitution: 0, status: 0};
     };
 
-    var damageFormula = function(attackerStrength, attackerDexterity, defenderConstitution, defenderHealth) {
+    this.damageFormula = function(attackerStrength, attackerDexterity, defenderConstitution, defenderHealth) {
         var strengthWeigth = 2;
         var dexterityWeigth = 0.2;
         var constitutionWeigth = 1;
@@ -354,42 +404,6 @@ game.controller('battleController', function($scope, battle, player) {
                 monsterList[i].killed++;
             }
         }
-    };
-
-    var monsterAttacks = function(monster) {
-        var damage = damageFormula(monster.strength, monster.dexterity, player.getConstitutionLevel() + player.getConstitutionBonus(), player.getHealthCurrentValue());
-        if (buffs.getRageTimeLeft() !== 0) {
-            damage = damage*2;
-        }
-        if (buffs.getAegisTimeLeft() === 0) {
-            var barrier = buffs.getBarrierLeft();
-            if (barrier > 0) {
-                if (barrier >= damage) {
-                    buffs.setBarrierLeft(barrier - damage);
-                    document.getElementById("combatlog").innerHTML += "Your barrier absorbed " + Math.round(damage) + " damage from " + monster.name + "'s attack.<br>";
-                    buffs.updateTemporaryBuffs(false);
-                    return false;
-                }
-                else {
-                    document.getElementById("combatlog").innerHTML += "Your barrier absorbed " + Math.round(barrier) + " damage from " + monster.name + "'s attack.<br>";
-                    document.getElementById("combatlog").innerHTML += "Your barrier has shattered.<br>";
-                    damage -= barrier;
-                    buffs.setBarrierLeft(0);
-                    buffs.updateTemporaryBuffs(false);
-                }
-            }
-            player.setHealthCurrentValue(player.getHealthCurrentValue() - damage);
-            document.getElementById("combatlog").innerHTML += "You took " + Math.round(damage) + " damage from the " + monster.name + "'s attack.<br>";
-            if (player.getHealthCurrentValue() === 0) {
-                player.death(monster);
-                return true;
-            }
-        }
-        else {
-            document.getElementById("combatlog").innerHTML += "Aegis absorbed " + Math.round(damage) + " damage from " + monster.name + "'s attack.<br>";
-        }
-        player.gainExperience(monster, false);
-        return false;
     };
 
     self.runAway = function() {

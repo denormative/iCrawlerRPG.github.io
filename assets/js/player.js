@@ -194,23 +194,6 @@ game.controller('playerStatusController', function($scope, system, player) {
 });
 
 /*var Player = function() {
-    self.death = function(monster) {
-        inBattle = false;
-        if (monsters.getInBossBattle()) {
-            monsters.setInBossBattle(false);
-        }
-        document.getElementById("combatlog").innerHTML += "You have been defeated by the " + monster.name + "!";
-        if (system.getIdleMode()) {
-            system.toggleIdle();
-        }
-        tower.changeFloor(-currentFloor);
-        upgrades.updateExcelia(-((100 - buffs.getExceliaSavedOnDeath()) * upgrades.getExcelia())/100);
-        loseStats(10 - buffs.getDeathPenaltyReduction());
-        loseAllExperience();
-        monsters.loadMonsterInfo();
-        spells.updateSpellbook();
-        player.toggleRest();
-    };
 
     var loseStats = function(percentage) {
         setStrengthLevel(strength.level - Math.floor(strength.level * (percentage/100)));

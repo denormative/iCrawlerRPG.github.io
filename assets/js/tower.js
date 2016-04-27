@@ -1,4 +1,4 @@
-game.service('tower', function() {
+game.service('tower', function(player) {
     this.totalFloors = 50;
     this.currentFloor = 0;
     this.floorLog = "";
@@ -73,7 +73,7 @@ game.controller('towerController', function($scope, tower, player, buffs, battle
 
     $scope.returnButton = function() {
         var button = {text: 'Previous Floor', color: 'btn-default', disabled: false};
-        if (tower.currentFloor === 0) {
+        if (tower.currentFloor === 0 || player.inBattle) {
             button.disabled = true;
             button.color = 'btn-danger';
         }
@@ -82,10 +82,10 @@ game.controller('towerController', function($scope, tower, player, buffs, battle
 
     $scope.nextButton = function() {
         var button = {text: 'Next Floor', color: 'btn-danger', disabled: true};
-        if (tower.floors[tower.currentFloor].canAdvance) {
+        if (tower.floors[tower.currentFloor].canAdvance && !player.inBattle) {
             button.disabled = false;
             button.color = 'btn-default';
-        } else if (battle.bossFound) {
+        } else if (battle.bossFound && !player.inBattle) {
             button.disabled = false;
             button.text = "Fight Floor Boss";
         }
