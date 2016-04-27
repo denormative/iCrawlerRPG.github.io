@@ -280,6 +280,18 @@ game.service('battle', function(player, tower, buffs) {
     this.attackMelee = function() {
         this.battle(this.instancedMonster, false);
     };
+
+    this.bossDefeated = function() {
+        tower.floors[tower.currentFloor].canAdvance = true;
+    };
+
+    this.startBossBattle = function() {
+        if (!player.inBattle) {
+            this.setInstancedMonster((this.bossList[tower.currentFloor/10])-1);
+            this.inBossBattle = true;
+            this.battle(this.instancedMonster, false);
+        }
+    };
 });
 
 game.controller('battleController', function($scope, battle, player) {
