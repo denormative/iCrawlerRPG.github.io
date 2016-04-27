@@ -48,6 +48,10 @@ game.service('system', function() {
 });
 
 game.controller('systemController', function($scope, $document, $interval, system, player, tower, buffs, battle) {
+    $scope.print = function(number) {
+        return system.displayBigNumber(number);
+    };
+    
     $scope.getVersion = function() {
         return system.version;
     };

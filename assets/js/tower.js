@@ -1,4 +1,4 @@
-game.service('tower', function() {
+game.service('tower', function(battle) {
     this.totalFloors = 50;
     this.currentFloor = 0;
     this.floorLog = "";
@@ -58,9 +58,21 @@ game.service('tower', function() {
             }
         }
     };
+
+    this.bossDefeated = function() {
+        this.floors[this.currentFloor].canAdvance = true;
+    };
+
+    this.startBossBattle = function() {
+        if (!player.inBattle) {
+            battle.setInstancedMonster((battle.bossList[this.currentFloor/10])-1);
+            battle.inBossBattle = true;
+            battle.battle(battle.instancedMonster, false);
+        }
+    };
 });
 
-game.controller('towerController', function($scope, tower, player, buffs) {
+game.controller('towerController', function($scope, tower, player, buffs, battle) {
     $scope.getCurrentFloor = function() {
         return tower.currentFloor;
     };
@@ -145,10 +157,10 @@ game.controller('towerController', function($scope, tower, player, buffs) {
             var experience = 5 * explored * buffs.levelingSpeedMultiplier;
             player.gainExperience(player.speed, experience);
             if (!$scope.checkFloorEvent()) {
-                //battle chance
+                battle.battleChance(false);
             }
         } else {
-            //battle
+            battle.battleChance(true);
         }
     };
 
@@ -190,21 +202,3 @@ game.controller('towerController', function($scope, tower, player, buffs) {
         return tower.floorLog;
     };
 });
-
-/*var Tower = function() {
-
-    self.startBossBattle = function() {
-        if (!player.getInBattle()) {
-            monsters.setInstancedMonster(monsters.getBossMonster((player.getCurrentFloor()/10)-1));
-            monsters.setInBossBattle(true);
-            monsters.battle(monsters.getInstancedMonster(), false);
-        }
-    };
-
-    self.bossDefeated = function() {
-        floors[player.getCurrentFloor()].canAdvance = true;
-        self.loadTowerScreen();
-    };
-};
-
-var tower = new Tower();*/

@@ -115,7 +115,7 @@
                                                 <div class="row">
                                                     <div class="col-xs-6">
                                                         <div class="row">
-                                                            <div class="col-xs-4">STR: {{print(getStrength().level)}}</div>
+                                                            <div class="col-xs-4">STR: {{print(getStrength().level + getStrength().bonus)}}</div>
                                                             <div class="col-xs-8">
                                                                 <div class="progress" data-toggle="tooltip" data-placement="top" title="Strength. Increases base damage." style="margin-bottom: 5px;">
                                                                     <div class="progress-bar" role="progressbar" style="width: {{getStatPercent(getStrength())}}%;">
@@ -127,7 +127,7 @@
                                                     </div>
                                                     <div class="col-xs-6">
                                                         <div class="row">
-                                                            <div class="col-xs-4">DEX: {{print(getDexterity().level)}}</div>
+                                                            <div class="col-xs-4">DEX: {{print(getDexterity().level + getDexterity().bonus)}}</div>
                                                             <div class="col-xs-8">
                                                                 <div class="progress" data-toggle="tooltip" data-placement="top" title="Dexterity. Damage multiplier." style="margin-bottom: 5px;">
                                                                     <div class="progress-bar" role="progressbar" style="width: {{getStatPercent(getDexterity())}}%;">
@@ -141,7 +141,7 @@
                                                 <div class="row">
                                                     <div class="col-xs-6">
                                                         <div class="row">
-                                                            <div class="col-xs-4">CON: {{print(getConstitution().level)}}</div>
+                                                            <div class="col-xs-4">CON: {{print(getConstitution().level + getConstitution().bonus)}}</div>
                                                             <div class="col-xs-8">
                                                                 <div class="progress" data-toggle="tooltip" data-placement="top" title="Constitution. Increases damage resistance and maximum health." style="margin-bottom: 5px;">
                                                                     <div class="progress-bar" role="progressbar" style="width: {{getStatPercent(getConstitution())}}%;">
@@ -153,7 +153,7 @@
                                                     </div>
                                                     <div class="col-xs-6">
                                                         <div class="row">
-                                                            <div class="col-xs-4">SPD: {{print(getSpeed().level)}}</div>
+                                                            <div class="col-xs-4">SPD: {{print(getSpeed().level + getSpeed().bonus)}}</div>
                                                             <div class="col-xs-8">
                                                                 <div class="progress" data-toggle="tooltip" data-placement="top" title="Speed. Increases exploration speed and run away chance." style="margin-bottom: 5px;">
                                                                     <div class="progress-bar" role="progressbar" style="width: {{getStatPercent(getSpeed())}}%;">
@@ -167,7 +167,7 @@
                                                 <div class="row">
                                                     <div class="col-xs-6">
                                                         <div class="row">
-                                                            <div class="col-xs-4">MGC: {{print(getMagic().level)}}</div>
+                                                            <div class="col-xs-4">MGC: {{print(getMagic().level + getMagic().bonus)}}</div>
                                                             <div class="col-xs-8">
                                                                 <div class="progress" data-toggle="tooltip" data-placement="top" title="Magic. Slightly increase magic potency and increase maximum mana." style="margin-bottom: 0px;">
                                                                     <div class="progress-bar" role="progressbar" style="width: {{getStatPercent(getMagic())}}%;">
@@ -258,17 +258,17 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-xs-12">
-                                                                STR: {{getInstancedMonster().strength}}
+                                                                STR: {{print(getInstancedMonster().strength)}}
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-xs-12">
-                                                                DEX: {{getInstancedMonster().dexterity}}
+                                                                DEX: {{print(getInstancedMonster().dexterity)}}
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-xs-12">
-                                                                CON: {{getInstancedMonster().constitution}}
+                                                                CON: {{print(getInstancedMonster().constitution)}}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -276,8 +276,8 @@
                                                         <div class="row">
                                                             <div class="col-xs-12">
                                                                 <div class="progress">
-                                                                    <div class="progress-bar progress-bar-danger" role="progressbar" style="width: {{print(getHealthPercentage())}}%">
-                                                                        {{getInstancedMonster().currentHealth}}
+                                                                    <div class="progress-bar progress-bar-danger" role="progressbar" style="width: {{getHealthPercentage()}}%">
+                                                                        {{print(getInstancedMonster().currentHealth)}}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -300,6 +300,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-xs-12">
+                                                    {{printCombatLog()}}
                                                 </div>
                                             </div>
                                         </div>

@@ -6,6 +6,7 @@ game.service('buffs', function() {
     this.barrierLeft = 0;
     this.autoBarrierCast = false;
     this.castFireballInBattle = false;
+    this.rageTimeLeft = 0;
 });
 
 /*var Buffs = function() {

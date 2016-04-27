@@ -144,14 +144,10 @@ game.service('player', function(buffs) {
             return true;
         }
         return false;
-    }
+    };
 });
 
 game.controller('playerStatusController', function($scope, system, player) {
-    $scope.print = function(number) {
-        return system.displayBigNumber(number);
-    };
-
     $scope.getName = function() {
         return player.name;
     };

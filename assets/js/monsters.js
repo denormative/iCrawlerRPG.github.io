@@ -1,5 +1,7 @@
-game.service('battle', function(player) {
+game.service('battle', function(player, tower, buffs) {
     this.combatLog = "";
+    this.bossFound = false;
+    this.lastBossDefeated = 0;
     this.inBossBattle = false;
     this.monsterList = [
         //First Tier
@@ -151,18 +153,73 @@ game.service('battle', function(player) {
             if (!spellCast) {
                 this.combatLog = "";
                 /*if (buffs.castCureInBattle && check cure threshold) {
-                    if (cast cure fail) {
-                        isDead = player attack
-                    } else {
+                    if (cast cure) {
                         return true;
                     }
                 }*/
+                isDead = this.playerAttacks(monster);
             }
             /*if (!isDead) {
                 isDead = monster attack
             }*/
         }
         //update turns buffs
+    };
+
+    this.playerAttacks = function(monster) {
+        var damage = damageFormula(player.totalStat(player.strength), player.totalStat(player.dexterity), monster.constitution, monster.currentHealth);
+        if (buffs.rageTimeLeft !== 0) {
+            damage *= 5;
+        }
+        if (damage >= monster.currentHealth) {
+            damage = monster.currentHealth;
+        }
+        this.combatLog += "You dealt " + Math.round(damage) + " damage to the " + monster.name + ".\n";
+        //player.gainExperience(monster, true);
+        return this.monsterTakeDamage(monster, damage);
+    };
+
+    this.monsterTakeDamage = function(monster, damage) {
+        monster.currentHealth -= damage;
+        if (monster.currentHealth <= 0) {
+            this.monsterDeath(monster);
+            return true;
+        }
+        return false;
+    };
+
+    this.monsterDeath = function(monster) {
+        player.inBattle = false;
+        if (!this.inBossBattle) {
+            this.combatLog += "You have defeated the " + monster.name + "!\n";
+            if (Math.floor(Math.random()*100) < 10) {
+                //this.monsterCrystalDrop(monster);
+                //inventory.updateInventory();
+            }
+            this.updateMonsterKilled(monster.name);
+        }
+        else {
+            this.combatLog += "You have defeated a floor boss! " + monster.name + " recognizes your strength and allows you to advance.";
+            this.bossFound = false;
+            this.lastBossDefeated(player.currentFloor);
+            tower.bossDefeated();
+            this.inBossBattle = false;
+        }
+        //upgrades.gainExcelia(monster);
+        this.instancedMonster = {name: "None", currentHealth: 0, maximumHealth: 0, strength: 0, dexterity: 0, constitution: 0, status: 0};
+    };
+
+    var damageFormula = function(attackerStrength, attackerDexterity, defenderConstitution, defenderHealth) {
+        var strengthWeigth = 2;
+        var dexterityWeigth = 0.2;
+        var constitutionWeigth = 1;
+        var damage = ((attackerStrength * strengthWeigth) - (defenderConstitution * constitutionWeigth)) * (attackerDexterity * dexterityWeigth);
+        if (damage < 0) {
+            damage = 0;
+        } else if (damage > defenderHealth) {
+            damage = defenderHealth;
+        }
+        return damage;
     };
 
     this.battleChance = function(guaranteedBattle) {
@@ -182,7 +239,7 @@ game.service('battle', function(player) {
     this.rollMonster = function() {
         var tier = Math.floor((tower.currentFloor-1)/10);
         var monster = Math.floor(Math.random()*10);
-        this.instancedMonster = createMonster((tier*10) + monster);
+        this.instancedMonster = this.createMonster((tier*10) + monster);
         this.battle(this.instancedMonster, false);
     };
 
@@ -190,12 +247,12 @@ game.service('battle', function(player) {
         var tempMonster = {name: "", currentHealth: 0, maximumHealth: 0, strength: 0, dexterity: 0, constitution: 0, status: 0};
         var statPool = Math.round((tower.currentFloor * 15) + (Math.pow(1.15, tower.currentFloor - 1) - 1));
         var baseStat = Math.round(statPool/9);
-        tempMonster.name = battle.monsterList[number].name;
+        tempMonster.name = this.monsterList[number].name;
         tempMonster.strength = baseStat;
         tempMonster.dexterity = baseStat;
         tempMonster.constitution = baseStat;
         statPool -= baseStat*3;
-        distributeStats(tempMonster, statPool);
+        this.distributeStats(tempMonster, statPool);
         tempMonster.maximumHealth = this.calculateHealth(tempMonster.constitution);
         tempMonster.currentHealth = tempMonster.maximumHealth;
         return tempMonster;
@@ -221,11 +278,15 @@ game.service('battle', function(player) {
     };
 
     this.attackMelee = function() {
-        battle.battle(this.instancedMonster, false);
+        this.battle(this.instancedMonster, false);
     };
 });
 
 game.controller('battleController', function($scope, battle, player) {
+    $scope.printCombatLog = function() {
+        return battle.combatLog;
+    };
+
     $scope.getInstancedMonster = function() {
         return battle.instancedMonster;
     };
@@ -254,53 +315,6 @@ game.controller('battleController', function($scope, battle, player) {
 /*var Monsters = function() {
     //Other Methods
 
-    var playerAttacks = function(monster) {
-        var damage = damageFormula(player.getStrengthLevel() + player.getStrengthBonus(), player.getDexterityLevel() + player.getDexterityBonus(), monster.constitution, monster.currentHealth);
-        if (buffs.getRageTimeLeft() !== 0) {
-            damage *= 5;
-        }
-        if (damage >= monster.currentHealth) {
-            damage = monster.currentHealth;
-        }
-        document.getElementById("combatlog").innerHTML += "You dealt " + Math.round(damage) + " damage to the " + monster.name + ".<br>";
-        player.gainExperience(monster, true);
-        return self.monsterTakeDamage(monster, damage);
-    };
-
-    self.monsterTakeDamage = function(monster, damage) {
-        monster.currentHealth -= damage;
-        document.getElementById("monsterhp").innerHTML = Math.floor(monster.currentHealth);
-        document.getElementById("monsterbar").style.width = 100*(monster.currentHealth/monster.maximumHealth) + "%";
-        if (monster.currentHealth <= 0) {
-            monsterDeath(monster);
-            return true;
-        }
-        return false;
-    };
-
-    var monsterDeath = function(monster) {
-        player.setInBattle(false);
-        if (!inBossBattle) {
-            document.getElementById("combatlog").innerHTML += "You have defeated the " + monster.name + "!<br>";
-            if (Math.floor(Math.random()*100) < 10) {
-                monsterCrystalDrop(monster);
-                inventory.updateInventory();
-            }
-            updateMonsterKilled(monster.name);
-        }
-        else {
-            document.getElementById("combatlog").innerHTML += "You have defeated a floor boss! " + monster.name + " recognizes your strength and allows you to advance.";
-            tower.setBossFound(false);
-            tower.setLastBossDefeated(player.getCurrentFloor());
-            tower.bossDefeated();
-            inBossBattle = false;
-        }
-        upgrades.gainExcelia(monster);
-        player.loadRestButton();
-        player.loadExploreButton();
-        self.loadMonsterInfo();
-    };
-
     var monsterCrystalDrop = function(monster) {
         var type = Math.floor(Math.random()*5);
         var experience = monster.strength + monster.dexterity + monster.constitution;
@@ -328,21 +342,6 @@ game.controller('battleController', function($scope, battle, player) {
                 monsterList[i].killed++;
             }
         }
-    };
-
-    var damageFormula = function(attackerStrength, attackerDexterity, defenderConstitution, defenderHealth) {
-        var strengthWeigth = 2;
-        var dexterityWeigth = 0.1;
-        var constitutionWeigth = 0.5;
-        var damage = ((attackerStrength * strengthWeigth) - (defenderConstitution * constitutionWeigth)) * (attackerDexterity * dexterityWeigth);
-
-        if (damage < 0) {
-            damage = 0;
-        }
-        else if (damage > defenderHealth) {
-            damage = defenderHealth;
-        }
-        return damage;
     };
 
     var monsterAttacks = function(monster) {
