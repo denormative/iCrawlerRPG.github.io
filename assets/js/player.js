@@ -145,6 +145,22 @@ game.service('player', function(buffs) {
         }
         return false;
     };
+
+    this.loseStats = function(percentage) {
+        this.strength.level -= this.strength.level * percentage/100;
+        this.dexterity.level -= this.dexterity.level * percentage/100;
+        this.constitution.level -= this.constitution.level * percentage/100;
+        this.speed.level -= this.speed.level * percentage/100;
+        this.magic.level -= this.magic.level * percentage/100;
+    };
+
+    this.loseAllExperience = function() {
+        this.gainExperience(strength, -strength.experience);
+        this.gainExperience(dexterity, -dexterity.experience);
+        this.gainExperience(constitution, -constitution.experience);
+        this.gainExperience(speed, -speed.experience);
+        this.gainExperience(magic, -magic.experience);
+    };
 });
 
 game.controller('playerStatusController', function($scope, system, player) {
@@ -192,24 +208,3 @@ game.controller('playerStatusController', function($scope, system, player) {
         return Math.round(100*(100 * experience/nextLevel))/100;
     };
 });
-
-/*var Player = function() {
-
-    var loseStats = function(percentage) {
-        setStrengthLevel(strength.level - Math.floor(strength.level * (percentage/100)));
-        setDexterityLevel(dexterity.level - Math.floor(dexterity.level * (percentage/100)));
-        setConstitutionLevel(constitution.level - Math.floor(constitution.level * (percentage/100)));
-        setSpeedLevel(speed.level - Math.floor(speed.level * (percentage/100)));
-        setMagicLevel(magic.level - Math.floor(magic.level * (percentage/100)));
-    };
-
-    var loseAllExperience = function() {
-        self.setStrengthExperience(0);
-        self.setDexterityExperience(0);
-        self.setConstitutionExperience(0);
-        self.setSpeedExperience(0);
-        self.setMagicExperience(0);
-    };
-};
-
-var player = new Player();*/
