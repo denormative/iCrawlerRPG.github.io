@@ -458,10 +458,10 @@ var Player = function() {
 			}
 			else {
 				if (tower.floorExplorationComplete(currentFloor)) {
-					document.getElementById("exploreButton").innerHTML = '<button class="btn btn-default btn-block" onClick="tower.exploreFloor()">Find Monster</button>';
+					document.getElementById("exploreButton").innerHTML = '<button class="btn btn-default btn-block" onclick="tower.exploreFloor()">Find Monster</button>';
 				}
 				else {
-					document.getElementById("exploreButton").innerHTML = '<button class="btn btn-default btn-block" onClick="tower.exploreFloor()">Explore</button>';
+					document.getElementById("exploreButton").innerHTML = '<button class="btn btn-default btn-block" onclick="tower.exploreFloor()">Explore</button>';
 				}
 			}
 		}
@@ -476,10 +476,10 @@ var Player = function() {
 				document.getElementById("restButton").innerHTML = '<button class="btn btn-danger btn-block" disabled="disabled">Rest</button>';
 			}
 			else if (resting) {
-				document.getElementById("restButton").innerHTML = '<button class="btn btn-success btn-block" onClick="player.toggleRest()">Stop Resting</button>';
+				document.getElementById("restButton").innerHTML = '<button class="btn btn-success btn-block" onclick="player.toggleRest()">Stop Resting</button>';
 			}
 			else {
-				document.getElementById("restButton").innerHTML = '<button class="btn btn-default btn-block" onClick="player.toggleRest()">Rest</button>';
+				document.getElementById("restButton").innerHTML = '<button class="btn btn-default btn-block" onclick="player.toggleRest()">Rest</button>';
 			}
 		}
 		else {

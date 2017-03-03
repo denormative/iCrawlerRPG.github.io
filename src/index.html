@@ -79,7 +79,7 @@
 													<div class="row">
 														<div class="col-xs-12">
 															<h3 class="panel-title" style="font-family: 'Germania One', cursive;">
-																<img src="assets/histogram.png" style="height: 25px;"></img> Status Screen
+																<img src="assets/histogram.png" style="height: 25px;"> Status Screen
 															</h3>
 														</div>
 													</div>
@@ -192,7 +192,7 @@
 										<div class="panel-heading" data-toggle="collapse" data-target="#collapseTower">
 											<div class="row">
 												<div class="col-xs-3">
-													<h3 class="panel-title" style="font-family: 'Germania One', cursive;"><img src="assets/white-tower.png" style="height: 25px;"></img> The Tower</h3>
+													<h3 class="panel-title" style="font-family: 'Germania One', cursive;"><img src="assets/white-tower.png" style="height: 25px;"> The Tower</h3>
 												</div>
 												<div class="col-xs-9 text-right">
 													You are currently at Floor <span id="floor">0</span>.
@@ -250,7 +250,7 @@
 								<div class="col-xs-12">
 									<div class="panel panel-default">
 										<div class="panel-heading" data-toggle="collapse" data-target="#collapseBattle">
-											<h3 class="panel-title" style="font-family: 'Germania One', cursive;"><img src="assets/crossed-swords.png" style="height: 25px;"></img> Battle Screen</h3>
+											<h3 class="panel-title" style="font-family: 'Germania One', cursive;"><img src="assets/crossed-swords.png" style="height: 25px;"> Battle Screen</h3>
 										</div>
 										<div id="collapseBattle" class="panel-collapse collapse in">
 											<div class="panel-body">
@@ -283,10 +283,10 @@
 														</div>
 														<div class="row">
 															<div class="col-xs-6">
-																<button class="btn btn-block btn-danger" onClick="monsters.attackMelee()">Fight</button>
+																<button class="btn btn-block btn-danger" onclick="monsters.attackMelee()">Fight</button>
 															</div>
 															<div class="col-xs-6">
-																<button class="btn btn-block btn-warning" onClick="monsters.runAway()">Run</button>
+																<button class="btn btn-block btn-warning" onclick="monsters.runAway()">Run</button>
 															</div>
 														</div>
 													</div>
@@ -316,7 +316,7 @@
 										<div class="panel-heading" data-toggle="collapse" data-target="#collapseTimeControls">
 											<div class="row">
 												<div class="col-xs-3">
-													<h3 class="panel-title" style="font-family: 'Germania One', cursive;"><img src="assets/empty-hourglass.png" style="height: 25px;"></img> Idle Controls</h3>
+													<h3 class="panel-title" style="font-family: 'Germania One', cursive;"><img src="assets/empty-hourglass.png" style="height: 25px;"> Idle Controls</h3>
 												</div>
 												<div class="col-xs-9 text-right">
 													Current Run: <span id="days">0</span> days, <span id="hours">0</span> hours, <span id="minutes">0</span> minutes, <span id="seconds">0</span> seconds
@@ -333,7 +333,7 @@
 														<div class="row">
 															<div class="col-xs-12">
 																<span id="idleSwitch"></span>
-																<button class="btn btn-primary" onClick="system.gameSpeed(1000)">x1</button>
+																<button class="btn btn-primary" onclick="system.gameSpeed(1000)">x1</button>
 																<span id="speed2"></span>
 																<span id="speed5"></span>
 																<span id="speed10"></span>
@@ -384,7 +384,7 @@
 												<div class="panel-heading" data-toggle="collapse" data-target="#collapseSpellbook">
 													<div class="row">
 														<div class="col-xs-5">
-															<h3 class="panel-title" style="font-family: 'Germania One', cursive;"><img src="assets/book-cover.png" style="height: 25px;"></img> Spellbook</h3>
+															<h3 class="panel-title" style="font-family: 'Germania One', cursive;"><img src="assets/book-cover.png" style="height: 25px;"> Spellbook</h3>
 														</div>
 														<div class="col-xs-7 text-right">
 															Arcania: <span id="arcania">0</span>
@@ -448,7 +448,7 @@
 											<div class="panel panel-default">
 												<div class="panel-heading" data-toggle="collapse" data-target="#collapseBuffs">
 													<h3 class="panel-title text-danger" style="font-family: 'Germania One', cursive;">
-														<img src="assets/biceps.png" style="height: 25px;"></img> Spell Effects
+														<img src="assets/biceps.png" style="height: 25px;"> Spell Effects
 													</h3>
 												</div>
 												<div id="collapseBuffs" class="panel-collapse collapse in">
@@ -482,7 +482,7 @@
 											<div class="row">
 												<div class="col-xs-6">
 													<h3 class="panel-title" style="font-family: 'Germania One', cursive;">
-														<img src="assets/swap-bag.png" style="height: 25px;"></img> The Shop
+														<img src="assets/swap-bag.png" style="height: 25px;"> The Shop
 													</h3>
 												</div>
 												<div class="col-xs-6 text-right">
@@ -500,11 +500,11 @@
 												<div class="row" style="height: 10px;"></div>
 												<div class="row">
 													<div class="col-xs-6">
-														<button class="btn btn-block btn-primary" onClick="inventory.buyKey()">Buy a Chest Key! (Price: <span id="keyprice">0</span>)</button>
+														<button class="btn btn-block btn-primary" onclick="inventory.buyKey()">Buy a Chest Key! (Price: <span id="keyprice">0</span>)</button>
 													</div>
 													<div class="col-xs-6">
 														<span id="sellbutton">
-															<button class="btn btn-block btn-success" onClick="inventory.updateInventory(true)">Enter Sell Mode</button>
+															<button class="btn btn-block btn-success" onclick="inventory.updateInventory(true)">Enter Sell Mode</button>
 														</span>
 													</div>
 												</div>
@@ -516,12 +516,12 @@
 												</div>
 												<div class="row">
 													<div class="col-xs-12">
-														<button class="btn btn-primary" onClick="inventory.buyCrystal('Strength')">Strength</button>
-														<button class="btn btn-primary" onClick="inventory.buyCrystal('Dexterity')">Dexterity</button>
-														<button class="btn btn-primary" onClick="inventory.buyCrystal('Constitution')">Constitution</button>
-														<button class="btn btn-primary" onClick="inventory.buyCrystal('Speed')">Speed</button>
-														<button class="btn btn-primary" onClick="inventory.buyCrystal('Magic')">Magic</button>
-														<button class="btn btn-danger" data-toggle="tooltip" title="Small tip: A random crystal costs only half the price!" onClick="inventory.buyCrystal('')">Random</button>
+														<button class="btn btn-primary" onclick="inventory.buyCrystal('Strength')">Strength</button>
+														<button class="btn btn-primary" onclick="inventory.buyCrystal('Dexterity')">Dexterity</button>
+														<button class="btn btn-primary" onclick="inventory.buyCrystal('Constitution')">Constitution</button>
+														<button class="btn btn-primary" onclick="inventory.buyCrystal('Speed')">Speed</button>
+														<button class="btn btn-primary" onclick="inventory.buyCrystal('Magic')">Magic</button>
+														<button class="btn btn-danger" data-toggle="tooltip" title="Small tip: A random crystal costs only half the price!" onclick="inventory.buyCrystal('')">Random</button>
 													</div>
 												</div>
 											</div>
@@ -538,7 +538,7 @@
 											<div class="row">
 												<div class="col-xs-6">
 													<h3 class="panel-title" style="font-family: 'Germania One', cursive;">
-														<img src="assets/knapsack.png" style="height: 25px;"></img> Inventory
+														<img src="assets/knapsack.png" style="height: 25px;"> Inventory
 													</h3>
 												</div>
 												<div class="col-xs-6 text-right">
@@ -550,7 +550,7 @@
 											<div class="panel-body">
 												<div class="row">
 													<div class="col-xs-12">
-														<button class="btn btn-block btn-success" onClick="inventory.useAllCrystals()">Use All Crystals</button>
+														<button class="btn btn-block btn-success" onclick="inventory.useAllCrystals()">Use All Crystals</button>
 													</div>
 												</div>
 												<div class="row" style="height:10px;"></div>
@@ -575,7 +575,7 @@
 											<div class="row">
 												<div class="col-xs-12">
 													<h3 class="panel-title" style="font-family: 'Germania One', cursive;">
-														<img src="assets/battle-gear.png" style="height: 25px;"></img> Equipment
+														<img src="assets/battle-gear.png" style="height: 25px;"> Equipment
 													</h3>
 												</div>
 											</div>
@@ -607,7 +607,7 @@
 										<div class="panel-heading" data-toggle="collapse" data-target="#collapseUpgrades">
 											<div class="row">
 												<div class="col-xs-5">
-													<h3 class="panel-title" style="font-family: 'Germania One', cursive;"><img src="assets/plain-arrow.png" style="height: 25px;"></img> Upgrades</h3>
+													<h3 class="panel-title" style="font-family: 'Germania One', cursive;"><img src="assets/plain-arrow.png" style="height: 25px;"> Upgrades</h3>
 												</div>
 												<div class="col-xs-7 text-right">
 													Excelia: <span id="excelia">0</span>
@@ -634,7 +634,7 @@
 										<div class="panel-heading" data-toggle="collapse" data-target="#collapseUpgrades">
 											<div class="row">
 												<div class="col-xs-12">
-													<h3 class="panel-title" style="font-family: 'Germania One', cursive;"><img src="assets/plain-arrow.png" style="height: 25px;"></img> Upgrade Effects:</h3>
+													<h3 class="panel-title" style="font-family: 'Germania One', cursive;"><img src="assets/plain-arrow.png" style="height: 25px;"> Upgrade Effects:</h3>
 												</div>
 											</div>
 										</div>
@@ -664,7 +664,7 @@
 								<div class="panel-heading" data-toggle="collapse" data-target="#collapseChangelog">
 									<h3 class="panel-title" style="font-family: 'Germania One', cursive;">
 										<a style="cursor:pointer;" class="accordion-toggle">
-											<img src="assets/hazard-sign.png" style="height: 25px;"></img> Latest Changes
+											<img src="assets/hazard-sign.png" style="height: 25px;"> Latest Changes
 										</a>
 									</h3>
 								</div>
@@ -696,15 +696,15 @@
 
                                         <div class="row">
                                             <div class="col-xs-4 text-center">
-                                                <button class="btn btn-primary btn-block" onClick="system.exportGame()">Export</button>
+                                                <button class="btn btn-primary btn-block" onclick="system.exportGame()">Export</button>
                                             </div>
 
                                             <div class="col-xs-4 text-center">
-                                                <button class="btn btn-success btn-block" onClick="system.importGame()">Import</button>
+                                                <button class="btn btn-success btn-block" onclick="system.importGame()">Import</button>
                                             </div>
 
                                             <div class="col-xs-4 text-center">
-                                                <button class="btn btn-danger btn-block" onClick="system.hardReset()">Wipe data</button>
+                                                <button class="btn btn-danger btn-block" onclick="system.hardReset()">Wipe data</button>
                                             </div>
 
                                             <hr>

@@ -268,13 +268,13 @@ var Upgrades = function() {
 	self.loadTimeUpgrades = function() {
 		for (var i = 0; i < upgradeList.length; i++) {
 			if (upgradeList[i].id == "timewarp1" && upgradeList[i].purchased === true) {
-				document.getElementById("speed2").innerHTML = '<button class="btn btn-primary" onClick="system.gameSpeed(500)">x2</button>';
+				document.getElementById("speed2").innerHTML = '<button class="btn btn-primary" onclick="system.gameSpeed(500)">x2</button>';
 			}
 			else if (upgradeList[i].id == "timewarp2" && upgradeList[i].purchased === true) {
-				document.getElementById("speed5").innerHTML = '<button class="btn btn-primary" onClick="system.gameSpeed(200)">x5</button>';
+				document.getElementById("speed5").innerHTML = '<button class="btn btn-primary" onclick="system.gameSpeed(200)">x5</button>';
 			}
 			else if (upgradeList[i].id == "timewarp3" && upgradeList[i].purchased === true) {
-				document.getElementById("speed10").innerHTML = '<button class="btn btn-primary" onClick="system.gameSpeed(100)">x10</button>';
+				document.getElementById("speed10").innerHTML = '<button class="btn btn-primary" onclick="system.gameSpeed(100)">x10</button>';
 			}
 		}
 	};
@@ -295,7 +295,7 @@ var Upgrades = function() {
 		for (var i = 0; i < upgradeList.length; i++) {
 			if (!upgradeList[i].purchased && self.isUpgradePurchased(upgradeList[i].required)) {
 				upgradeList[i].shown = true;
-				document.getElementById("upgrades").innerHTML += '<div class="row"><div class="col-xs-7"><button class="btn btn-primary btn-block" data-toggle="tooltip" data-placement="top" title="' + upgradeList[i].description + '" onClick="upgrades.buyUpgrade(\'' + upgradeList[i].id + '\')">' + upgradeList[i].name + '</button></div><div class="col-xs-5"><p>(Cost: ' + upgradeList[i].exceliaCost + ')</p></div></div><div class="row" style="height: 5px;"></div>';
+				document.getElementById("upgrades").innerHTML += '<div class="row"><div class="col-xs-7"><button class="btn btn-primary btn-block" data-toggle="tooltip" data-placement="top" title="' + upgradeList[i].description + '" onclick="upgrades.buyUpgrade(\'' + upgradeList[i].id + '\')">' + upgradeList[i].name + '</button></div><div class="col-xs-5"><p>(Cost: ' + upgradeList[i].exceliaCost + ')</p></div></div><div class="row" style="height: 5px;"></div>';
 			}
 		}
 		$(document).ready(function(){

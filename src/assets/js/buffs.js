@@ -268,7 +268,7 @@ var Buffs = function() {
 			else {
 				toggleStatusText = "OFF";
 			}
-			document.getElementById("toggleable").innerHTML += '<button type="button" class="list-group-item" onClick="buffs.toggleBuff(\'castFireballInBattle\')"><span class="badge">' + toggleStatusText + '</span>Auto-Shooting</button>';
+			document.getElementById("toggleable").innerHTML += '<button type="button" class="list-group-item" onclick="buffs.toggleBuff(\'castFireballInBattle\')"><span class="badge">' + toggleStatusText + '</span>Auto-Shooting</button>';
 		}
 
 		if (castCureInBattle || upgrades.isUpgradePurchased("battlehealing")) {
@@ -278,7 +278,7 @@ var Buffs = function() {
 			else {
 				toggleStatusText = "OFF";
 			}
-			document.getElementById("toggleable").innerHTML += '<button type="button" class="list-group-item" onClick="buffs.toggleBuff(\'castCureInBattle\')"><span class="badge">' + toggleStatusText + '</span>Battle Healing</button>';
+			document.getElementById("toggleable").innerHTML += '<button type="button" class="list-group-item" onclick="buffs.toggleBuff(\'castCureInBattle\')"><span class="badge">' + toggleStatusText + '</span>Battle Healing</button>';
 		}
 
 		if (autoBarrierCast || upgrades.isUpgradePurchased("barriercast")) {
@@ -288,7 +288,7 @@ var Buffs = function() {
 			else {
 				toggleStatusText = "OFF";
 			}
-			document.getElementById("toggleable").innerHTML += '<button type="button" class="list-group-item" onClick="buffs.toggleBuff(\'autoBarrierCast\')"><span class="badge">' + toggleStatusText + '</span>Barrier Casting</button>';
+			document.getElementById("toggleable").innerHTML += '<button type="button" class="list-group-item" onclick="buffs.toggleBuff(\'autoBarrierCast\')"><span class="badge">' + toggleStatusText + '</span>Barrier Casting</button>';
 		}
 	};
 

@@ -113,10 +113,10 @@ var Inventory = function() {
     self.updateShop = function(boolean) {
         sellMode = boolean;
         if (sellMode) {
-            document.getElementById("sellbutton").innerHTML = '<button class="btn btn-block btn-success" onClick="inventory.updateInventory(false)">Exit Sell Mode</button>'
+            document.getElementById("sellbutton").innerHTML = '<button class="btn btn-block btn-success" onclick="inventory.updateInventory(false)">Exit Sell Mode</button>'
         }
         else {
-            document.getElementById("sellbutton").innerHTML = '<button class="btn btn-block btn-success" onClick="inventory.updateInventory(true)">Enter Sell Mode</button>'
+            document.getElementById("sellbutton").innerHTML = '<button class="btn btn-block btn-success" onclick="inventory.updateInventory(true)">Enter Sell Mode</button>'
         }
         document.getElementById("keyprice").innerHTML = keyPrice;
         document.getElementById("crystalprice").innerHTML = crystalPrice;
@@ -125,44 +125,44 @@ var Inventory = function() {
     var printChest = function(chest, number, sellMode) {
         var tooltip = "Chest rarity: " + chest.rarity + "<br>The higher the rarity, the better the stats of the item inside will be."
         if (!sellMode) {
-            document.getElementById("inventory").innerHTML += '<button type="button" class="list-group-item" data-toggle="tooltip" title="' + tooltip + '" onClick="inventory.openChest(' + number + ')"><span class="badge">Open</span> ' + chest.name + '</button>';
+            document.getElementById("inventory").innerHTML += '<button type="button" class="list-group-item" data-toggle="tooltip" title="' + tooltip + '" onclick="inventory.openChest(' + number + ')"><span class="badge">Open</span> ' + chest.name + '</button>';
         }
         else {
             var price = chest.rarity;
-            document.getElementById("inventory").innerHTML += '<button type="button" class="list-group-item list-group-item-success" data-toggle="tooltip" title="' + tooltip + '" onClick="inventory.sell(' + number + ',' + price + ')"><span class="badge">' + price + '</span> ' + chest.name + '</button>';
+            document.getElementById("inventory").innerHTML += '<button type="button" class="list-group-item list-group-item-success" data-toggle="tooltip" title="' + tooltip + '" onclick="inventory.sell(' + number + ',' + price + ')"><span class="badge">' + price + '</span> ' + chest.name + '</button>';
         }
     };
 
     var printWeapon = function(weapon, number, sellMode) {
         var tooltip = "Bonus STR: " + Math.round(100*weapon.damage * weapon.rarity)/100 + "<br>Bonus DEX: " + Math.round(100*weapon.speed * weapon.rarity)/100 + "<br>Bonus CON: " + Math.round(100*weapon.defense * weapon.rarity)/100 + "<br>Bonus MGC: " + Math.round(100*weapon.magic * weapon.rarity)/100;
         if (!sellMode) {
-            document.getElementById("inventory").innerHTML += '<button type="button" class="list-group-item" data-toggle="tooltip" title="' + tooltip + '" onClick="inventory.equipWeapon(' + number + ')"><span class="badge">Weapon</span>' + weapon.name + '</button>';
+            document.getElementById("inventory").innerHTML += '<button type="button" class="list-group-item" data-toggle="tooltip" title="' + tooltip + '" onclick="inventory.equipWeapon(' + number + ')"><span class="badge">Weapon</span>' + weapon.name + '</button>';
         }
         else {
             var price = Math.round((weapon.damage + weapon.speed + weapon.defense + weapon.magic) * 5 * weapon.rarity);
-            document.getElementById("inventory").innerHTML += '<button type="button" class="list-group-item list-group-item-success" data-toggle="tooltip" title="' + tooltip + '" onClick="inventory.sell(' + number + ',' + price + ')"><span class="badge">' + price + '</span>' + weapon.name + '</button>';
+            document.getElementById("inventory").innerHTML += '<button type="button" class="list-group-item list-group-item-success" data-toggle="tooltip" title="' + tooltip + '" onclick="inventory.sell(' + number + ',' + price + ')"><span class="badge">' + price + '</span>' + weapon.name + '</button>';
         }
     };
 
     var printArmor = function(armor, number, sellMode) {
         var tooltip = "Bonus CON: " + Math.round(100*armor.defense * armor.rarity)/100 + "<br>Bonus SPD: " + Math.round(100*armor.movement * armor.rarity)/100 + "<br>Bonus MGC: " + Math.round(100*armor.magic * armor.rarity)/100;
         if (!sellMode) {
-            document.getElementById("inventory").innerHTML += '<button type="button" class="list-group-item" data-toggle="tooltip" title="' + tooltip + '" onClick="inventory.equipArmor(' + number + ')"><span class="badge">Armor</span>' + armor.name + '</button>';
+            document.getElementById("inventory").innerHTML += '<button type="button" class="list-group-item" data-toggle="tooltip" title="' + tooltip + '" onclick="inventory.equipArmor(' + number + ')"><span class="badge">Armor</span>' + armor.name + '</button>';
         }
         else {
             var price = Math.round((armor.defense + armor.movement + armor.magic) * 10 * armor.rarity);
-            document.getElementById("inventory").innerHTML += '<button type="button" class="list-group-item list-group-item-success" data-toggle="tooltip" title="' + tooltip + '" onClick="inventory.sell(' + number + ',' + price + ')"><span class="badge">' + price + '</span>' + armor.name + '</button>';
+            document.getElementById("inventory").innerHTML += '<button type="button" class="list-group-item list-group-item-success" data-toggle="tooltip" title="' + tooltip + '" onclick="inventory.sell(' + number + ',' + price + ')"><span class="badge">' + price + '</span>' + armor.name + '</button>';
         }
     };
 
     var printCrystal = function(crystal, number, sellMode) {
         var tooltip = "This crystal will grant " + crystal.experience + " experience in " + crystal.stat + ".";
         if (!sellMode) {
-            document.getElementById("inventory").innerHTML += '<button type="button" class="list-group-item" data-toggle="tooltip" title="' + tooltip + '" onClick="inventory.useCrystal(' + number + ')"><span class="badge">Crystal</span>' + crystal.stat + ' Experience Crystal</button>';
+            document.getElementById("inventory").innerHTML += '<button type="button" class="list-group-item" data-toggle="tooltip" title="' + tooltip + '" onclick="inventory.useCrystal(' + number + ')"><span class="badge">Crystal</span>' + crystal.stat + ' Experience Crystal</button>';
         }
         else {
             var price = Math.round(crystal.experience/2);
-            document.getElementById("inventory").innerHTML += '<button type="button" class="list-group-item list-group-item-success" data-toggle="tooltip" title="' + tooltip + '" onClick="inventory.sell(' + number + ',' + price + ')"><span class="badge">' + price + '</span>' + crystal.stat + ' Experience Crystal</button>';
+            document.getElementById("inventory").innerHTML += '<button type="button" class="list-group-item list-group-item-success" data-toggle="tooltip" title="' + tooltip + '" onclick="inventory.sell(' + number + ',' + price + ')"><span class="badge">' + price + '</span>' + crystal.stat + ' Experience Crystal</button>';
         }
     }
 
@@ -181,12 +181,12 @@ var Inventory = function() {
 
     var printEquippedWeapon = function() {
         var tooltip = "Bonus STR: " + Math.round(100*equippedWeapon.damage * equippedWeapon.rarity)/100 + "<br>Bonus DEX: " + Math.round(100*equippedWeapon.speed * equippedWeapon.rarity)/100 + "<br>Bonus CON: " + Math.round(100*equippedWeapon.defense * equippedWeapon.rarity)/100 + "<br>Bonus MGC: " + Math.round(100*equippedWeapon.magic * equippedWeapon.rarity)/100;
-        document.getElementById("equipment").innerHTML += '<button type="button" class="list-group-item" data-toggle="tooltip" title="' + tooltip + '" onClick="inventory.unequipWeapon()"><span class="badge">Equipped</span>' + equippedWeapon.name + '</button>';
+        document.getElementById("equipment").innerHTML += '<button type="button" class="list-group-item" data-toggle="tooltip" title="' + tooltip + '" onclick="inventory.unequipWeapon()"><span class="badge">Equipped</span>' + equippedWeapon.name + '</button>';
     };
 
     var printEquippedArmor = function() {
         var tooltip = "Bonus CON: " + Math.round(100*equippedArmor.defense * equippedArmor.rarity)/100 + "<br>Bonus SPD: " + Math.round(100*equippedArmor.movement * equippedArmor.rarity)/100 + "<br>Bonus MGC: " + Math.round(100*equippedArmor.magic * equippedArmor.rarity)/100;
-        document.getElementById("equipment").innerHTML += '<button type="button" class="list-group-item" data-toggle="tooltip" title="' + tooltip + '" onClick="inventory.unequipArmor()"><span class="badge">Equipped</span>' + equippedArmor.name + '</button>';
+        document.getElementById("equipment").innerHTML += '<button type="button" class="list-group-item" data-toggle="tooltip" title="' + tooltip + '" onclick="inventory.unequipArmor()"><span class="badge">Equipped</span>' + equippedArmor.name + '</button>';
     };
 
     self.openChest = function(chest) {

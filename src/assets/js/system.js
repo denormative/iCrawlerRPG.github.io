@@ -259,10 +259,10 @@ var System = function() {
 
     var loadIdleButton = function() {
         if (idleMode) {
-            document.getElementById("idleSwitch").innerHTML = '<button class="btn btn-success" onClick="system.toggleIdle()">Idle ON</button>';
+            document.getElementById("idleSwitch").innerHTML = '<button class="btn btn-success" onclick="system.toggleIdle()">Idle ON</button>';
         }
         else {
-            document.getElementById("idleSwitch").innerHTML = '<button class="btn btn-danger" onClick="system.toggleIdle()">Idle OFF</button>';
+            document.getElementById("idleSwitch").innerHTML = '<button class="btn btn-danger" onclick="system.toggleIdle()">Idle OFF</button>';
         }
     };
 };
