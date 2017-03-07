@@ -1,3 +1,5 @@
+// var Slider = require("bootstrap-slider");
+
 var System = function() {
     var ticks = 0;
     var refreshSpeed = 1000;
