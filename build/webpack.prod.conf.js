@@ -31,6 +31,12 @@ var webpackConfig = merge(baseWebpackConfig, {
     new webpack.DefinePlugin({
       'process.env': env
     }),
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery",
+      'window.Tether': "tether",
+      "Tether": "tether"
+    }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false
