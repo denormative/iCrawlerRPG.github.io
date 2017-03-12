@@ -30,6 +30,8 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style>
+.font-gothic {
+  font-family: 'Germania One', cursive;
+}
 </style>
