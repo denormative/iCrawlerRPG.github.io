@@ -19,11 +19,13 @@ const Tower = function() {
         floors.push({ size: 100, explored: 100, canAdvance: true, stairsPosition: 0, monsterDensity: 0 })
       }
       else {
-        floors.push({ size: Math.floor(2 * floors[i - 1].size),
+        floors.push({
+          size: Math.floor(2 * floors[i - 1].size),
           explored: 0,
           canAdvance: false,
           stairsPosition: Math.floor(Math.random() * Math.floor(2 * floors[i - 1].size)),
-          monsterDensity: Math.floor(10 + (Math.random() * 40)) })
+          monsterDensity: Math.floor(10 + (Math.random() * 40)),
+        })
       }
     }
   }

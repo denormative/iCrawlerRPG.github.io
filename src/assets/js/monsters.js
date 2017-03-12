@@ -10,8 +10,8 @@ import { upgrades } from './upgrades.js'
 
 const Monsters = function() {
   let inBossBattle = false
+  /* beautify preserve:start */
   const monsterList = [
-    /* beautify preserve:start */
     // First Tier
     { name: "Rat", killed: 0 },
     { name: "Bat", killed: 0 },
@@ -71,8 +71,8 @@ const Monsters = function() {
     { name: "Lizardman Archer", killed: 0 },
     { name: "Living Armor", killed: 0 },
     { name: "Frenzied Goblin", killed: 0 },
-    /* beautify preserve:end */
   ]
+  /* beautify preserve:end */
 
   const bossList = [
     {
@@ -129,7 +129,7 @@ const Monsters = function() {
   }
 
   const self = this
-    // Save Method
+  // Save Method
   self.save = function() {
     const monstersSave = {
       savedMonsterList: monsterList,
@@ -174,7 +174,7 @@ const Monsters = function() {
     }
   }
 
-    // Load Method
+  // Load Method
   self.load = function() {
     const monstersSave = JSON.parse(localStorage.getItem("monstersSave"))
     if (monstersSave) {
@@ -190,7 +190,7 @@ const Monsters = function() {
     }
   }
 
-    // Getters
+  // Getters
   self.getMonsterList = function() {
     return monsterList
   }
@@ -207,7 +207,7 @@ const Monsters = function() {
     return inBossBattle
   }
 
-    // Setters
+  // Setters
   self.setInstancedMonster = function(updatedMonster) {
     instancedMonster = updatedMonster
   }
@@ -216,7 +216,7 @@ const Monsters = function() {
     inBossBattle = boolean
   }
 
-    // Other Methods
+  // Other Methods
   self.attackMelee = function() {
     if (player.getInBattle()) {
       self.battle(instancedMonster, false)
@@ -273,13 +273,13 @@ const Monsters = function() {
         if (barrier >= damage) {
           buffs.setBarrierLeft(barrier - damage)
           document.getElementById("combatlog").innerHTML +=
-            `Your barrier absorbed ${Math.round(damage)} damage from ${monster.name}'s attack.<br>`
+          `Your barrier absorbed ${Math.round(damage)} damage from ${monster.name}'s attack.<br>`
           buffs.updateTemporaryBuffs(false)
           return false
         }
 
         document.getElementById("combatlog").innerHTML +=
-          `Your barrier absorbed ${Math.round(barrier)} damage from ${monster.name}'s attack.<br>`
+        `Your barrier absorbed ${Math.round(barrier)} damage from ${monster.name}'s attack.<br>`
         document.getElementById("combatlog").innerHTML += "Your barrier has shattered.<br>"
         damage -= barrier
         buffs.setBarrierLeft(0)
@@ -287,7 +287,7 @@ const Monsters = function() {
       }
       player.setHealthCurrentValue(player.getHealthCurrentValue() - damage)
       document.getElementById("combatlog").innerHTML +=
-        `You took ${Math.round(damage)} damage from the ${monster.name}'s attack.<br>`
+      `You took ${Math.round(damage)} damage from the ${monster.name}'s attack.<br>`
       if (player.getHealthCurrentValue() === 0) {
         player.death(monster)
         return true
@@ -295,7 +295,7 @@ const Monsters = function() {
     }
     else {
       document.getElementById("combatlog").innerHTML +=
-        `Aegis absorbed ${Math.round(damage)} damage from ${monster.name}'s attack.<br>`
+      `Aegis absorbed ${Math.round(damage)} damage from ${monster.name}'s attack.<br>`
     }
     player.gainExperience(monster, false)
     return false
@@ -376,7 +376,7 @@ const Monsters = function() {
     }
     else {
       document.getElementById("combatlog").innerHTML +=
-        `You have defeated a floor boss! ${monster.name} recognizes your strength and allows you to advance.`
+      `You have defeated a floor boss! ${monster.name} recognizes your strength and allows you to advance.`
       tower.setBossFound(false)
       tower.setLastBossDefeated(player.getCurrentFloor())
       tower.bossDefeated()

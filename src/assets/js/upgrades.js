@@ -7,205 +7,255 @@ const Upgrades = function() {
   let excelia = 0
 
   const upgradeList = []
-  upgradeList.push({ name: "Aetheric Attunement 1",
+  upgradeList.push({
+    name: "Aetheric Attunement 1",
     id: "aetheric1",
     exceliaCost: 10,
     required: "",
     shown: true,
     purchased: false,
-    description: "Tap into the mana around you. Recover +1 MP per second while exploring." })
+    description: "Tap into the mana around you. Recover +1 MP per second while exploring.",
+  })
 
-  upgradeList.push({ name: "Time Warp 1",
+  upgradeList.push({
+    name: "Time Warp 1",
     id: "timewarp1",
     exceliaCost: 10,
     required: "",
     shown: true,
     purchased: false,
-    description: "Is idle mode too slow? Make it go at twice the speed!" })
+    description: "Is idle mode too slow? Make it go at twice the speed!",
+  })
 
-  upgradeList.push({ name: "Blessings 1",
+  upgradeList.push({
+    name: "Blessings 1",
     id: "blessings1",
     exceliaCost: 100,
     required: "",
     shown: true,
     purchased: false,
-    description: "Keep 10% of your excelia upon death." })
+    description: "Keep 10% of your excelia upon death.",
+  })
 
-  upgradeList.push({ name: "Faster Resting 1",
+  upgradeList.push({
+    name: "Faster Resting 1",
     id: "fastresting1",
     exceliaCost: 100,
     required: "",
     shown: true,
     purchased: false,
-    description: "Recover at twice the normal speed." })
+    description: "Recover at twice the normal speed.",
+  })
 
-  upgradeList.push({ name: "Auto-Shooting",
+  upgradeList.push({
+    name: "Auto-Shooting",
     id: "autoshoot",
     exceliaCost: 250,
     required: "",
     shown: true,
     purchased: false,
-    description: "Shoot a fireball at the start of every battle without losing a turn!" })
+    description: "Shoot a fireball at the start of every battle without losing a turn!",
+  })
 
-  upgradeList.push({ name: "Battle Healing",
+  upgradeList.push({
+    name: "Battle Healing",
     id: "battlehealing",
     exceliaCost: 250,
     required: "",
     shown: true,
     purchased: false,
-    description: "Cast Cure whenever you get under 50% HP during battle." })
+    description: "Cast Cure whenever you get under 50% HP during battle.",
+  })
 
-  upgradeList.push({ name: "Aetheric Attunement 2",
+  upgradeList.push({
+    name: "Aetheric Attunement 2",
     id: "aetheric2",
     exceliaCost: 350,
     required: "aetheric1",
     shown: false,
     purchased: false,
-    description: "Deepen the bond between you and the flow of mana. Get +2 MP per second while exploring." })
+    description: "Deepen the bond between you and the flow of mana. Get +2 MP per second while exploring.",
+  })
 
-  upgradeList.push({ name: "Faster Resting 2",
+  upgradeList.push({
+    name: "Faster Resting 2",
     id: "fastresting2",
     exceliaCost: 500,
     required: "fastresting1",
     shown: false,
     purchased: false,
-    description: "Recover at four times the normal speed." })
+    description: "Recover at four times the normal speed.",
+  })
 
-  upgradeList.push({ name: "Time Warp 2",
+  upgradeList.push({
+    name: "Time Warp 2",
     id: "timewarp2",
     exceliaCost: 500,
     required: "timewarp1",
     shown: false,
     purchased: false,
-    description: "Change to the next gear! With this, idle mode is five times faster!" })
+    description: "Change to the next gear! With this, idle mode is five times faster!",
+  })
 
-  upgradeList.push({ name: "Faster Exploration 1",
+  upgradeList.push({
+    name: "Faster Exploration 1",
     id: "fasterexploration1",
     exceliaCost: 1000,
     required: "",
     shown: true,
     purchased: false,
-    description: "Double the speed of floor exploration." })
+    description: "Double the speed of floor exploration.",
+  })
 
-  upgradeList.push({ name: "Muscle Memory 1",
+  upgradeList.push({
+    name: "Muscle Memory 1",
     id: "musclememory1",
     exceliaCost: 1000,
     required: "",
     shown: true,
     purchased: false,
-    description: "Lose 1% less stats when dying." })
+    description: "Lose 1% less stats when dying.",
+  })
 
-  upgradeList.push({ name: "Barrier Casting",
+  upgradeList.push({
+    name: "Barrier Casting",
     id: "barriercast",
     exceliaCost: 2000,
     required: "",
     shown: true,
     purchased: false,
-    description: "Cast Barrier whenever it is down. You need the Barrier spell for it to have any effect." })
+    description: "Cast Barrier whenever it is down. You need the Barrier spell for it to have any effect.",
+  })
 
-  upgradeList.push({ name: "Blessings 2",
+  upgradeList.push({
+    name: "Blessings 2",
     id: "blessings2",
     exceliaCost: 2000,
     required: "blessings1",
     shown: false,
     purchased: false,
-    description: "With this, you'll be able to keep 20% of your excelia upon death!" })
+    description: "With this, you'll be able to keep 20% of your excelia upon death!",
+  })
 
-  upgradeList.push({ name: "Double Excelia 1",
+  upgradeList.push({
+    name: "Double Excelia 1",
     id: "doubleexcelia1",
     exceliaCost: 2000,
     required: "",
     shown: true,
     purchased: false,
-    description: "Double the amount of Excelia you gain per monster." })
+    description: "Double the amount of Excelia you gain per monster.",
+  })
 
-  upgradeList.push({ name: "Faster Leveling 1",
+  upgradeList.push({
+    name: "Faster Leveling 1",
     id: "fasterleveling1",
     exceliaCost: 2000,
     required: "",
     shown: true,
     purchased: false,
-    description: "Double the speed your stats gain experience." })
+    description: "Double the speed your stats gain experience.",
+  })
 
-  upgradeList.push({ name: "Time Warp 3",
+  upgradeList.push({
+    name: "Time Warp 3",
     id: "timewarp3",
     exceliaCost: 2000,
     required: "timewarp2",
     shown: false,
     purchased: false,
-    description: "Makes idle mode ten times faster! You'll barely see what's happening" })
+    description: "Makes idle mode ten times faster! You'll barely see what's happening",
+  })
 
-  upgradeList.push({ name: "Faster Resting 3",
+  upgradeList.push({
+    name: "Faster Resting 3",
     id: "fastresting3",
     exceliaCost: 2500,
     required: "fastresting2",
     shown: false,
     purchased: false,
-    description: "Recover at eight times the normal speed." })
+    description: "Recover at eight times the normal speed.",
+  })
 
-  upgradeList.push({ name: "Adept Mage",
+  upgradeList.push({
+    name: "Adept Mage",
     id: "adeptmage",
     exceliaCost: 5000,
     required: "",
     shown: true,
     purchased: false,
-    description: "Master spells twice as fast." })
+    description: "Master spells twice as fast.",
+  })
 
-  upgradeList.push({ name: "Blessings 3",
+  upgradeList.push({
+    name: "Blessings 3",
     id: "blessings3",
     exceliaCost: 5000,
     required: "blessings2",
     shown: false,
     purchased: false,
-    description: "Keep 30% of your excelia upon death." })
+    description: "Keep 30% of your excelia upon death.",
+  })
 
-  upgradeList.push({ name: "Faster Exploration 1",
+  upgradeList.push({
+    name: "Faster Exploration 1",
     id: "fasterexploration2",
     exceliaCost: 5000,
     required: "fasterexploration1",
     shown: false,
     purchased: false,
-    description: "Double the speed of floor exploration." })
+    description: "Double the speed of floor exploration.",
+  })
 
-  upgradeList.push({ name: "Muscle Memory 2",
+  upgradeList.push({
+    name: "Muscle Memory 2",
     id: "musclememory2",
     exceliaCost: 5000,
     required: "musclememory1",
     shown: false,
     purchased: false,
-    description: "Lose 1% less stats when dying." })
+    description: "Lose 1% less stats when dying.",
+  })
 
-  upgradeList.push({ name: "Double Excelia 2",
+  upgradeList.push({
+    name: "Double Excelia 2",
     id: "doubleexcelia2",
     exceliaCost: 10000,
     required: "doubleexcelia1",
     shown: false,
     purchased: false,
-    description: "Double the amount of Excelia you gain per monster." })
+    description: "Double the amount of Excelia you gain per monster.",
+  })
 
-  upgradeList.push({ name: "Faster Leveling 2",
+  upgradeList.push({
+    name: "Faster Leveling 2",
     id: "fasterleveling2",
     exceliaCost: 15000,
     required: "fasterleveling1",
     shown: false,
     purchased: false,
-    description: "Double the speed your stats gain experience." })
+    description: "Double the speed your stats gain experience.",
+  })
 
-  upgradeList.push({ name: "Faster Exploration 1",
+  upgradeList.push({
+    name: "Faster Exploration 1",
     id: "fasterexploration3",
     exceliaCost: 20000,
     required: "fasterexploration2",
     shown: false,
     purchased: false,
-    description: "Double the speed of floor exploration." })
+    description: "Double the speed of floor exploration.",
+  })
 
-  upgradeList.push({ name: "Faster Leveling 3",
+  upgradeList.push({
+    name: "Faster Leveling 3",
     id: "fasterleveling3",
     exceliaCost: 50000,
     required: "fasterleveling2",
     shown: false,
     purchased: false,
-    description: "Double the speed your stats gain experience." })
+    description: "Double the speed your stats gain experience.",
+  })
 
   const self = this
   // Save Method

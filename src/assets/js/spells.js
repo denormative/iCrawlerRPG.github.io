@@ -10,7 +10,8 @@ const Spells = function() {
   let arcania = 0
 
   const spellbook = []
-  spellbook.push({ name: "Cure",
+  spellbook.push({
+    name: "Cure",
     id: "cure",
     type: 0,
     requiredMagic: 5,
@@ -21,9 +22,11 @@ const Spells = function() {
     nextLevel: 150,
     baseNextLevel: 150,
     level: 0,
-    description: "" })
+    description: "",
+  })
 
-  spellbook.push({ name: "Fireball",
+  spellbook.push({
+    name: "Fireball",
     id: "fireball",
     type: 1,
     requiredMagic: 5,
@@ -34,9 +37,11 @@ const Spells = function() {
     nextLevel: 100,
     baseNextLevel: 100,
     level: 0,
-    description: "" })
+    description: "",
+  })
 
-  spellbook.push({ name: "Transmutation",
+  spellbook.push({
+    name: "Transmutation",
     id: "transmutation",
     type: 3,
     requiredMagic: 5,
@@ -47,9 +52,11 @@ const Spells = function() {
     nextLevel: 500,
     baseNextLevel: 500,
     level: 0,
-    description: "" })
+    description: "",
+  })
 
-  spellbook.push({ name: "Barrier",
+  spellbook.push({
+    name: "Barrier",
     id: "barrier",
     type: 0,
     requiredMagic: 10,
@@ -60,9 +67,11 @@ const Spells = function() {
     nextLevel: 1000,
     baseNextLevel: 1000,
     level: 0,
-    description: "" })
+    description: "",
+  })
 
-  spellbook.push({ name: "Slow",
+  spellbook.push({
+    name: "Slow",
     id: "slow",
     type: 2,
     requiredMagic: 20,
@@ -73,9 +82,11 @@ const Spells = function() {
     nextLevel: 4000,
     baseNextLevel: 4000,
     level: 0,
-    description: "" })
+    description: "",
+  })
 
-  spellbook.push({ name: "Rage",
+  spellbook.push({
+    name: "Rage",
     id: "rage",
     type: 1,
     requiredMagic: 25,
@@ -86,9 +97,11 @@ const Spells = function() {
     nextLevel: 12500,
     baseNextLevel: 12500,
     level: 0,
-    description: "" })
+    description: "",
+  })
 
-  spellbook.push({ name: "Shadow Ball",
+  spellbook.push({
+    name: "Shadow Ball",
     id: "shadowball",
     type: 1,
     requiredMagic: 30,
@@ -99,9 +112,11 @@ const Spells = function() {
     nextLevel: 1500,
     baseNextLevel: 1500,
     level: 0,
-    description: "" })
+    description: "",
+  })
 
-  spellbook.push({ name: "Aegis",
+  spellbook.push({
+    name: "Aegis",
     id: "aegis",
     type: 0,
     requiredMagic: 50,
@@ -112,10 +127,11 @@ const Spells = function() {
     nextLevel: 50000,
     baseNextLevel: 50000,
     level: 0,
-    description: "" })
+    description: "",
+  })
 
   const self = this
-    // Save Method
+  // Save Method
   self.save = function() {
     const spellsSave = {
       savedArcania: arcania,
@@ -318,7 +334,7 @@ const Spells = function() {
     }
     document.getElementById("combatlog").innerHTML = ''
     document.getElementById("combatlog").innerHTML +=
-      `Your fireball hit the ${monster.name} for ${Math.floor(fireballDamage)} damage.<br>`
+    `Your fireball hit the ${monster.name} for ${Math.floor(fireballDamage)} damage.<br>`
     if (!monsters.monsterTakeDamage(monsters.getInstancedMonster(), fireballDamage)) {
       monsters.battle(monsters.getInstancedMonster(), true)
     }
@@ -391,7 +407,7 @@ const Spells = function() {
     document.getElementById("monsterdex").innerHTML = monster.dexterity
     document.getElementById("combatlog").innerHTML = ''
     document.getElementById("combatlog").innerHTML +=
-      `You have cast slow on the ${monster.name}. Its dexterity has been lowered by ${slowEffect}.<br>`
+    `You have cast slow on the ${monster.name}. Its dexterity has been lowered by ${slowEffect}.<br>`
     monsters.setInstancedMonster(monster)
     monsters.battle(monsters.getInstancedMonster(), true)
     return true
@@ -453,7 +469,7 @@ const Spells = function() {
     }
     document.getElementById("combatlog").innerHTML = ''
     document.getElementById("combatlog").innerHTML +=
-      `Your shadow ball hit the ${monster.name} for ${Math.floor(shadowBallDamage)} damage.<br>`
+    `Your shadow ball hit the ${monster.name} for ${Math.floor(shadowBallDamage)} damage.<br>`
     if (!monsters.monsterTakeDamage(monsters.getInstancedMonster(), shadowBallDamage)) {
       monsters.battle(monsters.getInstancedMonster(), true)
     }

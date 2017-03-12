@@ -317,7 +317,7 @@ const Player = function() {
   const loadStatScreen = function(statId, statName) {
     document.getElementById(statId).innerHTML = Math.round(100 * (statName.level + statName.bonus)) / 100
     document.getElementById(`${statId}per`).innerHTML =
-      `${Math.round(100 * (100 * (statName.experience / statName.nextLevel))) / 100}%`
+    `${Math.round(100 * (100 * (statName.experience / statName.nextLevel))) / 100}%`
     document.getElementById(`${statId}prog`).style.width = `${100 * (statName.experience / statName.nextLevel)}%`
   }
 
@@ -464,20 +464,20 @@ const Player = function() {
       if (inBattle || resting) {
         if (tower.floorExplorationComplete(currentFloor)) {
           document.getElementById("exploreButton").innerHTML =
-            '<button class="btn btn-danger btn-block" disabled="disabled">Find Monster</button>'
+          '<button class="btn btn-danger btn-block" disabled="disabled">Find Monster</button>'
         }
         else {
           document.getElementById("exploreButton").innerHTML =
-            '<button class="btn btn-danger btn-block" disabled="disabled">Explore</button>'
+          '<button class="btn btn-danger btn-block" disabled="disabled">Explore</button>'
         }
       }
       else if (tower.floorExplorationComplete(currentFloor)) {
         document.getElementById("exploreButton").innerHTML =
-          '<button class="btn btn-default btn-block" onclick="tower.exploreFloor()">Find Monster</button>'
+        '<button class="btn btn-default btn-block" onclick="tower.exploreFloor()">Find Monster</button>'
       }
       else {
         document.getElementById("exploreButton").innerHTML =
-          '<button class="btn btn-default btn-block" onclick="tower.exploreFloor()">Explore</button>'
+        '<button class="btn btn-default btn-block" onclick="tower.exploreFloor()">Explore</button>'
       }
     }
     else {
@@ -489,15 +489,15 @@ const Player = function() {
     if (currentFloor !== 0) {
       if (inBattle) {
         document.getElementById("restButton").innerHTML =
-          '<button class="btn btn-danger btn-block" disabled="disabled">Rest</button>'
+        '<button class="btn btn-danger btn-block" disabled="disabled">Rest</button>'
       }
       else if (resting) {
         document.getElementById("restButton").innerHTML =
-          '<button class="btn btn-success btn-block" onclick="player.toggleRest()">Stop Resting</button>'
+        '<button class="btn btn-success btn-block" onclick="player.toggleRest()">Stop Resting</button>'
       }
       else {
         document.getElementById("restButton").innerHTML =
-          '<button class="btn btn-default btn-block" onclick="player.toggleRest()">Rest</button>'
+        '<button class="btn btn-default btn-block" onclick="player.toggleRest()">Rest</button>'
       }
     }
     else {

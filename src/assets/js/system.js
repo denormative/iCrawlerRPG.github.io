@@ -27,7 +27,7 @@ const System = function() {
   let trackOptOut = false
 
   const self = this
-    // Save Method
+  // Save Method
   const save = function() {
     const systemSave = {
       savedTicks: ticks,
@@ -60,7 +60,7 @@ const System = function() {
     return undefined
   }
 
-    // Load Method
+  // Load Method
   const load = function() {
     const systemSave = JSON.parse(localStorage.getItem("systemSave"))
     if (systemSave) {
@@ -91,14 +91,14 @@ const System = function() {
     trackEvent('system', 'load', 'tower_level', tower.getMaxFloor())
   }
 
-    // Getters
+  // Getters
   self.getIdleMode = function() {
     return idleMode
   }
 
-    // Setters
+  // Setters
 
-    // Other Methods
+  // Other Methods
   const loadIdleHealthSlider = function() {
     idleHealthSlider = new Slider("#idleRest", {
       ticks: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
@@ -175,7 +175,7 @@ const System = function() {
   self.hardReset = function() {
     theGame = window.clearInterval(theGame)
     if (confirm("Are you sure you want to wipe all your progress?")) {
-            // localStorage.clear();
+      // localStorage.clear();
       localStorage.removeItem('systemSave')
       localStorage.removeItem('playerSave')
       localStorage.removeItem('spellsSave')
@@ -206,11 +206,11 @@ const System = function() {
   const loadIdleButton = function() {
     if (idleMode) {
       document.getElementById("idleSwitch").innerHTML =
-        '<button class="btn btn-success" onclick="system.toggleIdle()">Idle ON</button>'
+      '<button class="btn btn-success" onclick="system.toggleIdle()">Idle ON</button>'
     }
     else {
       document.getElementById("idleSwitch").innerHTML =
-        '<button class="btn btn-danger" onclick="system.toggleIdle()">Idle OFF</button>'
+      '<button class="btn btn-danger" onclick="system.toggleIdle()">Idle OFF</button>'
     }
   }
 

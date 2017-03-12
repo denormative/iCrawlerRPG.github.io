@@ -248,12 +248,12 @@ const Buffs = function() {
         aegisTimeLeft -= 1
       }
       document.getElementById("temporary").innerHTML +=
-        `<li class="list-group-item list-group-item-info"><span class="badge">${Math.round(aegisTimeLeft)}</span>Aegis</li>`
+      `<li class="list-group-item list-group-item-info"><span class="badge">${Math.round(aegisTimeLeft)}</span>Aegis</li>`
     }
 
     if (barrierLeft !== 0) {
       document.getElementById("temporary").innerHTML +=
-        `<li class="list-group-item list-group-item-info"><span class="badge">${Math.round(barrierLeft)}</span>Barrier</li>`
+      `<li class="list-group-item list-group-item-info"><span class="badge">${Math.round(barrierLeft)}</span>Barrier</li>`
     }
 
     if (rageTimeLeft !== 0) {
@@ -261,7 +261,7 @@ const Buffs = function() {
         rageTimeLeft -= 1
       }
       document.getElementById("temporary").innerHTML +=
-        `<li class="list-group-item list-group-item-info"><span class="badge">${Math.round(rageTimeLeft)}</span>Rage</li>`
+      `<li class="list-group-item list-group-item-info"><span class="badge">${Math.round(rageTimeLeft)}</span>Rage</li>`
     }
   }
 
@@ -277,7 +277,7 @@ const Buffs = function() {
         toggleStatusText = "OFF"
       }
       document.getElementById("toggleable").innerHTML +=
-        `<button type="button" class="list-group-item" onclick="buffs.toggleBuff('castFireballInBattle')"><span class="badge">${toggleStatusText}</span>Auto-Shooting</button>` // eslint-disable-line
+      `<button type="button" class="list-group-item" onclick="buffs.toggleBuff('castFireballInBattle')"><span class="badge">${toggleStatusText}</span>Auto-Shooting</button>` // eslint-disable-line
     }
 
     if (castCureInBattle || upgrades.isUpgradePurchased("battlehealing")) {
@@ -288,7 +288,7 @@ const Buffs = function() {
         toggleStatusText = "OFF"
       }
       document.getElementById("toggleable").innerHTML +=
-        `<button type="button" class="list-group-item" onclick="buffs.toggleBuff('castCureInBattle')"><span class="badge">${toggleStatusText}</span>Battle Healing</button>` // eslint-disable-line
+      `<button type="button" class="list-group-item" onclick="buffs.toggleBuff('castCureInBattle')"><span class="badge">${toggleStatusText}</span>Battle Healing</button>` // eslint-disable-line
     }
 
     if (autoBarrierCast || upgrades.isUpgradePurchased("barriercast")) {
@@ -299,7 +299,7 @@ const Buffs = function() {
         toggleStatusText = "OFF"
       }
       document.getElementById("toggleable").innerHTML +=
-        `<button type="button" class="list-group-item" onclick="buffs.toggleBuff('autoBarrierCast')"><span class="badge">${toggleStatusText}</span>Barrier Casting</button>` // eslint-disable-line
+      `<button type="button" class="list-group-item" onclick="buffs.toggleBuff('autoBarrierCast')"><span class="badge">${toggleStatusText}</span>Barrier Casting</button>` // eslint-disable-line
     }
   }
 
@@ -307,35 +307,35 @@ const Buffs = function() {
     document.getElementById("permanent").innerHTML = ''
     if (deathPenaltyReduction !== 0) {
       document.getElementById("permanent").innerHTML +=
-        `<li class="list-group-item"><span class="badge">${deathPenaltyReduction}%</span>Death Penalty Reduction</li>`
+      `<li class="list-group-item"><span class="badge">${deathPenaltyReduction}%</span>Death Penalty Reduction</li>`
     }
     if (exceliaMultiplier !== 1) {
       document.getElementById("permanent").innerHTML +=
-        `<li class="list-group-item"><span class="badge">x${exceliaMultiplier}</span>Excelia Gain</li>`
+      `<li class="list-group-item"><span class="badge">x${exceliaMultiplier}</span>Excelia Gain</li>`
     }
     if (exceliaSavedOnDeath !== 0) {
       document.getElementById("permanent").innerHTML +=
-        `<li class="list-group-item"><span class="badge">${exceliaSavedOnDeath}%</span>Excelia Saved Upon Death</li>`
+      `<li class="list-group-item"><span class="badge">${exceliaSavedOnDeath}%</span>Excelia Saved Upon Death</li>`
     }
     if (manaPerSecond !== 0) {
       document.getElementById("permanent").innerHTML +=
-        `<li class="list-group-item"><span class="badge">+${manaPerSecond}</span>Exploration Mana per Second</li>`
+      `<li class="list-group-item"><span class="badge">+${manaPerSecond}</span>Exploration Mana per Second</li>`
     }
     if (explorationSpeedMultiplier !== 1) {
       document.getElementById("permanent").innerHTML +=
-        `<li class="list-group-item"><span class="badge">x${explorationSpeedMultiplier}</span>Exploration Speed</li>`
+      `<li class="list-group-item"><span class="badge">x${explorationSpeedMultiplier}</span>Exploration Speed</li>`
     }
     if (restingMultiplier !== 1) {
       document.getElementById("permanent").innerHTML +=
-        `<li class="list-group-item"><span class="badge">x${restingMultiplier}</span>Rest Speed</li>`
+      `<li class="list-group-item"><span class="badge">x${restingMultiplier}</span>Rest Speed</li>`
     }
     if (spellLevelingMultiplier !== 1) {
       document.getElementById("permanent").innerHTML +=
-        `<li class="list-group-item"><span class="badge">x${spellLevelingMultiplier}</span>Spell Level Gain</li>`
+      `<li class="list-group-item"><span class="badge">x${spellLevelingMultiplier}</span>Spell Level Gain</li>`
     }
     if (levelingSpeedMultiplier !== 1) {
       document.getElementById("permanent").innerHTML +=
-        `<li class="list-group-item"><span class="badge">x${levelingSpeedMultiplier}</span>Stats Experience Gain</li>`
+      `<li class="list-group-item"><span class="badge">x${levelingSpeedMultiplier}</span>Stats Experience Gain</li>`
     }
   }
 
