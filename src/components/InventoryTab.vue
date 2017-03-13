@@ -9,8 +9,8 @@
               <div class="panel-heading" data-toggle="collapse" data-target="#collapseShop">
                 <div class="row">
                   <div class="col-xs-6">
-                    <h3 class="panel-title" style="font-family: 'Germania One', cursive;">
-                      <img src="../assets/swap-bag.png" style="height: 25px;"> The Shop
+                    <h3 class="panel-title font-gothic">
+                      <img src="../assets/swap-bag.png" style="height: 25px;"> The&nbsp;Shop
                     </h3>
                   </div>
                   <div class="col-xs-6 text-right">
@@ -66,7 +66,7 @@
               <div class="panel-heading" data-toggle="collapse" data-target="#collapseInventory">
                 <div class="row">
                   <div class="col-xs-6">
-                    <h3 class="panel-title" style="font-family: 'Germania One', cursive;">
+                    <h3 class="panel-title font-gothic">
                       <img src="../assets/knapsack.png" style="height: 25px;"> Inventory
                     </h3>
                   </div>
@@ -103,7 +103,7 @@
               <div class="panel-heading" data-toggle="collapse" data-target="#collapseEquipment">
                 <div class="row">
                   <div class="col-xs-12">
-                    <h3 class="panel-title" style="font-family: 'Germania One', cursive;">
+                    <h3 class="panel-title font-gothic">
                       <img src="../assets/battle-gear.png" style="height: 25px;"> Equipment
                     </h3>
                   </div>

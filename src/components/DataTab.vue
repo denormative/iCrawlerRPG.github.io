@@ -5,8 +5,8 @@
       <div class="col-xs-12">
         <div class="panel panel-default">
           <div class="panel-heading" data-toggle="collapse" data-target="#collapseDataTab">
-            <h3 class="panel-title" style="font-family: 'Germania One', cursive;">
-              Game Data
+            <h3 class="panel-title font-gothic">
+              Game&nbsp;Data
             </h3>
           </div>
           <div id="collapseDataTab" class="panel-collapse collapse in">

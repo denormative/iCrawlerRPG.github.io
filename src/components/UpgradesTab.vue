@@ -9,7 +9,7 @@
               <div class="panel-heading" data-toggle="collapse" data-target="#collapseUpgrades">
                 <div class="row">
                   <div class="col-xs-5">
-                    <h3 class="panel-title" style="font-family: 'Germania One', cursive;"><img src="../assets/plain-arrow.png" style="height: 25px;"> Upgrades</h3>
+                    <h3 class="panel-title font-gothic"><img src="../assets/plain-arrow.png" style="height: 25px;"> Upgrades</h3>
                   </div>
                   <div class="col-xs-7 text-right">
                     Excelia: <span id="excelia">0</span>
@@ -36,7 +36,7 @@
               <div class="panel-heading" data-toggle="collapse" data-target="#collapseUpgrades">
                 <div class="row">
                   <div class="col-xs-12">
-                    <h3 class="panel-title" style="font-family: 'Germania One', cursive;"><img src="../assets/plain-arrow.png" style="height: 25px;"> Upgrade Effects:</h3>
+                    <h3 class="panel-title font-gothic"><img src="../assets/plain-arrow.png" style="height: 25px;"> Upgrade&nbsp;Effects:</h3>
                   </div>
                 </div>
               </div>
