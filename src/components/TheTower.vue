@@ -1,0 +1,88 @@
+<template>
+  <div class="panel panel-default">
+    <div class="panel-heading" data-toggle="collapse" data-target="#collapseTower">
+      <div class="row">
+        <div class="col-xs-3">
+          <h3 class="panel-title font-gothic"><img src="../assets/white-tower.png" style="height: 25px;"> The&nbsp;Tower</h3>
+        </div>
+        <div class="col-xs-9 text-right">
+          You are currently at Floor <span id="floor">0</span>.
+        </div>
+      </div>
+    </div>
+    <div id="collapseTower" class="panel-collapse collapse in">
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-xs-12">
+            Floor explored:
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="progress">
+              <div id="floorbar" class="progress-bar" role="progressbar" style="width: 0%;">
+                <span id="explperc">0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-3">
+            <span id="retbut"></span>
+          </div>
+          <div class="col-xs-3">
+            <span id="exploreButton"></span>
+          </div>
+          <div class="col-xs-3">
+            <span id="restButton"></span>
+          </div>
+          <div class="col-xs-3">
+            <span id="advbut"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel-footer">
+      <div class="row">
+        <div class="col-xs-12">
+          Floor Log:
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <span id="floorlog">Nothing happened here yet.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
+
+export default {
+  name: 'the-tower',
+  props: [],
+  components: {
+  },
+  data() {
+    return {}
+  },
+  mounted() {
+    this.$nextTick(() => {
+    })
+  },
+  computed: {
+    ...mapState([]),
+    ...mapGetters([]),
+  },
+  methods: {
+    ...mapActions([]),
+    ...mapMutations([]),
+  },
+}
+</script>
+
+<style scoped>
+
+</style>

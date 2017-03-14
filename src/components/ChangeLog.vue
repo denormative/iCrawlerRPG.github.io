@@ -1,18 +1,17 @@
 <template>
-  <div role="tabpanel" class="tab-pane" id="upgradesTab">
-    <div class="row" style="height: 10px;"></div>
-    <div class="row">
-      <div class="col-xs-6">
+  <div class="panel panel-default">
+    <div class="panel-heading" data-toggle="collapse" data-target="#collapseChangelog">
+      <h3 class="panel-title font-gothic">
+        <a style="cursor:pointer;" class="accordion-toggle">
+          <img src="../assets/hazard-sign.png" style="height: 25px;"> Latest&nbsp;Changes
+        </a>
+      </h3>
+    </div>
+    <div id="collapseChangelog" class="panel-collapse collapse in">
+      <div class="panel-body">
         <div class="row">
           <div class="col-xs-12">
-            <upgrades></upgrades>
-          </div>
-        </div>
-      </div>
-      <div class="col-xs-6">
-        <div class="row">
-          <div class="col-xs-12">
-            <upgrade-effects></upgrade-effects>
+            <div id="changelog"></div>
           </div>
         </div>
       </div>
@@ -22,15 +21,11 @@
 
 <script>
 import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
-import Upgrades from './Upgrades'
-import UpgradeEffects from './UpgradeEffects'
 
 export default {
-  name: 'upgrades-tab',
+  name: 'change-log',
   props: [],
   components: {
-    Upgrades,
-    UpgradeEffects,
   },
   data() {
     return {}
