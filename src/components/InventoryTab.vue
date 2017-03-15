@@ -2,23 +2,23 @@
   <div role="tabpanel" class="tab-pane" id="inventoryTab">
     <div class="row" style="height: 10px;"></div>
     <div class="row">
-      <div class="col-xs-6">
+      <div class="col-6">
         <div class="row">
-          <div class="col-xs-12">
+          <div class="col-12">
             <the-shop></the-shop>
           </div>
         </div>
       </div>
-      <div class="col-xs-3">
+      <div class="col-3">
         <div class="row">
-          <div class="col-xs-12">
+          <div class="col-12">
             <inventory></inventory>
           </div>
         </div>
       </div>
-      <div class="col-xs-3">
+      <div class="col-3">
         <div class="row">
-          <div class="col-xs-12">
+          <div class="col-12">
             <equipment></equipment>
           </div>
         </div>

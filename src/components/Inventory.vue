@@ -1,27 +1,27 @@
 <template>
-  <div class="panel panel-default">
-    <div class="panel-heading" data-toggle="collapse" data-target="#collapseInventory">
+  <div class="card">
+    <div class="card-header" data-toggle="collapse" data-target="#collapseInventory">
       <div class="row">
-        <div class="col-xs-6">
-          <h3 class="panel-title font-gothic">
+        <div class="col-6">
+          <h3 class="card-title font-gothic">
             <img src="../assets/knapsack.png" style="height: 25px;"> Inventory
           </h3>
         </div>
-        <div class="col-xs-6 text-right">
+        <div class="col-6 text-right">
           Keys: <span id="keys">0</span>
         </div>
       </div>
     </div>
-    <div id="collapseInventory" class="panel-collapse collapse in">
-      <div class="panel-body">
+    <div id="collapseInventory" class="panel-collapse collapse show">
+      <div class="card-block">
         <div class="row">
-          <div class="col-xs-12">
+          <div class="col-12">
             <button class="btn btn-block btn-success" onclick="inventory.useAllCrystals()">Use All Crystals</button>
           </div>
         </div>
         <div class="row" style="height:10px;"></div>
         <div class="row">
-          <div class="col-xs-12">
+          <div class="col-12">
             <ul class="list-group" style="margin-bottom: 0px;">
               <span id="inventory"></span>
             </ul>

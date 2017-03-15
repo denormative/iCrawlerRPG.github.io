@@ -17,30 +17,20 @@
     <div class="container-fluid">
       <div class="row" style="height: 10px;"></div>
       <div class="row">
-        <div class="col-xs-12">
+        <div class="col-12">
           <span class="pull-left">
             <span class="h1 font-gothic">ICrawler</span>
             <span class="h4 font-gothic text-muted">alpha ver0.9.1</span>
             <span>&nbsp;&nbsp;&nbsp;</span>
           </span>
           <span class="pull-left">
-            <ul class="nav nav-tabs" role="tablist">
-              <li role="presentation" class="active">
-                <a href="#towerTab" role="tab" data-toggle="tab">Tower</a>
-              </li>
-              <li role="presentation">
-                <a href="#inventoryTab" role="tab" data-toggle="tab">Inventory</a>
-              </li>
-              <li role="presentation">
-                <a href="#upgradesTab" role="tab" data-toggle="tab">Upgrades</a>
-              </li>
-              <li role="presentation">
-                <a href="#changelogTab" role="tab" data-toggle="tab">Changelog</a>
-              </li>
-              <li role="presentation">
-                <a href="#dataTab" role="tab" data-toggle="tab">Game Data</a>
-              </li>
-            </ul>
+            <nav class="nav nav-tabs" role="tablist">
+              <a class="nav-link active" href="#towerTab" role="tab" data-toggle="tab">Tower</a>
+              <a class="nav-link" href="#inventoryTab" role="tab" data-toggle="tab">Inventory</a>
+              <a class="nav-link" href="#upgradesTab" role="tab" data-toggle="tab">Upgrades</a>
+              <a class="nav-link" href="#changelogTab" role="tab" data-toggle="tab">Changelog</a>
+              <a class="nav-link" href="#dataTab" role="tab" data-toggle="tab">Game Data</a>
+            </nav>
           </span>
         </div>
       </div>
@@ -53,7 +43,7 @@
       </div>
       <div class="row">
         <hr>
-        <div class="col-xs-12 text-center">
+        <div class="col-12 text-center">
           ICrawler was made by the <a href="https://github.com/iCrawlerRPG">ICrawlerRPG Team</a> Icons are from their respective creators at
           <a href="http://game-icons.net/">Game-icons.net</a>.
         </div>

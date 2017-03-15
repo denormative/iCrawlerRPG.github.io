@@ -1,19 +1,19 @@
 <template>
-  <div class="panel panel-default">
-    <div class="panel-heading" data-toggle="collapse" data-target="#collapseUpgrades">
+  <div class="card">
+    <div class="card-header" data-toggle="collapse" data-target="#collapseUpgrades">
       <div class="row">
-        <div class="col-xs-5">
-          <h3 class="panel-title font-gothic"><img src="../assets/plain-arrow.png" style="height: 25px;"> Upgrades</h3>
+        <div class="col-5">
+          <h3 class="card-title font-gothic"><img src="../assets/plain-arrow.png" style="height: 25px;"> Upgrades</h3>
         </div>
-        <div class="col-xs-7 text-right">
+        <div class="col-7 text-right">
           Excelia: <span id="excelia">0</span>
         </div>
       </div>
     </div>
-    <div id="collapseUpgrades" class="panel-collapse collapse in">
-      <div class="panel-body">
+    <div id="collapseUpgrades" class="panel-collapse collapse show">
+      <div class="card-block">
         <div class="row">
-          <div class="col-xs-12">
+          <div class="col-12">
             <span id="upgrades"></span>
           </div>
         </div>

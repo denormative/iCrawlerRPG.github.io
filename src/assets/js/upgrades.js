@@ -351,7 +351,7 @@ const Upgrades = function() {
     for (let i = 0; i < upgradeList.length; i++) {
       if (!upgradeList[i].purchased && self.isUpgradePurchased(upgradeList[i].required)) {
         upgradeList[i].shown = true
-        document.getElementById("upgrades").innerHTML += `<div class="row"><div class="col-xs-7"><button class="btn btn-primary btn-block" data-toggle="tooltip" data-placement="top" title="${upgradeList[i].description}" onclick="upgrades.buyUpgrade('${upgradeList[i].id}')">${upgradeList[i].name}</button></div><div class="col-xs-5"><p>(Cost: ${upgradeList[i].exceliaCost})</p></div></div><div class="row" style="height: 5px;"></div>`// eslint-disable-line
+        document.getElementById("upgrades").innerHTML += `<div class="row"><div class="col-7"><button class="btn btn-primary btn-block" data-toggle="tooltip" data-placement="top" title="${upgradeList[i].description}" onclick="upgrades.buyUpgrade('${upgradeList[i].id}')">${upgradeList[i].name}</button></div><div class="col-5"><p>(Cost: ${upgradeList[i].exceliaCost})</p></div></div><div class="row" style="height: 5px;"></div>`// eslint-disable-line
       }
     }
     window.vm.$nextTick(() => {

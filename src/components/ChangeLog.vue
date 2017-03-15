@@ -1,16 +1,16 @@
 <template>
-  <div class="panel panel-default">
-    <div class="panel-heading" data-toggle="collapse" data-target="#collapseChangelog">
-      <h3 class="panel-title font-gothic">
+  <div class="card">
+    <div class="card-header" data-toggle="collapse" data-target="#collapseChangelog">
+      <h3 class="card-title font-gothic">
         <a style="cursor:pointer;" class="accordion-toggle">
           <img src="../assets/hazard-sign.png" style="height: 25px;"> Latest&nbsp;Changes
         </a>
       </h3>
     </div>
-    <div id="collapseChangelog" class="panel-collapse collapse in">
-      <div class="panel-body">
+    <div id="collapseChangelog" class="panel-collapse collapse show">
+      <div class="card-block">
         <div class="row">
-          <div class="col-xs-12">
+          <div class="col-12">
             <div id="changelog"></div>
           </div>
         </div>

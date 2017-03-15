@@ -2,16 +2,16 @@
   <div role="tabpanel" class="tab-pane" id="upgradesTab">
     <div class="row" style="height: 10px;"></div>
     <div class="row">
-      <div class="col-xs-6">
+      <div class="col-6">
         <div class="row">
-          <div class="col-xs-12">
+          <div class="col-12">
             <upgrades></upgrades>
           </div>
         </div>
       </div>
-      <div class="col-xs-6">
+      <div class="col-6">
         <div class="row">
-          <div class="col-xs-12">
+          <div class="col-12">
             <upgrade-effects></upgrade-effects>
           </div>
         </div>

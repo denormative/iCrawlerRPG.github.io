@@ -1,14 +1,14 @@
 <template>
-  <div class="panel panel-default">
-    <div class="panel-heading" data-toggle="collapse" data-target="#collapseBuffs">
-      <h3 class="panel-title text-danger font-gothic">
+  <div class="card">
+    <div class="card-header" data-toggle="collapse" data-target="#collapseBuffs">
+      <h3 class="card-title text-danger font-gothic">
         <img src="../assets/biceps.png" style="height: 25px;"> Spell&nbsp;Effects
       </h3>
     </div>
-    <div id="collapseBuffs" class="panel-collapse collapse in">
-      <div class="panel-body">
+    <div id="collapseBuffs" class="panel-collapse collapse show">
+      <div class="card-block">
         <div class="row">
-          <div class="col-xs-12">
+          <div class="col-12">
             <ul class="list-group">
               <span id="temporary">
               </span>

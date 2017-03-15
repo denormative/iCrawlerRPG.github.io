@@ -1,25 +1,25 @@
 <template>
-  <div class="panel panel-default">
-    <div class="panel-heading" data-toggle="collapse" data-target="#collapseTimeControls">
+  <div class="card">
+    <div class="card-header" data-toggle="collapse" data-target="#collapseTimeControls">
       <div class="row">
-        <div class="col-xs-3">
-          <h3 class="panel-title font-gothic"><img src="../assets/empty-hourglass.png" style="height: 25px;"> Idle&nbsp;Controls</h3>
+        <div class="col-3">
+          <h3 class="card-title font-gothic"><img src="../assets/empty-hourglass.png" style="height: 25px;"> Idle&nbsp;Controls</h3>
         </div>
-        <div class="col-xs-9 text-right">
+        <div class="col-9 text-right">
           Current Run: <span id="days">0</span> days, <span id="hours">0</span> hours, <span id="minutes">0</span> minutes, <span
           id="seconds">0</span> seconds
         </div>
       </div>
     </div>
-    <div id="collapseTimeControls" class="panel-collapse collapse in">
-      <div class="panel-body">
+    <div id="collapseTimeControls" class="panel-collapse collapse show">
+      <div class="card-block">
         <div class="row">
-          <div class="col-xs-2">
+          <div class="col-2">
             Time speed: x<span id="speed">1</span>
           </div>
-          <div class="col-xs-7">
+          <div class="col-7">
             <div class="row">
-              <div class="col-xs-12">
+              <div class="col-12">
                 <span id="idleSwitch"></span>
                 <button class="btn btn-primary" onclick="system.gameSpeed(1000)">x1</button>
                 <span id="speed2"></span>
@@ -28,30 +28,30 @@
               </div>
             </div>
           </div>
-          <div class="col-xs-3">
+          <div class="col-3">
             <a class="btn btn-primary btn-block" role="button" data-toggle="collapse" href="#idleOptions" aria-expanded="false" aria-controls="collapseExample">Options</a>
           </div>
         </div>
       </div>
       <div class="collapse" id="idleOptions">
         <div class="row" style="margin-left:0px; margin-bottom:10px;">
-          <div class="col-xs-3">
+          <div class="col-3">
             Auto-Rest at HP%:
           </div>
-          <div class="col-xs-8">
+          <div class="col-8">
             <input type="text" id="idleRest" name="idleRest" style="width: 100%;">
           </div>
         </div>
         <div class="row" style="margin-left:0px; margin-bottom:10px;">
-          <div class="col-xs-3">
+          <div class="col-3">
             Auto-Rest at MP%:
           </div>
-          <div class="col-xs-8">
+          <div class="col-8">
             <input type="text" id="idleMpRest" name="idleMpRest" style="width: 100%;">
           </div>
         </div>
         <div class="row" style="margin-left:0px; margin-bottom:10px; margin-right:0px;">
-          <div class="col-xs-12">
+          <div class="col-12">
             <div class="list-group" style="margin-bottom:5px;">
               <span id="toggleable">
               </span>

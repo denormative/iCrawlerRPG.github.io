@@ -1,19 +1,19 @@
 <template>
-  <div class="panel panel-default">
-    <div class="panel-heading" data-toggle="collapse" data-target="#collapseSpellbook">
+  <div class="card">
+    <div class="card-header" data-toggle="collapse" data-target="#collapseSpellbook">
       <div class="row">
-        <div class="col-xs-5">
-          <h3 class="panel-title font-gothic"><img src="../assets/book-cover.png" style="height: 25px;"> Spellbook</h3>
+        <div class="col-5">
+          <h3 class="card-title font-gothic"><img src="../assets/book-cover.png" style="height: 25px;"> Spellbook</h3>
         </div>
-        <div class="col-xs-7 text-right">
+        <div class="col-7 text-right">
           Arcania: <span id="arcania">0</span>
         </div>
       </div>
     </div>
-    <div id="collapseSpellbook" class="panel-collapse collapse in">
-      <div class="panel-body">
+    <div id="collapseSpellbook" class="panel-collapse collapse show">
+      <div class="card-block">
         <div class="row">
-          <div class="col-xs-12">
+          <div class="col-12">
             <ul class="nav nav-pills" role="tablist">
               <li role="presentation" class="active">
                 <a href="#all" aria-controls="healing" role="tab" data-toggle="tab">All</a>
@@ -35,7 +35,7 @@
         </div>
         <div class="row" style="height: 10px;"></div>
         <div class="row">
-          <div class="col-xs-12">
+          <div class="col-12">
             <div class="tab-content">
               <div role="tabpanel" class="tab-pane active" id="all">
                 <span id="spellbook"></span>

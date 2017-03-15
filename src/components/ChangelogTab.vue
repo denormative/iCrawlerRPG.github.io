@@ -2,7 +2,7 @@
   <div role="tabpanel" class="tab-pane" id="changelogTab">
     <div class="row" style="height: 10px;"></div>
     <div class="row">
-      <div class="col-xs-12">
+      <div class="col-12">
         <change-log></change-log>
       </div>
     </div>
