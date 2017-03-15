@@ -3,7 +3,7 @@
     <div class="card-header" data-toggle="collapse" data-target="#collapseTower">
       <div class="row">
         <div class="col-3">
-          <h3 class="card-title font-gothic"><img src="../assets/white-tower.png" style="height: 25px;"> The&nbsp;Tower</h3>
+          <h5 class="card-title font-gothic"><img src="../assets/white-tower.png" style="height: 25px;"> The&nbsp;Tower</h5>
         </div>
         <div class="col-9 text-right">
           You are currently at Floor <span id="floor">0</span>.
@@ -26,20 +26,23 @@
             </div>
           </div>
         </div>
-        <div class="row">
+        <nav class="nav nav-pills nav-justified">
+          <span class="nav-item m-1" id="retbut"></span>
+          <span class="nav-item m-1" id="exploreButton"></span>
+          <span class="nav-item m-1" id="restButton"></span>
+          <span class="nav-item m-1" id="advbut"></span>
+        </nav>
+
+        <!-- <div class="row">
           <div class="col-3">
-            <span id="retbut"></span>
           </div>
           <div class="col-3">
-            <span id="exploreButton"></span>
           </div>
           <div class="col-3">
-            <span id="restButton"></span>
           </div>
           <div class="col-3">
-            <span id="advbut"></span>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="card-footer">

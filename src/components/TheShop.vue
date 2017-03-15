@@ -3,9 +3,9 @@
     <div class="card-header" data-toggle="collapse" data-target="#collapseShop">
       <div class="row">
         <div class="col-6">
-          <h3 class="card-title font-gothic">
+          <h5 class="card-title font-gothic">
             <img src="../assets/swap-bag.png" style="height: 25px;"> The&nbsp;Shop
-          </h3>
+          </h5>
         </div>
         <div class="col-6 text-right">
           Gold: <span id="gold">0</span>

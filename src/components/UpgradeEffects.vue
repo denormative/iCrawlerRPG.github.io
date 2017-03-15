@@ -3,7 +3,7 @@
     <div class="card-header" data-toggle="collapse" data-target="#collapseUpgrades">
       <div class="row">
         <div class="col-12">
-          <h3 class="card-title font-gothic"><img src="../assets/plain-arrow.png" style="height: 25px;"> Upgrade&nbsp;Effects:</h3>
+          <h5 class="card-title font-gothic"><img src="../assets/plain-arrow.png" style="height: 25px;"> Upgrade&nbsp;Effects:</h5>
         </div>
       </div>
     </div>

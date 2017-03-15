@@ -1,11 +1,11 @@
 <template>
   <div class="card">
     <div class="card-header" data-toggle="collapse" data-target="#collapseChangelog">
-      <h3 class="card-title font-gothic">
+      <h5 class="card-title font-gothic">
         <a style="cursor:pointer;" class="accordion-toggle">
           <img src="../assets/hazard-sign.png" style="height: 25px;"> Latest&nbsp;Changes
         </a>
-      </h3>
+      </h5>
     </div>
     <div id="collapseChangelog" class="panel-collapse collapse show">
       <div class="card-block">

@@ -3,9 +3,9 @@
     <div class="card-header" data-toggle="collapse" data-target="#collapseEquipment">
       <div class="row">
         <div class="col-12">
-          <h3 class="card-title font-gothic">
+          <h5 class="card-title font-gothic">
             <img src="../assets/battle-gear.png" style="height: 25px;"> Equipment
-          </h3>
+          </h5>
         </div>
       </div>
     </div>

@@ -1,9 +1,9 @@
 <template>
   <div class="card">
     <div class="card-header" data-toggle="collapse" data-target="#collapseDataTab">
-      <h3 class="card-title font-gothic">
+      <h5 class="card-title font-gothic">
         Game&nbsp;Data
-      </h3>
+      </h5>
     </div>
     <div id="collapseDataTab" class="panel-collapse collapse show">
       <div class="card-block">

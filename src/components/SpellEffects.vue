@@ -1,9 +1,9 @@
 <template>
   <div class="card">
     <div class="card-header" data-toggle="collapse" data-target="#collapseBuffs">
-      <h3 class="card-title text-danger font-gothic">
+      <h5 class="card-title text-danger font-gothic">
         <img src="../assets/biceps.png" style="height: 25px;"> Spell&nbsp;Effects
-      </h3>
+      </h5>
     </div>
     <div id="collapseBuffs" class="panel-collapse collapse show">
       <div class="card-block">

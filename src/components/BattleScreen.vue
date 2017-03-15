@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header" data-toggle="collapse" data-target="#collapseBattle">
-      <h3 class="card-title font-gothic"><img src="../assets/crossed-swords.png" style="height: 25px;"> Battle&nbsp;Screen</h3>
+      <h5 class="card-title font-gothic"><img src="../assets/crossed-swords.png" style="height: 25px;"> Battle&nbsp;Screen</h5>
     </div>
     <div id="collapseBattle" class="panel-collapse collapse show">
       <div class="card-block">
@@ -26,7 +26,7 @@
             <div class="row">
               <div class="col-12">
                 <div class="progress">
-                  <div id="monsterbar" class="progress-bar progress-bar-danger" role="progressbar" style="width: 0%;">
+                  <div id="monsterbar" class="progress-bar bg-danger" role="progressbar" style="width: 0%;">
                     <span id="monsterhp">0</span>
                   </div>
                 </div>

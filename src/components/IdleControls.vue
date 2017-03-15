@@ -3,7 +3,7 @@
     <div class="card-header" data-toggle="collapse" data-target="#collapseTimeControls">
       <div class="row">
         <div class="col-3">
-          <h3 class="card-title font-gothic"><img src="../assets/empty-hourglass.png" style="height: 25px;"> Idle&nbsp;Controls</h3>
+          <h5 class="card-title font-gothic"><img src="../assets/empty-hourglass.png" style="height: 25px;"> Idle&nbsp;Controls</h5>
         </div>
         <div class="col-9 text-right">
           Current Run: <span id="days">0</span> days, <span id="hours">0</span> hours, <span id="minutes">0</span> minutes, <span

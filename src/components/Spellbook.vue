@@ -3,7 +3,7 @@
     <div class="card-header" data-toggle="collapse" data-target="#collapseSpellbook">
       <div class="row">
         <div class="col-5">
-          <h3 class="card-title font-gothic"><img src="../assets/book-cover.png" style="height: 25px;"> Spellbook</h3>
+          <h5 class="card-title font-gothic"><img src="../assets/book-cover.png" style="height: 25px;"> Spellbook</h5>
         </div>
         <div class="col-7 text-right">
           Arcania: <span id="arcania">0</span>
