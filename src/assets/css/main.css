@@ -7,3 +7,7 @@
 html {
   font-size: 0.8rem;
 }
+
+h5.card-title {
+  margin-bottom: 0;
+}

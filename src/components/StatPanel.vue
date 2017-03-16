@@ -1,10 +1,10 @@
 <template>
-  <div class="row">
+  <div class="row align-items-center">
     <div class="col-4">
       {{name}}:&nbsp;<span :id="statId">0</span>
     </div>
     <div class="col-8">
-      <div class="progress" data-toggle="tooltip" data-placement="top" :title="title" style="margin-bottom: 5px;">
+      <div class="progress" data-toggle="tooltip" data-placement="top" :title="title">
         <div :id="statId+'prog'" class="progress-bar" role="progressbar" style="width: 100%;">
           <span :id="statId+'per'">0%</span>
         </div>
