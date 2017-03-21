@@ -1,15 +1,13 @@
 <template>
   <div class="card">
     <div class="card-header" data-toggle="collapse" data-target="#collapseTimeControls">
-      <div class="row">
-        <div class="col-3">
-          <h5 class="card-title font-gothic"><img src="../assets/empty-hourglass.png" style="height: 25px;"> Idle&nbsp;Controls</h5>
-        </div>
-        <div class="col-9 text-right">
-          Current Run: <span id="days">0</span> days, <span id="hours">0</span> hours, <span id="minutes">0</span> minutes, <span
-          id="seconds">0</span> seconds
-        </div>
-      </div>
+      <card-header icon="empty-hourglass" title="Idle Controls">
+        Current Run:
+          <span id="days">0</span> days,
+          <span id="hours">0</span> hours,
+          <span id="minutes">0</span> minutes,
+          <span id="seconds">0</span> seconds
+      </card-header>
     </div>
     <div id="collapseTimeControls" class="panel-collapse collapse show">
       <div class="card-block">
@@ -65,11 +63,13 @@
 
 <script>
 import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
+import CardHeader from './CardHeader'
 
 export default {
   name: 'idle-controls',
   props: [],
   components: {
+    CardHeader,
   },
   data() {
     return {}
