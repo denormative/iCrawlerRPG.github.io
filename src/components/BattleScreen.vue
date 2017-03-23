@@ -1,7 +1,8 @@
 <template>
   <div class="card">
     <div class="card-header" data-toggle="collapse" data-target="#collapseBattle">
-      <h5 class="card-title font-gothic"><img src="../assets/crossed-swords.png" style="height: 25px;"> Battle&nbsp;Screen</h5>
+      <card-header icon="crossed-swords" title="Battle Screen">
+      </card-header>
     </div>
     <div id="collapseBattle" class="panel-collapse collapse show">
       <div class="card-block">
@@ -61,11 +62,13 @@
 
 <script>
 import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
+import CardHeader from './CardHeader'
 
 export default {
   name: 'battle-screen',
   props: [],
   components: {
+    CardHeader,
   },
   data() {
     return {}
@@ -86,5 +89,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

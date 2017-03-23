@@ -1,12 +1,12 @@
 <template>
   <div class="d-flex justify-content-between align-items-center">
-    <div class="d-flex align-items-center">
-      <img :src="requireIcon(icon)" class="mr-2" style="height: 25px;">
+    <span class="d-inline-flex align-items-center">
+      <img :src="requireIcon(icon)" class="mr-2" style="height: 2rem; width: 2rem;">
       <h5 class="card-title font-gothic">{{title}}</h5>
-    </div>
-    <div class="text-right">
+    </span>
+    <span class="d-flex flex-column" style="width: 100%;">
       <slot></slot>
-    </div>
+    </span>
   </div>
 </template>
 

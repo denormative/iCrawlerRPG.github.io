@@ -11,3 +11,7 @@ html {
 h5.card-title {
   margin-bottom: 0;
 }
+
+.progress {
+  width: 100%;
+}

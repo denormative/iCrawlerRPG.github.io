@@ -2,11 +2,13 @@
   <div class="card">
     <div class="card-header" data-toggle="collapse" data-target="#collapseTimeControls">
       <card-header icon="empty-hourglass" title="Idle Controls">
-        Current Run:
-          <span id="days">0</span> days,
-          <span id="hours">0</span> hours,
-          <span id="minutes">0</span> minutes,
-          <span id="seconds">0</span> seconds
+        <span class="text-right">
+          Current Run:
+            <span id="days">0</span> days,
+            <span id="hours">0</span> hours,
+            <span id="minutes">0</span> minutes,
+            <span id="seconds">0</span> seconds
+          </span>
       </card-header>
     </div>
     <div id="collapseTimeControls" class="panel-collapse collapse show">
