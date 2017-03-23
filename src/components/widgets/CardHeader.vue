@@ -13,7 +13,7 @@
 <script>
 import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
 
-const icons = require.context('../assets/', false, /\.png$/)
+const icons = require.context('../../assets/', false, /\.png$/)
 
 export default {
   name: 'card-header',

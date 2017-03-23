@@ -49,7 +49,7 @@
 <script>
 import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
 import StatPanel from './StatPanel'
-import CardHeader from './CardHeader'
+import CardHeader from './widgets/CardHeader'
 
 export default {
   name: 'status-screen',

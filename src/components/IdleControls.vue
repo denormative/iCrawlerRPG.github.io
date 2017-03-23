@@ -65,7 +65,7 @@
 
 <script>
 import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
-import CardHeader from './CardHeader'
+import CardHeader from './widgets/CardHeader'
 
 export default {
   name: 'idle-controls',
