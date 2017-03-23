@@ -1,14 +1,11 @@
 <template>
   <div class="card">
     <div class="card-header" data-toggle="collapse" data-target="#collapseTower">
-      <div class="row">
-        <div class="col-3">
-          <h5 class="card-title font-gothic"><img src="../assets/white-tower.png" style="height: 25px;"> The&nbsp;Tower</h5>
-        </div>
-        <div class="col-9 text-right">
+      <card-header icon="white-tower" title="The Tower">
+        <span class="text-right">
           You are currently at Floor <span id="floor">0</span>.
-        </div>
-      </div>
+        </span>
+      </card-header>
     </div>
     <div id="collapseTower" class="panel-collapse collapse show">
       <div class="card-block">
@@ -62,11 +59,13 @@
 
 <script>
 import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
+import CardHeader from './CardHeader'
 
 export default {
   name: 'the-tower',
   props: [],
   components: {
+    CardHeader,
   },
   data() {
     return {}

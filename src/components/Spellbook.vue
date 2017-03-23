@@ -1,14 +1,11 @@
 <template>
   <div class="card">
     <div class="card-header" data-toggle="collapse" data-target="#collapseSpellbook">
-      <div class="row">
-        <div class="col-5">
-          <h5 class="card-title font-gothic"><img src="../assets/book-cover.png" style="height: 25px;"> Spellbook</h5>
-        </div>
-        <div class="col-7 text-right">
+      <card-header icon="book-cover" title="Spellbook">
+        <span class="text-right">
           Arcania: <span id="arcania">0</span>
-        </div>
-      </div>
+        </span>
+      </card-header>
     </div>
     <div id="collapseSpellbook" class="panel-collapse collapse show">
       <div class="card-block">
@@ -62,11 +59,13 @@
 
 <script>
 import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
+import CardHeader from './CardHeader'
 
 export default {
   name: 'spellbook',
   props: [],
   components: {
+    CardHeader,
   },
   data() {
     return {}

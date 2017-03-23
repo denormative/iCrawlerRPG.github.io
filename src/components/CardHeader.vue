@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex justify-content-between align-items-center">
-    <span class="d-inline-flex align-items-center">
+    <span class="d-inline-flex align-items-center" :class="titleClass">
       <img :src="requireIcon(icon)" class="mr-2" style="height: 2rem; width: 2rem;">
       <h5 class="card-title font-gothic">{{title}}</h5>
     </span>
@@ -17,7 +17,7 @@ const icons = require.context('../assets/', false, /\.png$/)
 
 export default {
   name: 'card-header',
-  props: ['icon', 'title'],
+  props: ['icon', 'title', 'title-class'],
   components: {
   },
   data() {

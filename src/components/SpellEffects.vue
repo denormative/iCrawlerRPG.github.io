@@ -1,9 +1,8 @@
 <template>
   <div class="card">
     <div class="card-header" data-toggle="collapse" data-target="#collapseBuffs">
-      <h5 class="card-title text-danger font-gothic">
-        <img src="../assets/biceps.png" style="height: 25px;"> Spell&nbsp;Effects
-      </h5>
+      <card-header icon="biceps" title="Spell Effects" title-class="text-danger">
+      </card-header>
     </div>
     <div id="collapseBuffs" class="panel-collapse collapse show">
       <div class="card-block">
@@ -22,11 +21,13 @@
 
 <script>
 import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
+import CardHeader from './CardHeader'
 
 export default {
   name: 'spell-effects',
   props: [],
   components: {
+    CardHeader,
   },
   data() {
     return {}
