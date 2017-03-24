@@ -1,23 +1,9 @@
 <template>
   <div class="card">
     <div class="card-header" data-toggle="collapse" data-target="#collapseStatusScreen">
-      <card-header icon="histogram" title="Status Screen">
-        <div class="d-flex flex-row align-items-center">
-          HP:&nbsp;
-            <div class="progress" data-toggle="tooltip" data-placement="top" title="Your health. You die if this gets to 0.">
-              <div id="hpbar" class="progress-bar bg-danger" role="progressbar">
-                <span id="hp">0</span>/<span id="hpmax">0</span>
-              </div>
-            </div>
-        </div>
-        <div class="d-flex flex-row align-items-center">
-          MP:&nbsp;
-            <div class="progress" data-toggle="tooltip" data-placement="top" title="Your mana. You cannot cast spells without this." style="margin-bottom: 0px;">
-              <div id="mpbar" class="progress-bar bg-info" role="progressbar" style="width: 100%;">
-                <span id="mp">0</span>/<span id="mpmax">0</span>
-              </div>
-          </div>
-        </div>
+      <card-header icon="histogram" description="Status Screen">
+        <hp-mp-bar name="HP" title="Your health. You die if this gets to 0." stat-id="hp" bar-colour="bg-danger"></hp-mp-bar>
+        <hp-mp-bar name="MP" title="Your mana. You cannot cast spells without this." stat-id="mp" bar-colour="bg-info"></hp-mp-bar>
       </card-header>
     </div>
     <div id="collapseStatusScreen" class="panel-collapse collapse show">
@@ -50,6 +36,7 @@
 import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
 import StatPanel from './StatPanel'
 import CardHeader from './widgets/CardHeader'
+import HpMpBar from './widgets/HpMpBar'
 
 export default {
   name: 'status-screen',
@@ -57,6 +44,7 @@ export default {
   components: {
     StatPanel,
     CardHeader,
+    HpMpBar,
   },
   data() {
     return {}
