@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex flex-row align-items-center">
-    {{name}}:&nbsp;
+    <div v-if="name" v-html="name+':&nbsp;'"></div>
       <div class="progress" data-toggle="tooltip" data-placement="top" :title="description">
         <div :id="statId+'bar'" class="progress-bar" :class="barColour" role="progressbar">
           <span :id="statId">0</span>/<span :id="statId+'max'">0</span>

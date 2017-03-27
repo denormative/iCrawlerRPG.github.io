@@ -1,9 +1,9 @@
 <template>
   <div class="card">
     <div class="card-header" data-toggle="collapse" data-target="#collapseStatusScreen">
-      <card-header icon="histogram" description="Status Screen">
-        <hp-mp-bar name="HP" title="Your health. You die if this gets to 0." stat-id="hp" bar-colour="bg-danger"></hp-mp-bar>
-        <hp-mp-bar name="MP" title="Your mana. You cannot cast spells without this." stat-id="mp" bar-colour="bg-info"></hp-mp-bar>
+      <card-header icon="histogram" title="Status Screen">
+        <hp-mp-bar name="HP" description="Your health. You die if this gets to 0." stat-id="hp" bar-colour="bg-danger"></hp-mp-bar>
+        <hp-mp-bar name="MP" description="Your mana. You cannot cast spells without this." stat-id="mp" bar-colour="bg-info"></hp-mp-bar>
       </card-header>
     </div>
     <div id="collapseStatusScreen" class="panel-collapse collapse show">
