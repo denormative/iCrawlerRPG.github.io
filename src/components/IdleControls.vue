@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <div class="card-header" data-toggle="collapse" data-target="#collapseTimeControls">
+    <div class="card-header" data-toggle="collapse" data-target="#collapseIdleControls">
       <card-header icon="empty-hourglass" title="Idle Controls">
         <span class="text-right">
           Current Run:
@@ -8,28 +8,25 @@
             <span id="hours">0</span> hours,
             <span id="minutes">0</span> minutes,
             <span id="seconds">0</span> seconds
+            <br>
+            Time Speed:&nbsp;x<span id="speed">1</span>
           </span>
       </card-header>
     </div>
-    <div id="collapseTimeControls" class="panel-collapse collapse show">
+    <div id="collapseIdleControls" class="panel-collapse collapse show">
       <div class="card-block">
-        <div class="row">
-          <div class="col-2">
-            Time speed: x<span id="speed">1</span>
+        <div class="d-flex justify-content-between">
+          <div class="">
           </div>
-          <div class="col-7">
-            <div class="row">
-              <div class="col-12">
-                <span id="idleSwitch"></span>
-                <button class="btn btn-primary" onclick="system.gameSpeed(1000)">x1</button>
-                <span id="speed2"></span>
-                <span id="speed5"></span>
-                <span id="speed10"></span>
-              </div>
-            </div>
+          <div class="" style="width: 100%">
+            <span id="idleSwitch"></span>
+            <button class="btn btn-primary" onclick="system.gameSpeed(1000)">x1</button>
+            <span id="speed2"></span>
+            <span id="speed5"></span>
+            <span id="speed10"></span>
           </div>
-          <div class="col-3">
-            <a class="btn btn-primary btn-block" role="button" data-toggle="collapse" href="#idleOptions" aria-expanded="false" aria-controls="collapseExample">Options</a>
+          <div class="">
+            <a class="btn btn-info btn-block" role="button" data-toggle="collapse" href="#idleOptions" aria-expanded="false" aria-controls="collapseExample">Options</a>
           </div>
         </div>
       </div>
