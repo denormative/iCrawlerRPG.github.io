@@ -9,17 +9,11 @@
     </div>
     <div id="collapseTower" class="panel-collapse collapse show">
       <div class="card-block">
-        <div class="row">
-          <div class="col-12">
-            Floor explored:
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12">
-            <div class="progress">
-              <div id="floorbar" class="progress-bar" role="progressbar" style="width: 0%;">
-                <span id="explperc">0</span>
-              </div>
+        <div class="d-flex flex-column">
+          Floor explored:
+          <div class="progress mb-2">
+            <div id="floorbar" class="progress-bar" role="progressbar" style="width: 0%;">
+              <span id="explperc">0</span>
             </div>
           </div>
         </div>
@@ -43,16 +37,9 @@
       </div>
     </div>
     <div class="card-footer">
-      <div class="row">
-        <div class="col-12">
-          Floor Log:
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
+        <div style="height: 3rem;">
           <span id="floorlog">Nothing happened here yet.</span>
         </div>
-      </div>
     </div>
   </div>
 </template>
