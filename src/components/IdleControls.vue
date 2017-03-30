@@ -26,12 +26,12 @@
             <span id="speed10"></span>
           </div>
           <div class="">
-            <a class="btn btn-info btn-block" role="button" data-toggle="collapse" href="#idleOptions" aria-expanded="false" aria-controls="collapseExample">Options</a>
+            <a class="btn btn-info" role="button" data-toggle="collapse" href="#idleOptions" aria-expanded="false" aria-controls="collapseExample">Options</a>
           </div>
         </div>
       </div>
       <div class="collapse" id="idleOptions">
-        <div class="row" style="margin-left:0px; margin-bottom:10px;">
+        <div class="d-flex" style="margin-bottom:10px;">
           <div class="col-3">
             Auto-Rest at HP%:
           </div>
@@ -39,7 +39,7 @@
             <input type="text" id="idleRest" name="idleRest" style="width: 100%;">
           </div>
         </div>
-        <div class="row" style="margin-left:0px; margin-bottom:10px;">
+        <div class="d-flex" style="margin-bottom:10px;">
           <div class="col-3">
             Auto-Rest at MP%:
           </div>
@@ -47,11 +47,11 @@
             <input type="text" id="idleMpRest" name="idleMpRest" style="width: 100%;">
           </div>
         </div>
-        <div class="row" style="margin-left:0px; margin-bottom:10px; margin-right:0px;">
-          <div class="col-12">
-            <div class="list-group" style="margin-bottom:5px;">
-              <span id="toggleable">
-              </span>
+        <div class="">
+          <div class="col-12 mb-3">
+            <div class="list-group">
+              <div id="toggleable">
+              </div>
             </div>
           </div>
         </div>

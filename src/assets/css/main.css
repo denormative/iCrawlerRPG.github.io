@@ -15,3 +15,7 @@ h5.card-title {
 .progress {
   width: 100%;
 }
+
+button.list-group-item {
+  width: 100%;
+}

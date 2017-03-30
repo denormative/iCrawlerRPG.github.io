@@ -107,12 +107,12 @@ const Inventory = function() {
     const tooltip = `Chest rarity: ${chest.rarity}<br>The higher the rarity, the better the stats of the item inside will be.`
     if (!sellModeArg) {
       document.getElementById("inventory").innerHTML +=
-      `<button type="button" class="list-group-item" data-toggle="tooltip" title="${tooltip}" onclick="inventory.openChest(${number})"><span class="badge">Open</span> ${chest.name}</button>` // eslint-disable-line
+      `<button type="button" class="list-group-item" data-toggle="tooltip" title="${tooltip}" onclick="inventory.openChest(${number})"><span class="badge badge-default badge-pill">Open</span> ${chest.name}</button>` // eslint-disable-line
     }
     else {
       const price = chest.rarity
       document.getElementById("inventory").innerHTML +=
-      `<button type="button" class="list-group-item list-group-item-success" data-toggle="tooltip" title="${tooltip}" onclick="inventory.sell(${number},${price})"><span class="badge">${price}</span> ${chest.name}</button>` // eslint-disable-line
+      `<button type="button" class="list-group-item list-group-item-success" data-toggle="tooltip" title="${tooltip}" onclick="inventory.sell(${number},${price})"><span class="badge badge-default badge-pill">${price}</span> ${chest.name}</button>` // eslint-disable-line
     }
   }
 
@@ -120,12 +120,12 @@ const Inventory = function() {
     const tooltip = `Bonus STR: ${Math.round(100 * weapon.damage * weapon.rarity) / 100}<br>Bonus DEX: ${Math.round(100 * weapon.speed * weapon.rarity) / 100}<br>Bonus CON: ${Math.round(100 * weapon.defense * weapon.rarity) / 100}<br>Bonus MGC: ${Math.round(100 * weapon.magic * weapon.rarity) / 100}` // eslint-disable-line
     if (!sellModeArg) {
       document.getElementById("inventory").innerHTML +=
-      `<button type="button" class="list-group-item" data-toggle="tooltip" title="${tooltip}" onclick="inventory.equipWeapon(${number})"><span class="badge">Weapon</span>${weapon.name}</button>` // eslint-disable-line
+      `<button type="button" class="list-group-item" data-toggle="tooltip" title="${tooltip}" onclick="inventory.equipWeapon(${number})"><span class="badge badge-default badge-pill">Weapon</span>${weapon.name}</button>` // eslint-disable-line
     }
     else {
       const price = Math.round((weapon.damage + weapon.speed + weapon.defense + weapon.magic) * 5 * weapon.rarity)
       document.getElementById("inventory").innerHTML +=
-      `<button type="button" class="list-group-item list-group-item-success" data-toggle="tooltip" title="${tooltip}" onclick="inventory.sell(${number},${price})"><span class="badge">${price}</span>${weapon.name}</button>` // eslint-disable-line
+      `<button type="button" class="list-group-item list-group-item-success" data-toggle="tooltip" title="${tooltip}" onclick="inventory.sell(${number},${price})"><span class="badge badge-default badge-pill">${price}</span>${weapon.name}</button>` // eslint-disable-line
     }
   }
 
@@ -133,12 +133,12 @@ const Inventory = function() {
     const tooltip = `Bonus CON: ${Math.round(100 * armor.defense * armor.rarity) / 100}<br>Bonus SPD: ${Math.round(100 * armor.movement * armor.rarity) / 100}<br>Bonus MGC: ${Math.round(100 * armor.magic * armor.rarity) / 100}` // eslint-disable-line
     if (!sellModeArg) {
       document.getElementById("inventory").innerHTML +=
-      `<button type="button" class="list-group-item" data-toggle="tooltip" title="${tooltip}" onclick="inventory.equipArmor(${number})"><span class="badge">Armor</span>${armor.name}</button>` // eslint-disable-line
+      `<button type="button" class="list-group-item" data-toggle="tooltip" title="${tooltip}" onclick="inventory.equipArmor(${number})"><span class="badge badge-default badge-pill">Armor</span>${armor.name}</button>` // eslint-disable-line
     }
     else {
       const price = Math.round((armor.defense + armor.movement + armor.magic) * 10 * armor.rarity)
       document.getElementById("inventory").innerHTML +=
-      `<button type="button" class="list-group-item list-group-item-success" data-toggle="tooltip" title="${tooltip}" onclick="inventory.sell(${number},${price})"><span class="badge">${price}</span>${armor.name}</button>` // eslint-disable-line
+      `<button type="button" class="list-group-item list-group-item-success" data-toggle="tooltip" title="${tooltip}" onclick="inventory.sell(${number},${price})"><span class="badge badge-default badge-pill">${price}</span>${armor.name}</button>` // eslint-disable-line
     }
   }
 
@@ -146,12 +146,12 @@ const Inventory = function() {
     const tooltip = `This crystal will grant ${crystal.experience} experience in ${crystal.stat}.`
     if (!sellModeArg) {
       document.getElementById("inventory").innerHTML +=
-      `<button type="button" class="list-group-item" data-toggle="tooltip" title="${tooltip}" onclick="inventory.useCrystal(${number})"><span class="badge">Crystal</span>${crystal.stat} Experience Crystal</button>` // eslint-disable-line
+      `<button type="button" class="list-group-item" data-toggle="tooltip" title="${tooltip}" onclick="inventory.useCrystal(${number})"><span class="badge badge-default badge-pill">Crystal</span>${crystal.stat} Experience Crystal</button>` // eslint-disable-line
     }
     else {
       const price = Math.round(crystal.experience / 2)
       document.getElementById("inventory").innerHTML +=
-      `<button type="button" class="list-group-item list-group-item-success" data-toggle="tooltip" title="${tooltip}" onclick="inventory.sell(${number},${price})"><span class="badge">${price}</span>${crystal.stat} Experience Crystal</button>` // eslint-disable-line
+      `<button type="button" class="list-group-item list-group-item-success" data-toggle="tooltip" title="${tooltip}" onclick="inventory.sell(${number},${price})"><span class="badge badge-default badge-pill">${price}</span>${crystal.stat} Experience Crystal</button>` // eslint-disable-line
     }
   }
 
@@ -184,13 +184,13 @@ const Inventory = function() {
   const printEquippedWeapon = function() {
     const tooltip = `Bonus STR: ${Math.round(100 * equippedWeapon.damage * equippedWeapon.rarity) / 100}<br>Bonus DEX: ${Math.round(100 * equippedWeapon.speed * equippedWeapon.rarity) / 100}<br>Bonus CON: ${Math.round(100 * equippedWeapon.defense * equippedWeapon.rarity) / 100}<br>Bonus MGC: ${Math.round(100 * equippedWeapon.magic * equippedWeapon.rarity) / 100}` // eslint-disable-line
     document.getElementById("equipment").innerHTML +=
-    `<button type="button" class="list-group-item" data-toggle="tooltip" title="${tooltip}" onclick="inventory.unequipWeapon()"><span class="badge">Equipped</span>${equippedWeapon.name}</button>` // eslint-disable-line
+    `<button type="button" class="list-group-item" data-toggle="tooltip" title="${tooltip}" onclick="inventory.unequipWeapon()"><span class="badge badge-default badge-pill">Equipped</span>${equippedWeapon.name}</button>` // eslint-disable-line
   }
 
   const printEquippedArmor = function() {
     const tooltip = `Bonus CON: ${Math.round(100 * equippedArmor.defense * equippedArmor.rarity) / 100}<br>Bonus SPD: ${Math.round(100 * equippedArmor.movement * equippedArmor.rarity) / 100}<br>Bonus MGC: ${Math.round(100 * equippedArmor.magic * equippedArmor.rarity) / 100}` // eslint-disable-line
     document.getElementById("equipment").innerHTML +=
-    `<button type="button" class="list-group-item" data-toggle="tooltip" title="${tooltip}" onclick="inventory.unequipArmor()"><span class="badge">Equipped</span>${equippedArmor.name}</button>` // eslint-disable-line
+    `<button type="button" class="list-group-item" data-toggle="tooltip" title="${tooltip}" onclick="inventory.unequipArmor()"><span class="badge badge-default badge-pill">Equipped</span>${equippedArmor.name}</button>` // eslint-disable-line
   }
 
   self.updateEquipment = function() {
