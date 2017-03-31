@@ -117,28 +117,64 @@ const Inventory = function() {
   }
 
   const printWeapon = function(weapon, number, sellModeArg) {
-    const tooltip = `Bonus STR: ${Math.round(100 * weapon.damage * weapon.rarity) / 100}<br>Bonus DEX: ${Math.round(100 * weapon.speed * weapon.rarity) / 100}<br>Bonus CON: ${Math.round(100 * weapon.defense * weapon.rarity) / 100}<br>Bonus MGC: ${Math.round(100 * weapon.magic * weapon.rarity) / 100}` // eslint-disable-line
+    const tooltip = `STR: ${Math.round(100 * weapon.damage * weapon.rarity) / 100} DEX: ${Math.round(100 * weapon.speed * weapon.rarity) / 100} CON: ${Math.round(100 * weapon.defense * weapon.rarity) / 100} MGC: ${Math.round(100 * weapon.magic * weapon.rarity) / 100}` // eslint-disable-line
+    const price = Math.round((weapon.damage + weapon.speed + weapon.defense + weapon.magic) * 5 * weapon.rarity)
     if (!sellModeArg) {
       document.getElementById("inventory").innerHTML +=
-      `<button type="button" class="list-group-item" data-toggle="tooltip" title="${tooltip}" onclick="inventory.equipWeapon(${number})"><span class="badge badge-default badge-pill">Weapon</span>${weapon.name}</button>` // eslint-disable-line
+      `<button type="button" class="list-group-item" onclick="inventory.equipWeapon(${number})">
+        <div class="d-flex flex-column w-100">
+          <div class="font-weight-bold">${weapon.name}</div>
+          <div>${tooltip}</div>
+          <div class="d-flex justify-content-between">
+            <div>${price}g</div>
+            <div class="badge badge-default badge-pill">Weapon</div>
+          </div>
+        </div>
+      </button>`
     }
     else {
-      const price = Math.round((weapon.damage + weapon.speed + weapon.defense + weapon.magic) * 5 * weapon.rarity)
       document.getElementById("inventory").innerHTML +=
-      `<button type="button" class="list-group-item list-group-item-success" data-toggle="tooltip" title="${tooltip}" onclick="inventory.sell(${number},${price})"><span class="badge badge-default badge-pill">${price}</span>${weapon.name}</button>` // eslint-disable-line
+      `<button type="button" class="list-group-item list-group-item-success" onclick="inventory.sell(${number},${price})">
+        <div class="d-flex flex-column w-100">
+          <div class="font-weight-bold">${weapon.name}</div>
+          <div>${tooltip}</div>
+          <div class="d-flex justify-content-between">
+            <div>${price}g</div>
+            <div class="badge badge-default badge-pill">Weapon</div>
+          </div>
+        </div>
+      </button>`
     }
   }
 
   const printArmor = function(armor, number, sellModeArg) {
-    const tooltip = `Bonus CON: ${Math.round(100 * armor.defense * armor.rarity) / 100}<br>Bonus SPD: ${Math.round(100 * armor.movement * armor.rarity) / 100}<br>Bonus MGC: ${Math.round(100 * armor.magic * armor.rarity) / 100}` // eslint-disable-line
+    const tooltip = `CON: ${Math.round(100 * armor.defense * armor.rarity) / 100} SPD: ${Math.round(100 * armor.movement * armor.rarity) / 100} MGC: ${Math.round(100 * armor.magic * armor.rarity) / 100}` // eslint-disable-line
+    const price = Math.round((armor.defense + armor.movement + armor.magic) * 10 * armor.rarity)
     if (!sellModeArg) {
       document.getElementById("inventory").innerHTML +=
-      `<button type="button" class="list-group-item" data-toggle="tooltip" title="${tooltip}" onclick="inventory.equipArmor(${number})"><span class="badge badge-default badge-pill">Armor</span>${armor.name}</button>` // eslint-disable-line
+      `<button type="button" class="list-group-item" onclick="inventory.equipArmor(${number})">
+        <div class="d-flex flex-column w-100">
+          <div class="font-weight-bold">${armor.name}</div>
+          <div>${tooltip}</div>
+          <div class="d-flex justify-content-between w-100">
+            <div>${price}g</div>
+            <div class="badge badge-default badge-pill">Armor</div>
+          </div>
+        </div>
+      </button>`
     }
     else {
-      const price = Math.round((armor.defense + armor.movement + armor.magic) * 10 * armor.rarity)
       document.getElementById("inventory").innerHTML +=
-      `<button type="button" class="list-group-item list-group-item-success" data-toggle="tooltip" title="${tooltip}" onclick="inventory.sell(${number},${price})"><span class="badge badge-default badge-pill">${price}</span>${armor.name}</button>` // eslint-disable-line
+      `<button type="button" class="list-group-item list-group-item-success" onclick="inventory.sell(${number},${price})"">
+        <div class="d-flex flex-column w-100">
+          <div class="font-weight-bold">${armor.name}</div>
+          <div>${tooltip}</div>
+          <div class="d-flex justify-content-between w-100">
+            <div>${price}g</div>
+            <div class="badge badge-default badge-pill">Armor</div>
+          </div>
+        </div>
+      </button>`
     }
   }
 
@@ -182,15 +218,35 @@ const Inventory = function() {
   }
 
   const printEquippedWeapon = function() {
-    const tooltip = `Bonus STR: ${Math.round(100 * equippedWeapon.damage * equippedWeapon.rarity) / 100}<br>Bonus DEX: ${Math.round(100 * equippedWeapon.speed * equippedWeapon.rarity) / 100}<br>Bonus CON: ${Math.round(100 * equippedWeapon.defense * equippedWeapon.rarity) / 100}<br>Bonus MGC: ${Math.round(100 * equippedWeapon.magic * equippedWeapon.rarity) / 100}` // eslint-disable-line
+    const tooltip = `STR: ${Math.round(100 * equippedWeapon.damage * equippedWeapon.rarity) / 100} DEX: ${Math.round(100 * equippedWeapon.speed * equippedWeapon.rarity) / 100}<br>CON: ${Math.round(100 * equippedWeapon.defense * equippedWeapon.rarity) / 100} MGC: ${Math.round(100 * equippedWeapon.magic * equippedWeapon.rarity) / 100}` // eslint-disable-line
+    const price = Math.round((equippedWeapon.damage + equippedWeapon.speed + equippedWeapon.defense + equippedWeapon.magic) * 5 * equippedWeapon.rarity) // eslint-disable-line max-len
     document.getElementById("equipment").innerHTML +=
-    `<button type="button" class="list-group-item" data-toggle="tooltip" title="${tooltip}" onclick="inventory.unequipWeapon()"><span class="badge badge-default badge-pill">Equipped</span>${equippedWeapon.name}</button>` // eslint-disable-line
+    `<button type="button" class="list-group-item" onclick="inventory.unequipWeapon()">
+      <div class="d-flex flex-column w-100">
+        <div class="font-weight-bold">${equippedWeapon.name}</div>
+        <div>${tooltip}</div>
+        <div class="d-flex justify-content-between">
+          <div>${price}g</div>
+          <div class="badge badge-default badge-pill">Weapon</div>
+        </div>
+      </div>
+    </button>`
   }
 
   const printEquippedArmor = function() {
-    const tooltip = `Bonus CON: ${Math.round(100 * equippedArmor.defense * equippedArmor.rarity) / 100}<br>Bonus SPD: ${Math.round(100 * equippedArmor.movement * equippedArmor.rarity) / 100}<br>Bonus MGC: ${Math.round(100 * equippedArmor.magic * equippedArmor.rarity) / 100}` // eslint-disable-line
+    const tooltip = `CON: ${Math.round(100 * equippedArmor.defense * equippedArmor.rarity) / 100} SPD: ${Math.round(100 * equippedArmor.movement * equippedArmor.rarity) / 100} MGC: ${Math.round(100 * equippedArmor.magic * equippedArmor.rarity) / 100}` // eslint-disable-line
+    const price = Math.round((equippedArmor.defense + equippedArmor.movement + equippedArmor.magic) * 10 * equippedArmor.rarity)
     document.getElementById("equipment").innerHTML +=
-    `<button type="button" class="list-group-item" data-toggle="tooltip" title="${tooltip}" onclick="inventory.unequipArmor()"><span class="badge badge-default badge-pill">Equipped</span>${equippedArmor.name}</button>` // eslint-disable-line
+    `<button type="button" class="list-group-item" onclick="inventory.unequipArmor()">
+      <div class="d-flex flex-column w-100">
+        <div class="font-weight-bold">${equippedArmor.name}</div>
+        <div>${tooltip}</div>
+        <div class="d-flex justify-content-between w-100">
+          <div>${price}g</div>
+          <div class="badge badge-default badge-pill">Armor</div>
+        </div>
+      </div>
+    </button>`
   }
 
   self.updateEquipment = function() {

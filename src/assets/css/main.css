@@ -18,4 +18,5 @@ h5.card-title {
 
 button.list-group-item {
   width: 100%;
+  text-align: left;
 }

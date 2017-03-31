@@ -8,18 +8,16 @@
             <the-shop></the-shop>
           </div>
         </div>
-      </div>
-      <div class="col-3">
-        <div class="row">
-          <div class="col-12">
-            <inventory></inventory>
-          </div>
-        </div>
-      </div>
-      <div class="col-3">
         <div class="row">
           <div class="col-12">
             <equipment></equipment>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row">
+          <div class="col-12">
+            <inventory></inventory>
           </div>
         </div>
       </div>
