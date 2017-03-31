@@ -636,6 +636,17 @@ const Inventory = function() {
     }
     self.updateInventory(sellMode)
   }
+
+  self.unlockAllChests = function() {
+    for (let i = bag.length - 1; i >= 0; i--) {
+      if (bag[i].type === "chest") {
+        self.buyKey()
+        self.openChest(i)
+        console.log(i)
+      }
+    }
+    self.updateInventory(sellMode)
+  }
 }
 
 const inventory = new Inventory()

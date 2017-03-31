@@ -18,6 +18,9 @@
           <div class="col-12">
             <button class="btn btn-block btn-success" onclick="inventory.useAllCrystals()">Use All Crystals</button>
           </div>
+          <div class="col-12">
+            <button class="btn btn-block btn-success" onclick="inventory.unlockAllChests()">Unlock All Chests</button>
+          </div>
         </div>
         <div class="row" style="height:10px;"></div>
         <div class="row">
