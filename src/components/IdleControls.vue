@@ -3,21 +3,22 @@
     <div class="card-header" data-toggle="collapse" data-target="#collapseIdleControls">
       <card-header icon="empty-hourglass" title="Idle Controls">
         <span class="text-right">
-          Current Run:
-            <span id="days">0</span> days,
-            <span id="hours">0</span> hours,
-            <span id="minutes">0</span> minutes,
-            <span id="seconds">0</span> seconds
-            <br>
-            Time Speed:&nbsp;x<span id="speed">1</span>
-          </span>
+          Time Speed:&nbsp;x<span id="speed">1</span>
+        </span>
       </card-header>
     </div>
     <div id="collapseIdleControls" class="panel-collapse collapse show">
       <div class="card-block">
-        <div class="d-flex justify-content-between">
-          <div class="">
+        <div class="flex-column">
+          <div class="text-right">
+            Current Run:
+            <span id="days">0</span> days,
+            <span id="hours">0</span> hours,
+            <span id="minutes">0</span> minutes,
+            <span id="seconds">0</span> seconds
           </div>
+        </div>
+        <div class="d-flex justify-content-between">
           <div class="" style="width: 100%">
             <span id="idleSwitch"></span>
             <button class="btn btn-primary" onclick="system.gameSpeed(1000)">x1</button>
@@ -89,5 +90,7 @@ export default {
 </script>
 
 <style scoped>
-
+.flex-column > div {
+  margin-bottom: 1rem;
+}
 </style>

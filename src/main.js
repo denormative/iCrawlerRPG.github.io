@@ -1,7 +1,6 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
-import Vuex from 'vuex'
 import App from './App'
 import router from './router'
 
@@ -14,7 +13,7 @@ import { system } from './assets/js/system.js'
 import { tower } from './assets/js/tower.js'
 import { upgrades } from './assets/js/upgrades.js'
 
-Vue.use(Vuex)
+import store from './vuex/store'
 
 Vue.config.productionTip = false
 
@@ -29,8 +28,12 @@ window.upgrdaes = upgrades
 
 /* eslint-disable no-new */
 window.vm = new Vue({
+  store,
   el: '#app',
   router,
   template: '<App/>',
   components: { App },
+  created() {
+    window.vm = this
+  },
 })

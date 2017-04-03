@@ -8,36 +8,23 @@ import { system } from './system.js'
 import { tower } from './tower.js'
 import { upgrades } from './upgrades.js'
 
+import store from '../../vuex/store'
+
 const Player = function() {
-  let name = "Crawler"
-
-  const health = { currentValue: 100, maximumValue: 100 }
-  const mana = { currentValue: 50, maximumValue: 50 }
-  const strength = { level: 5, experience: 0, nextLevel: 100, bonus: 0 }
-  const dexterity = { level: 5, experience: 0, nextLevel: 100, bonus: 0 }
-  const constitution = { level: 5, experience: 0, nextLevel: 100, bonus: 0 }
-  const speed = { level: 5, experience: 0, nextLevel: 100, bonus: 0 }
-  const magic = { level: 5, experience: 0, nextLevel: 100, bonus: 0 }
-
-  let currentFloor = 0
-
-  let inBattle = false
-  let resting = false
-
   const self = this
   // Save Method
   self.save = function() {
     const playerSave = {
-      savedName: name,
-      savedHealth: health,
-      savedMana: mana,
-      savedStrength: strength,
-      savedDexterity: dexterity,
-      savedConstitution: constitution,
-      savedSpeed: speed,
-      savedMagic: magic,
-      savedCurrentFloor: currentFloor,
-      savedInBattle: inBattle,
+      savedName: store.state.player.name,
+      savedHealth: store.state.player.health,
+      savedMana: store.state.player.mana,
+      savedStrength: store.state.player.strength,
+      savedDexterity: store.state.player.dexterity,
+      savedConstitution: store.state.player.constitution,
+      savedSpeed: store.state.player.speed,
+      savedMagic: store.state.player.magic,
+      savedCurrentFloor: store.state.player.currentFloor,
+      savedInBattle: store.state.player.inBattle,
     }
     localStorage.setItem("playerSave", JSON.stringify(playerSave))
   }
@@ -45,94 +32,94 @@ const Player = function() {
   // Load Method
   const loadHealth = function(savedHealth) {
     if (savedHealth.currentValue !== undefined) {
-      health.currentValue = savedHealth.currentValue
+      store.state.player.health.currentValue = savedHealth.currentValue
     }
     if (savedHealth.maximumValue !== undefined) {
-      health.maximumValue = savedHealth.maximumValue
+      store.state.player.health.maximumValue = savedHealth.maximumValue
     }
   }
 
   const loadMana = function(savedMana) {
     if (savedMana.currentValue !== undefined) {
-      mana.currentValue = savedMana.currentValue
+      store.state.player.mana.currentValue = savedMana.currentValue
     }
     if (savedMana.maximumValue !== undefined) {
-      mana.maximumValue = savedMana.maximumValue
+      store.state.player.mana.maximumValue = savedMana.maximumValue
     }
   }
 
   const loadStrength = function(savedStrength) {
     if (savedStrength.level !== undefined) {
-      strength.level = savedStrength.level
+      store.state.player.strength.level = savedStrength.level
     }
     if (savedStrength.experience !== undefined) {
-      strength.experience = savedStrength.experience
+      store.state.player.strength.experience = savedStrength.experience
     }
     if (savedStrength.nextLevel !== undefined) {
-      strength.nextLevel = savedStrength.nextLevel
+      store.state.player.strength.nextLevel = savedStrength.nextLevel
     }
     if (savedStrength.bonus !== undefined) {
-      strength.bonus = savedStrength.bonus
+      store.state.player.strength.bonus = savedStrength.bonus
     }
   }
 
   const loadDexterity = function(savedDexterity) {
     if (savedDexterity.level !== undefined) {
-      dexterity.level = savedDexterity.level
+      store.state.player.dexterity.level = savedDexterity.level
     }
     if (savedDexterity.experience !== undefined) {
-      dexterity.experience = savedDexterity.experience
+      store.state.player.dexterity.experience = savedDexterity.experience
     }
     if (savedDexterity.nextLevel !== undefined) {
-      dexterity.nextLevel = savedDexterity.nextLevel
+      store.state.player.dexterity.nextLevel = savedDexterity.nextLevel
     }
     if (savedDexterity.bonus !== undefined) {
-      dexterity.bonus = savedDexterity.bonus
+      store.state.player.dexterity.bonus = savedDexterity.bonus
     }
   }
 
   const loadConstitution = function(savedConstitution) {
     if (savedConstitution.level !== undefined) {
-      constitution.level = savedConstitution.level
+      store.state.player.constitution.level = savedConstitution.level
     }
     if (savedConstitution.experience !== undefined) {
-      constitution.experience = savedConstitution.experience
+      store.state.player.constitution.experience = savedConstitution.experience
     }
     if (savedConstitution.nextLevel !== undefined) {
-      constitution.nextLevel = savedConstitution.nextLevel
+      store.state.player.constitution.nextLevel = savedConstitution.nextLevel
     }
     if (savedConstitution.bonus !== undefined) {
-      constitution.bonus = savedConstitution.bonus
+      store.state.player.constitution.bonus = savedConstitution.bonus
     }
   }
 
   const loadSpeed = function(savedSpeed) {
     if (savedSpeed.level !== undefined) {
-      speed.level = savedSpeed.level
+      store.state.player.speed.level = savedSpeed.level
     }
     if (savedSpeed.experience !== undefined) {
-      speed.experience = savedSpeed.experience
+      store.state.player.speed.experience = savedSpeed.experience
     }
     if (savedSpeed.nextLevel !== undefined) {
-      speed.nextLevel = savedSpeed.nextLevel
+      store.state.player.speed.nextLevel = savedSpeed.nextLevel
     }
     if (savedSpeed.bonus !== undefined) {
-      speed.bonus = savedSpeed.bonus
+      store.state.player.speed.bonus = savedSpeed.bonus
     }
   }
 
   const loadMagic = function(savedMagic) {
     if (savedMagic.level !== undefined) {
-      magic.level = savedMagic.level
+      store.state.player.magic.level = savedMagic.level
     }
     if (savedMagic.experience !== undefined) {
-      magic.experience = savedMagic.experience
+      store.state.player.magic.experience = savedMagic.experience
     }
     if (savedMagic.nextLevel !== undefined) {
-      magic.nextLevel = savedMagic.nextLevel
+      store.state.player.magic.nextLevel = savedMagic.nextLevel
     }
     if (savedMagic.bonus !== undefined) {
-      magic.bonus = savedMagic.bonus
+      store.state.player.magic.bonus = savedMagic.bonus
     }
   }
 
@@ -140,10 +127,10 @@ const Player = function() {
     const playerSave = JSON.parse(localStorage.getItem("playerSave"))
     if (playerSave) {
       if (playerSave.savedName !== undefined) {
-        name = playerSave.savedName
+        store.state.player.name = playerSave.savedName
       }
       else {
-        name = prompt("Please, enter your name:", "Crawler")
+        store.state.player.name = prompt("Please, enter your name:", "Crawler")
       }
       if (playerSave.savedHealth !== undefined) {
         loadHealth(playerSave.savedHealth)
@@ -167,117 +154,117 @@ const Player = function() {
         loadMagic(playerSave.savedMagic)
       }
       if (playerSave.savedCurrentFloor !== undefined) {
-        currentFloor = playerSave.savedCurrentFloor
+        store.state.player.currentFloor = playerSave.savedCurrentFloor
       }
       if (playerSave.savedInBattle !== undefined) {
-        inBattle = playerSave.savedInBattle
+        store.state.player.inBattle = playerSave.savedInBattle
       }
     }
     else {
-      name = prompt("Please, enter your name:", "Crawler")
+      store.state.player.name = prompt("Please, enter your name:", "Crawler")
     }
   }
 
   // Getters
   self.getName = function() {
-    return name
+    return store.state.player.name
   }
 
   self.getInBattle = function() {
-    return inBattle
+    return store.state.player.inBattle
   }
 
   self.getResting = function() {
-    return resting
+    return store.state.player.resting
   }
 
   self.getCurrentFloor = function() {
-    return currentFloor
+    return store.state.player.currentFloor
   }
 
   self.getHealthCurrentValue = function() {
-    return health.currentValue
+    return store.state.player.health.currentValue
   }
 
   self.getHealthMaximumValue = function() {
-    return health.maximumValue
+    return store.state.player.health.maximumValue
   }
 
   self.getManaCurrentValue = function() {
-    return mana.currentValue
+    return store.state.player.mana.currentValue
   }
 
   self.getManaMaximumValue = function() {
-    return mana.maximumValue
+    return store.state.player.mana.maximumValue
   }
 
   self.getStrengthLevel = function() {
-    return strength.level
+    return store.state.player.strength.level
   }
 
   self.getDexterityLevel = function() {
-    return dexterity.level
+    return store.state.player.dexterity.level
   }
 
   self.getConstitutionLevel = function() {
-    return constitution.level
+    return store.state.player.constitution.level
   }
 
   self.getSpeedLevel = function() {
-    return speed.level
+    return store.state.player.speed.level
   }
 
   self.getMagicLevel = function() {
-    return magic.level
+    return store.state.player.magic.level
   }
 
   self.getStrengthExperience = function() {
-    return strength.experience
+    return store.state.player.strength.experience
   }
 
   self.getDexterityExperience = function() {
-    return dexterity.experience
+    return store.state.player.dexterity.experience
   }
 
   self.getConstitutionExperience = function() {
-    return constitution.experience
+    return store.state.player.constitution.experience
   }
 
   self.getSpeedExperience = function() {
-    return speed.experience
+    return store.state.player.speed.experience
   }
 
   self.getMagicExperience = function() {
-    return magic.experience
+    return store.state.player.magic.experience
   }
 
   self.getStrengthBonus = function() {
-    return strength.bonus
+    return store.state.player.strength.bonus
   }
 
   self.getDexterityBonus = function() {
-    return dexterity.bonus
+    return store.state.player.dexterity.bonus
   }
 
   self.getConstitutionBonus = function() {
-    return constitution.bonus
+    return store.state.player.constitution.bonus
   }
 
   self.getSpeedBonus = function() {
-    return speed.bonus
+    return store.state.player.speed.bonus
   }
 
   self.getMagicBonus = function() {
-    return magic.bonus
+    return store.state.player.magic.bonus
   }
 
   // Setters
   self.setInBattle = function(boolean) {
-    inBattle = boolean
+    store.state.player.inBattle = boolean
   }
 
   self.setCurrentFloor = function(newFloor) {
-    currentFloor = newFloor
+    store.state.player.currentFloor = newFloor
   }
 
   const loadConditionScreen = function(conditionId, conditionName) {
@@ -288,30 +275,30 @@ const Player = function() {
 
   self.setHealthCurrentValue = function(newHealthArg) {
     let newHealth = newHealthArg
-    if (newHealth > health.maximumValue) {
-      newHealth = health.maximumValue
+    if (newHealth > store.state.player.health.maximumValue) {
+      newHealth = store.state.player.health.maximumValue
     }
-    health.currentValue = newHealth
-    loadConditionScreen("hp", health)
+    store.state.player.health.currentValue = newHealth
+    loadConditionScreen("hp", store.state.player.health)
   }
 
   self.setHealthMaximumValue = function(newHealth) {
-    health.maximumValue = newHealth
-    loadConditionScreen("hp", health)
+    store.state.player.health.maximumValue = newHealth
+    loadConditionScreen("hp", store.state.player.health)
   }
 
   self.setManaCurrentValue = function(newManaArg) {
     let newMana = newManaArg
-    if (newMana > mana.maximumValue) {
-      newMana = mana.maximumValue
+    if (newMana > store.state.player.mana.maximumValue) {
+      newMana = store.state.player.mana.maximumValue
     }
-    mana.currentValue = newMana
-    loadConditionScreen("mp", mana)
+    store.state.player.mana.currentValue = newMana
+    loadConditionScreen("mp", store.state.player.mana)
   }
 
   self.setManaMaximumValue = function(newMana) {
-    mana.maximumValue = newMana
-    loadConditionScreen("mp", mana)
+    store.state.player.mana.maximumValue = newMana
+    loadConditionScreen("mp", store.state.player.mana)
   }
 
   const loadStatScreen = function(statId, statName) {
@@ -326,126 +313,126 @@ const Player = function() {
   }
 
   const setStrengthLevel = function(newLevel) {
-    strength.level = newLevel
-    strength.nextLevel = neededExperience(strength.level + 1)
-    loadStatScreen("str", strength)
+    store.state.player.strength.level = newLevel
+    store.state.player.strength.nextLevel = neededExperience(store.state.player.strength.level + 1)
+    loadStatScreen("str", store.state.player.strength)
   }
 
   self.setStrengthExperience = function(experience) {
-    strength.experience = experience
-    while (strength.experience >= strength.nextLevel) {
-      strength.experience -= strength.nextLevel
-      setStrengthLevel(strength.level + 1)
+    store.state.player.strength.experience = experience
+    while (store.state.player.strength.experience >= store.state.player.strength.nextLevel) {
+      store.state.player.strength.experience -= store.state.player.strength.nextLevel
+      setStrengthLevel(store.state.player.strength.level + 1)
     }
-    loadStatScreen("str", strength)
+    loadStatScreen("str", store.state.player.strength)
   }
 
   const setDexterityLevel = function(newLevel) {
-    dexterity.level = newLevel
-    dexterity.nextLevel = neededExperience(dexterity.level + 1)
-    loadStatScreen("dex", dexterity)
+    store.state.player.dexterity.level = newLevel
+    store.state.player.dexterity.nextLevel = neededExperience(store.state.player.dexterity.level + 1)
+    loadStatScreen("dex", store.state.player.dexterity)
   }
 
   self.setDexterityExperience = function(experience) {
-    dexterity.experience = experience
-    while (dexterity.experience >= dexterity.nextLevel) {
-      dexterity.experience -= dexterity.nextLevel
-      setDexterityLevel(dexterity.level + 1)
+    store.state.player.dexterity.experience = experience
+    while (store.state.player.dexterity.experience >= store.state.player.dexterity.nextLevel) {
+      store.state.player.dexterity.experience -= store.state.player.dexterity.nextLevel
+      setDexterityLevel(store.state.player.dexterity.level + 1)
     }
-    loadStatScreen("dex", dexterity)
+    loadStatScreen("dex", store.state.player.dexterity)
   }
 
   const setConstitutionLevel = function(newLevel) {
-    constitution.level = newLevel
-    constitution.nextLevel = neededExperience(constitution.level + 1)
-    self.setHealthMaximumValue(((constitution.level + constitution.bonus) ** 2) * 4)
-    loadStatScreen("con", constitution)
+    store.state.player.constitution.level = newLevel
+    store.state.player.constitution.nextLevel = neededExperience(store.state.player.constitution.level + 1)
+    self.setHealthMaximumValue(((store.state.player.constitution.level + store.state.player.constitution.bonus) ** 2) * 4)
+    loadStatScreen("con", store.state.player.constitution)
   }
 
   self.setConstitutionExperience = function(experience) {
-    constitution.experience = experience
-    while (constitution.experience >= constitution.nextLevel) {
-      constitution.experience -= constitution.nextLevel
-      setConstitutionLevel(constitution.level + 1)
+    store.state.player.constitution.experience = experience
+    while (store.state.player.constitution.experience >= store.state.player.constitution.nextLevel) {
+      store.state.player.constitution.experience -= store.state.player.constitution.nextLevel
+      setConstitutionLevel(store.state.player.constitution.level + 1)
     }
-    loadStatScreen("con", constitution)
+    loadStatScreen("con", store.state.player.constitution)
   }
 
   const setSpeedLevel = function(newLevel) {
-    speed.level = newLevel
-    speed.nextLevel = neededExperience(speed.level + 1)
-    loadStatScreen("spd", speed)
+    store.state.player.speed.level = newLevel
+    store.state.player.speed.nextLevel = neededExperience(store.state.player.speed.level + 1)
+    loadStatScreen("spd", store.state.player.speed)
   }
 
   self.setSpeedExperience = function(experience) {
-    speed.experience = experience
-    while (speed.experience >= speed.nextLevel) {
-      speed.experience -= speed.nextLevel
-      setSpeedLevel(speed.level + 1)
+    store.state.player.speed.experience = experience
+    while (store.state.player.speed.experience >= store.state.player.speed.nextLevel) {
+      store.state.player.speed.experience -= store.state.player.speed.nextLevel
+      setSpeedLevel(store.state.player.speed.level + 1)
     }
-    loadStatScreen("spd", speed)
+    loadStatScreen("spd", store.state.player.speed)
   }
 
   const setMagicLevel = function(newLevel) {
-    magic.level = newLevel
-    magic.nextLevel = neededExperience(magic.level + 1)
+    store.state.player.magic.level = newLevel
+    store.state.player.magic.nextLevel = neededExperience(store.state.player.magic.level + 1)
     spells.updateSpellbook()
-    self.setManaMaximumValue(((magic.level + magic.bonus) ** 2) * 2)
-    loadStatScreen("mgc", magic)
+    self.setManaMaximumValue(((store.state.player.magic.level + store.state.player.magic.bonus) ** 2) * 2)
+    loadStatScreen("mgc", store.state.player.magic)
   }
 
   self.setMagicExperience = function(experience) {
-    magic.experience = experience
-    while (magic.experience >= magic.nextLevel) {
-      magic.experience -= magic.nextLevel
-      setMagicLevel(magic.level + 1)
+    store.state.player.magic.experience = experience
+    while (store.state.player.magic.experience >= store.state.player.magic.nextLevel) {
+      store.state.player.magic.experience -= store.state.player.magic.nextLevel
+      setMagicLevel(store.state.player.magic.level + 1)
     }
-    loadStatScreen("mgc", magic)
+    loadStatScreen("mgc", store.state.player.magic)
   }
 
   self.setStrengthBonus = function(bonus) {
-    strength.bonus = bonus
-    loadStatScreen("str", strength)
+    store.state.player.strength.bonus = bonus
+    loadStatScreen("str", store.state.player.strength)
   }
 
   self.setDexterityBonus = function(bonus) {
-    dexterity.bonus = bonus
-    loadStatScreen("dex", dexterity)
+    store.state.player.dexterity.bonus = bonus
+    loadStatScreen("dex", store.state.player.dexterity)
   }
 
   self.setConstitutionBonus = function(bonus) {
-    constitution.bonus = bonus
-    self.setHealthMaximumValue(((constitution.level + constitution.bonus) ** 2) * 4)
-    loadStatScreen("con", constitution)
+    store.state.player.constitution.bonus = bonus
+    self.setHealthMaximumValue(((store.state.player.constitution.level + store.state.player.constitution.bonus) ** 2) * 4)
+    loadStatScreen("con", store.state.player.constitution)
   }
 
   self.setSpeedBonus = function(bonus) {
-    speed.bonus = bonus
-    loadStatScreen("spd", speed)
+    store.state.player.speed.bonus = bonus
+    loadStatScreen("spd", store.state.player.speed)
   }
 
   self.setMagicBonus = function(bonus) {
-    magic.bonus = bonus
-    self.setManaMaximumValue(((magic.level + magic.bonus) ** 2) * 2)
-    loadStatScreen("mgc", magic)
+    store.state.player.magic.bonus = bonus
+    self.setManaMaximumValue(((store.state.player.magic.level + store.state.player.magic.bonus) ** 2) * 2)
+    loadStatScreen("mgc", store.state.player.magic)
   }
 
   // Other Methods
   self.loadPlayerScreen = function() {
-    document.getElementById("name").innerHTML = name
-    loadStatScreen("str", strength)
-    loadStatScreen("dex", dexterity)
-    loadStatScreen("con", constitution)
-    loadStatScreen("spd", speed)
-    loadStatScreen("mgc", magic)
-    loadConditionScreen("hp", health)
-    loadConditionScreen("mp", mana)
+    document.getElementById("name").innerHTML = store.state.player.name
+    loadStatScreen("str", store.state.player.strength)
+    loadStatScreen("dex", store.state.player.dexterity)
+    loadStatScreen("con", store.state.player.constitution)
+    loadStatScreen("spd", store.state.player.speed)
+    loadStatScreen("mgc", store.state.player.magic)
+    loadConditionScreen("hp", store.state.player.health)
+    loadConditionScreen("mp", store.state.player.mana)
   }
 
   self.rest = function() {
-    if (resting) {
-      self.setHealthCurrentValue(health.currentValue + (5 * constitution.level * buffs.getRestingMultiplier()))
-      self.setManaCurrentValue(mana.currentValue + (5 * magic.level * buffs.getRestingMultiplier()))
+    if (store.state.player.resting) {
+      self.setHealthCurrentValue(store.state.player.health.currentValue + (5 * store.state.player.constitution.level * buffs.getRestingMultiplier())) // eslint-disable-line max-len
+      self.setManaCurrentValue(store.state.player.mana.currentValue + (5 * store.state.player.magic.level * buffs.getRestingMultiplier())) // eslint-disable-line max-len
       if (self.isFullyRested()) {
         self.toggleRest()
       }
@@ -453,16 +440,16 @@ const Player = function() {
   }
 
   self.isFullyRested = function() {
-    if (health.currentValue === health.maximumValue && mana.currentValue === mana.maximumValue) {
+    if (store.state.player.health.currentValue === store.state.player.health.maximumValue && store.state.player.mana.currentValue === store.state.player.mana.maximumValue) { // eslint-disable-line max-len
       return true
     }
     return false
   }
 
   self.loadExploreButton = function() {
-    if (currentFloor !== 0) {
-      if (inBattle || resting) {
-        if (tower.floorExplorationComplete(currentFloor)) {
+    if (store.state.player.currentFloor !== 0) {
+      if (store.state.player.inBattle || store.state.player.resting) {
+        if (tower.floorExplorationComplete(store.state.player.currentFloor)) {
           document.getElementById("exploreButton").innerHTML =
           '<button class="btn btn-danger btn-block" disabled="disabled">Find Monster</button>'
         }
@@ -471,7 +458,7 @@ const Player = function() {
           '<button class="btn btn-danger btn-block" disabled="disabled">Explore</button>'
         }
       }
-      else if (tower.floorExplorationComplete(currentFloor)) {
+      else if (tower.floorExplorationComplete(store.state.player.currentFloor)) {
         document.getElementById("exploreButton").innerHTML =
         '<button class="btn btn-default btn-block" onclick="tower.exploreFloor()">Find Monster</button>'
       }
@@ -486,12 +473,12 @@ const Player = function() {
   }
 
   self.loadRestButton = function() {
-    if (currentFloor !== 0) {
-      if (inBattle) {
+    if (store.state.player.currentFloor !== 0) {
+      if (store.state.player.inBattle) {
         document.getElementById("restButton").innerHTML =
         '<button class="btn btn-danger btn-block" disabled="disabled">Rest</button>'
       }
-      else if (resting) {
+      else if (store.state.player.resting) {
         document.getElementById("restButton").innerHTML =
         '<button class="btn btn-success btn-block" onclick="player.toggleRest()">Stop Resting</button>'
       }
@@ -508,20 +495,20 @@ const Player = function() {
   self.gainExperience = function(monster, attacking) {
     const multiplier = buffs.getLevelingSpeedMultiplier()
     if (attacking) {
-      self.setStrengthExperience(strength.experience + (multiplier * (monster.strength / constitution.level)))
-      self.setDexterityExperience(dexterity.experience + (multiplier * (monster.dexterity / dexterity.level)))
+      self.setStrengthExperience(store.state.player.strength.experience + (multiplier * (monster.strength / store.state.player.constitution.level))) // eslint-disable-line max-len
+      self.setDexterityExperience(store.state.player.dexterity.experience + (multiplier * (monster.dexterity / store.state.player.dexterity.level))) // eslint-disable-line max-len
     }
     else {
-      self.setConstitutionExperience(constitution.experience + (multiplier * (monster.strength / constitution.level)))
+      self.setConstitutionExperience(store.state.player.constitution.experience + (multiplier * (monster.strength / store.state.player.constitution.level))) // eslint-disable-line max-len
     }
   }
 
   const loseStats = function(percentage) {
-    setStrengthLevel(strength.level - Math.floor(strength.level * (percentage / 100)))
-    setDexterityLevel(dexterity.level - Math.floor(dexterity.level * (percentage / 100)))
-    setConstitutionLevel(constitution.level - Math.floor(constitution.level * (percentage / 100)))
-    setSpeedLevel(speed.level - Math.floor(speed.level * (percentage / 100)))
-    setMagicLevel(magic.level - Math.floor(magic.level * (percentage / 100)))
+    setStrengthLevel(store.state.player.strength.level - Math.floor(store.state.player.strength.level * (percentage / 100)))
+    setDexterityLevel(store.state.player.dexterity.level - Math.floor(store.state.player.dexterity.level * (percentage / 100)))
+    setConstitutionLevel(store.state.player.constitution.level - Math.floor(store.state.player.constitution.level * (percentage / 100))) // eslint-disable-line max-len
+    setSpeedLevel(store.state.player.speed.level - Math.floor(store.state.player.speed.level * (percentage / 100)))
+    setMagicLevel(store.state.player.magic.level - Math.floor(store.state.player.store.state.player.magic.level * (percentage / 100))) // eslint-disable-line max-len
   }
 
   const loseAllExperience = function() {
@@ -533,7 +520,7 @@ const Player = function() {
   }
 
   self.death = function(monster) {
-    inBattle = false
+    store.state.player.inBattle = false
     if (monsters.getInBossBattle()) {
       monsters.setInBossBattle(false)
     }
@@ -541,7 +528,7 @@ const Player = function() {
     if (system.getIdleMode()) {
       system.toggleIdle()
     }
-    tower.changeFloor(-currentFloor)
+    tower.changeFloor(-store.state.player.currentFloor)
     upgrades.updateExcelia(-((100 - buffs.getExceliaSavedOnDeath()) * upgrades.getExcelia()) / 100)
     loseStats(10 - buffs.getDeathPenaltyReduction())
     loseAllExperience()
@@ -551,7 +538,7 @@ const Player = function() {
   }
 
   self.toggleRest = function() {
-    resting = !resting
+    store.state.player.resting = !store.state.player.resting
     self.loadRestButton()
     self.loadExploreButton()
   }
