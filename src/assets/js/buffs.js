@@ -248,12 +248,12 @@ const Buffs = function() {
         aegisTimeLeft -= 1
       }
       document.getElementById("temporary").innerHTML +=
-      `<li class="list-group-item list-group-item-info justify-content-between">Aegis<span class="badge badge-default badge-pill">${Math.round(aegisTimeLeft)}</span></li>`
+      `<li class="list-group-item list-group-item-info justify-content-between">Aegis<span class="badge badge-default badge-pill">${Math.round(aegisTimeLeft)}</span></li>` // eslint-disable-line max-len
     }
 
     if (barrierLeft !== 0) {
       document.getElementById("temporary").innerHTML +=
-      `<li class="list-group-item list-group-item-info justify-content-between">Barrier<span class="badge badge-default badge-pill">${Math.round(barrierLeft)}</span></li>`
+      `<li class="list-group-item list-group-item-info justify-content-between">Barrier<span class="badge badge-default badge-pill">${Math.round(barrierLeft)}</span></li>` // eslint-disable-line max-len
     }
 
     if (rageTimeLeft !== 0) {
@@ -261,7 +261,7 @@ const Buffs = function() {
         rageTimeLeft -= 1
       }
       document.getElementById("temporary").innerHTML +=
-      `<li class="list-group-item list-group-item-info justify-content-between">Rage<span class="badge badge-default badge-pill">${Math.round(rageTimeLeft)}</span></li>`
+      `<li class="list-group-item list-group-item-info justify-content-between">Rage<span class="badge badge-default badge-pill">${Math.round(rageTimeLeft)}</span></li>` // eslint-disable-line max-len
     }
   }
 
@@ -307,7 +307,7 @@ const Buffs = function() {
     document.getElementById("permanent").innerHTML = ''
     if (deathPenaltyReduction !== 0) {
       document.getElementById("permanent").innerHTML +=
-      `<li class="list-group-item"><span class="badge badge-default badge-pill">${deathPenaltyReduction}%</span>Death Penalty Reduction</li>`
+      `<li class="list-group-item"><span class="badge badge-default badge-pill">${deathPenaltyReduction}%</span>Death Penalty Reduction</li>` // eslint-disable-line max-len
     }
     if (exceliaMultiplier !== 1) {
       document.getElementById("permanent").innerHTML +=
@@ -315,15 +315,15 @@ const Buffs = function() {
     }
     if (exceliaSavedOnDeath !== 0) {
       document.getElementById("permanent").innerHTML +=
-      `<li class="list-group-item"><span class="badge badge-default badge-pill">${exceliaSavedOnDeath}%</span>Excelia Saved Upon Death</li>`
+      `<li class="list-group-item"><span class="badge badge-default badge-pill">${exceliaSavedOnDeath}%</span>Excelia Saved Upon Death</li>` // eslint-disable-line max-len
     }
     if (manaPerSecond !== 0) {
       document.getElementById("permanent").innerHTML +=
-      `<li class="list-group-item"><span class="badge badge-default badge-pill">+${manaPerSecond}</span>Exploration Mana per Second</li>`
+      `<li class="list-group-item"><span class="badge badge-default badge-pill">+${manaPerSecond}</span>Exploration Mana per Second</li>` // eslint-disable-line max-len
     }
     if (explorationSpeedMultiplier !== 1) {
       document.getElementById("permanent").innerHTML +=
-      `<li class="list-group-item"><span class="badge badge-default badge-pill">x${explorationSpeedMultiplier}</span>Exploration Speed</li>`
+      `<li class="list-group-item"><span class="badge badge-default badge-pill">x${explorationSpeedMultiplier}</span>Exploration Speed</li>` // eslint-disable-line max-len
     }
     if (restingMultiplier !== 1) {
       document.getElementById("permanent").innerHTML +=
@@ -331,11 +331,11 @@ const Buffs = function() {
     }
     if (spellLevelingMultiplier !== 1) {
       document.getElementById("permanent").innerHTML +=
-      `<li class="list-group-item"><span class="badge badge-default badge-pill">x${spellLevelingMultiplier}</span>Spell Level Gain</li>`
+      `<li class="list-group-item"><span class="badge badge-default badge-pill">x${spellLevelingMultiplier}</span>Spell Level Gain</li>` // eslint-disable-line max-len
     }
     if (levelingSpeedMultiplier !== 1) {
       document.getElementById("permanent").innerHTML +=
-      `<li class="list-group-item"><span class="badge badge-default badge-pill">x${levelingSpeedMultiplier}</span>Stats Experience Gain</li>`
+      `<li class="list-group-item"><span class="badge badge-default badge-pill">x${levelingSpeedMultiplier}</span>Stats Experience Gain</li>` // eslint-disable-line max-len
     }
   }
 
