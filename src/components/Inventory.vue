@@ -21,6 +21,9 @@
           <div class="col-12">
             <button class="btn btn-block btn-success" onclick="inventory.unlockAllChests()">Unlock All Chests</button>
           </div>
+          <div class="col-12">
+            <button class="btn btn-block btn-warning" onclick="inventory.sellCheaperThanEquipped()">Sell Cheaper Than Equipped</button>
+          </div>
         </div>
         <div class="row" style="height:10px;"></div>
         <div class="row">

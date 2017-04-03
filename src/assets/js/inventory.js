@@ -698,7 +698,29 @@ const Inventory = function() {
       if (bag[i].type === "chest") {
         self.buyKey()
         self.openChest(i)
-        console.log(i)
+      }
+    }
+    self.updateInventory(sellMode)
+  }
+
+  self.sellCheaperThanEquipped = function() {
+    const equippedWeaponPrice = Math.round((equippedWeapon.damage + equippedWeapon.speed + equippedWeapon.defense + equippedWeapon.magic) * 5 * equippedWeapon.rarity) // eslint-disable-line max-len
+    const equippedArmorPrice = Math.round((equippedArmor.defense + equippedArmor.movement + equippedArmor.magic) * 10 * equippedArmor.rarity) // eslint-disable-line max-len
+
+    for (let i = bag.length - 1; i >= 0; i--) {
+      if (bag[i].type === "weapon") {
+        const weapon = bag[i]
+        const weaponPrice = Math.round((weapon.damage + weapon.speed + weapon.defense + weapon.magic) * 5 * weapon.rarity)
+        if (equippedWeaponPrice > weaponPrice) {
+          self.sell(i, weaponPrice)
+        }
+      }
+      else if (bag[i].type === "armor") {
+        const armor = bag[i]
+        const armorPrice = Math.round((armor.defense + armor.movement + armor.magic) * 10 * armor.rarity)
+        if (equippedArmorPrice > armorPrice) {
+          self.sell(i, armorPrice)
+        }
       }
     }
     self.updateInventory(sellMode)
