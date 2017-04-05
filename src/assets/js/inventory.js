@@ -725,6 +725,13 @@ const Inventory = function() {
     }
     self.updateInventory(sellMode)
   }
+
+  self.spendAllMoneyOnRandomCrystalsAndUseThem = function() {
+    while (gold > crystalPrice / 2) {
+      self.buyCrystal('')
+    }
+    self.useAllCrystals()
+  }
 }
 
 const inventory = new Inventory()

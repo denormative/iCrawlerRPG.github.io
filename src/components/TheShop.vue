@@ -45,6 +45,7 @@
             <button class="btn btn-primary" onclick="inventory.buyCrystal('Speed')">Speed</button>
             <button class="btn btn-primary" onclick="inventory.buyCrystal('Magic')">Magic</button>
             <button class="btn btn-danger" data-toggle="tooltip" title="Small tip: A random crystal costs only half the price!" onclick="inventory.buyCrystal('')">Random</button>
+            <button class="btn btn-warning" onclick="inventory.spendAllMoneyOnRandomCrystalsAndUseThem()">Spend All Money On Random Crystals And Use Them</button>
           </div>
         </div>
       </div>
