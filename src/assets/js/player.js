@@ -15,150 +15,24 @@ const Player = function() {
   // Save Method
   self.save = function() {
     const playerSave = {
-      savedName: store.state.player.name,
-      savedHealth: store.state.player.health,
-      savedMana: store.state.player.mana,
-      savedStrength: store.state.player.strength,
-      savedDexterity: store.state.player.dexterity,
-      savedConstitution: store.state.player.constitution,
-      savedSpeed: store.state.player.speed,
-      savedMagic: store.state.player.magic,
-      savedCurrentFloor: store.state.player.currentFloor,
-      savedInBattle: store.state.player.inBattle,
+      name: store.state.player.name,
+      health: store.state.player.health,
+      mana: store.state.player.mana,
+      strength: store.state.player.strength,
+      dexterity: store.state.player.dexterity,
+      constitution: store.state.player.constitution,
+      speed: store.state.player.speed,
+      magic: store.state.player.magic,
+      currentFloor: store.state.player.currentFloor,
+      inBattle: store.state.player.inBattle,
     }
     localStorage.setItem("playerSave", JSON.stringify(playerSave))
-  }
-
-  // Load Method
-  const loadHealth = function(savedHealth) {
-    if (savedHealth.currentValue !== undefined) {
-      store.state.player.health.currentValue = savedHealth.currentValue
-    }
-    if (savedHealth.maximumValue !== undefined) {
-      store.state.player.health.maximumValue = savedHealth.maximumValue
-    }
-  }
-
-  const loadMana = function(savedMana) {
-    if (savedMana.currentValue !== undefined) {
-      store.state.player.mana.currentValue = savedMana.currentValue
-    }
-    if (savedMana.maximumValue !== undefined) {
-      store.state.player.mana.maximumValue = savedMana.maximumValue
-    }
-  }
-
-  const loadStrength = function(savedStrength) {
-    if (savedStrength.level !== undefined) {
-      store.state.player.strength.level = savedStrength.level
-    }
-    if (savedStrength.experience !== undefined) {
-      store.state.player.strength.experience = savedStrength.experience
-    }
-    if (savedStrength.nextLevel !== undefined) {
-      store.state.player.strength.nextLevel = savedStrength.nextLevel
-    }
-    if (savedStrength.bonus !== undefined) {
-      store.state.player.strength.bonus = savedStrength.bonus
-    }
-  }
-
-  const loadDexterity = function(savedDexterity) {
-    if (savedDexterity.level !== undefined) {
-      store.state.player.dexterity.level = savedDexterity.level
-    }
-    if (savedDexterity.experience !== undefined) {
-      store.state.player.dexterity.experience = savedDexterity.experience
-    }
-    if (savedDexterity.nextLevel !== undefined) {
-      store.state.player.dexterity.nextLevel = savedDexterity.nextLevel
-    }
-    if (savedDexterity.bonus !== undefined) {
-      store.state.player.dexterity.bonus = savedDexterity.bonus
-    }
-  }
-
-  const loadConstitution = function(savedConstitution) {
-    if (savedConstitution.level !== undefined) {
-      store.state.player.constitution.level = savedConstitution.level
-    }
-    if (savedConstitution.experience !== undefined) {
-      store.state.player.constitution.experience = savedConstitution.experience
-    }
-    if (savedConstitution.nextLevel !== undefined) {
-      store.state.player.constitution.nextLevel = savedConstitution.nextLevel
-    }
-    if (savedConstitution.bonus !== undefined) {
-      store.state.player.constitution.bonus = savedConstitution.bonus
-    }
-  }
-
-  const loadSpeed = function(savedSpeed) {
-    if (savedSpeed.level !== undefined) {
-      store.state.player.speed.level = savedSpeed.level
-    }
-    if (savedSpeed.experience !== undefined) {
-      store.state.player.speed.experience = savedSpeed.experience
-    }
-    if (savedSpeed.nextLevel !== undefined) {
-      store.state.player.speed.nextLevel = savedSpeed.nextLevel
-    }
-    if (savedSpeed.bonus !== undefined) {
-      store.state.player.speed.bonus = savedSpeed.bonus
-    }
-  }
-
-  const loadMagic = function(savedMagic) {
-    if (savedMagic.level !== undefined) {
-      store.state.player.magic.level = savedMagic.level
-    }
-    if (savedMagic.experience !== undefined) {
-      store.state.player.magic.experience = savedMagic.experience
-    }
-    if (savedMagic.nextLevel !== undefined) {
-      store.state.player.magic.nextLevel = savedMagic.nextLevel
-    }
-    if (savedMagic.bonus !== undefined) {
-      store.state.player.magic.bonus = savedMagic.bonus
-    }
   }
 
   self.load = function() {
     const playerSave = JSON.parse(localStorage.getItem("playerSave"))
     if (playerSave) {
-      if (playerSave.savedName !== undefined) {
-        store.state.player.name = playerSave.savedName
-      }
-      else {
-        store.state.player.name = prompt("Please, enter your name:", "Crawler")
-      }
-      if (playerSave.savedHealth !== undefined) {
-        loadHealth(playerSave.savedHealth)
-      }
-      if (playerSave.savedMana !== undefined) {
-        loadMana(playerSave.savedMana)
-      }
-      if (playerSave.savedStrength !== undefined) {
-        loadStrength(playerSave.savedStrength)
-      }
-      if (playerSave.savedDexterity !== undefined) {
-        loadDexterity(playerSave.savedDexterity)
-      }
-      if (playerSave.savedConstitution !== undefined) {
-        loadConstitution(playerSave.savedConstitution)
-      }
-      if (playerSave.savedSpeed !== undefined) {
-        loadSpeed(playerSave.savedSpeed)
-      }
-      if (playerSave.savedMagic !== undefined) {
-        loadMagic(playerSave.savedMagic)
-      }
-      if (playerSave.savedCurrentFloor !== undefined) {
-        store.state.player.currentFloor = playerSave.savedCurrentFloor
-      }
-      if (playerSave.savedInBattle !== undefined) {
-        store.state.player.inBattle = playerSave.savedInBattle
-      }
+      store.commit('loadPlayer', playerSave)
     }
     else {
       store.state.player.name = prompt("Please, enter your name:", "Crawler")
