@@ -6,6 +6,8 @@ import { monsters } from './monsters.js'
 import { player } from './player.js'
 import { buffs } from './buffs.js'
 
+import store from '../../vuex/store'
+
 const Tower = function() {
   let lastBossDefeated = 0
   let bossFound = false
@@ -109,7 +111,7 @@ const Tower = function() {
   }
 
   self.loadTowerScreen = function() {
-    const currentFloor = player.getCurrentFloor()
+    const currentFloor = store.state.player.currentFloor
     document.getElementById("floor").innerHTML = currentFloor
     document.getElementById("explperc").innerHTML = `${Math.round(100 * (floors[currentFloor].explored / floors[currentFloor].size) * 100) / 100}%` // eslint-disable-line
     document.getElementById("floorbar").style.width = `${100 * (floors[currentFloor].explored / floors[currentFloor].size)}%`
@@ -139,21 +141,21 @@ const Tower = function() {
   }
 
   self.startBossBattle = function() {
-    if (!player.getInBattle()) {
-      monsters.setInstancedMonster(monsters.getBossMonster((player.getCurrentFloor() / 10) - 1))
+    if (!store.state.player.inBattle) {
+      monsters.setInstancedMonster(monsters.getBossMonster((store.state.player.currentFloor / 10) - 1))
       monsters.setInBossBattle(true)
       monsters.battle(monsters.getInstancedMonster(), false)
     }
   }
 
   self.bossDefeated = function() {
-    floors[player.getCurrentFloor()].canAdvance = true
+    floors[store.state.player.currentFloor].canAdvance = true
     self.loadTowerScreen()
   }
 
   self.changeFloor = function(floorsChanged) {
-    if (!player.getInBattle()) {
-      player.setCurrentFloor(player.getCurrentFloor() + floorsChanged)
+    if (!store.state.player.inBattle) {
+      player.setCurrentFloor(store.state.player.currentFloor + floorsChanged)
       self.loadTowerScreen()
       player.loadRestButton()
       player.loadExploreButton()
@@ -173,12 +175,12 @@ const Tower = function() {
     if (eventRoll <= eventChance) {
       eventRoll = Math.random() * 100
       if (eventRoll < 5) {
-        const rarity = player.getCurrentFloor() + Math.floor(Math.random() * player.getCurrentFloor())
+        const rarity = store.state.player.currentFloor + Math.floor(Math.random() * store.state.player.currentFloor)
         document.getElementById("floorlog").innerHTML = "You turn a corner, finding a treasure chest."
         inventory.findChest(rarity)
       }
       else {
-        const gold = Math.round(Math.random() * 50 * player.getCurrentFloor()) + 1
+        const gold = Math.round(Math.random() * 50 * store.state.player.currentFloor) + 1
         document.getElementById("floorlog").innerHTML = `You find the body of another adventurer. You check their pockets, obtaining ${gold} gold.` // eslint-disable-line
         inventory.setGold(inventory.getGold() + gold)
       }
@@ -190,10 +192,10 @@ const Tower = function() {
   }
 
   self.exploreFloor = function() {
-    const currentFloor = player.getCurrentFloor()
-    player.setManaCurrentValue(player.getManaCurrentValue() + buffs.getManaPerSecond())
+    const currentFloor = store.state.player.currentFloor
+    player.setManaCurrentValue(store.state.player.mana.currentValue + buffs.getManaPerSecond())
     if (!self.floorExplorationComplete(currentFloor)) {
-      let explored = buffs.getExplorationSpeedMultiplier() * ((player.getSpeedLevel() + player.getSpeedBonus()) / 10)
+      let explored = buffs.getExplorationSpeedMultiplier() * ((store.state.player.speed.level + store.state.player.speed.bonus) / 10)
       const explorationLeft = floors[currentFloor].size - floors[currentFloor].explored
       if (explored > explorationLeft) {
         explored = explorationLeft
@@ -207,7 +209,7 @@ const Tower = function() {
           bossFound = true
         }
       }
-      player.setSpeedExperience(player.getSpeedExperience() + ((5 * explored * buffs.getLevelingSpeedMultiplier()) / buffs.getExplorationSpeedMultiplier())) // eslint-disable-line
+      player.setSpeedExperience(store.state.player.speed.experience + ((5 * explored * buffs.getLevelingSpeedMultiplier()) / buffs.getExplorationSpeedMultiplier())) // eslint-disable-line
       self.loadTowerScreen()
       if (!checkFloorEvent()) {
         monsters.battleChance(false)

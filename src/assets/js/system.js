@@ -14,6 +14,8 @@ import { spells } from './spells.js'
 import { tower } from './tower.js'
 import { upgrades } from './upgrades.js'
 
+import store from '../../vuex/store'
+
 const System = function() {
   let ticks = 0
   let refreshSpeed = 1000
@@ -83,11 +85,11 @@ const System = function() {
     tower.load()
     inventory.load()
 
-    trackEvent('system', 'load', 'speed', player.getSpeedLevel())
-    trackEvent('system', 'load', 'magic', player.getMagicLevel())
-    trackEvent('system', 'load', 'strength', player.getStrengthLevel())
-    trackEvent('system', 'load', 'dexterity', player.getDexterityLevel())
-    trackEvent('system', 'load', 'constitution', player.getConstitutionLevel())
+    trackEvent('system', 'load', 'speed', store.state.player.speed.level)
+    trackEvent('system', 'load', 'magic', store.state.player.magic.level)
+    trackEvent('system', 'load', 'strength', store.state.player.strength.level)
+    trackEvent('system', 'load', 'dexterity', store.state.player.dexterity.level)
+    trackEvent('system', 'load', 'constitution', store.state.player.constitution.level)
     trackEvent('system', 'load', 'tower_level', tower.getMaxFloor())
   }
 
@@ -215,7 +217,7 @@ const System = function() {
   }
 
   self.toggleIdle = function() {
-    if (player.getCurrentFloor() === 0) {
+    if (store.state.player.currentFloor === 0) {
       return false
     }
     if (idleMode) {
@@ -245,7 +247,7 @@ const System = function() {
     buffs.updateTemporaryBuffs(false)
     buffs.updateToggleableBuffs()
     buffs.updatePermanentBuffs()
-    if (player.getInBattle()) {
+    if (store.state.player.inBattle) {
       monsters.loadMonsterInfo(monsters.getInstancedMonster())
     }
     tower.loadTowerScreen()
@@ -261,18 +263,18 @@ const System = function() {
       startTheEngine()
     }
     ticks += 1
-    if (player.getResting()) {
+    if (store.state.player.resting) {
       player.rest()
     }
     if (idleMode) {
-      if (!player.getInBattle()) {
+      if (!store.state.player.inBattle) {
         if (buffs.getBarrierLeft() === 0 && buffs.getAutoBarrierCast()) {
           spells.castSpell("barrier")
         }
-        if ((100 * (player.getHealthCurrentValue() / player.getHealthMaximumValue()) >= idleHealthSlider.getValue()) && (100 * (player.getManaCurrentValue() / player.getManaMaximumValue())) >= idleManaSlider.getValue() && !player.getResting()) { // eslint-disable-line
+        if ((100 * (store.state.player.health.currentValue / store.state.player.health.maximumValue) >= idleHealthSlider.getValue()) && (100 * (store.state.player.mana.currentValue / store.state.player.mana.maximumValue)) >= idleManaSlider.getValue() && !store.state.player.resting) { // eslint-disable-line
           tower.exploreFloor()
         }
-        else if (!player.getResting() || player.isFullyRested()) {
+        else if (!store.state.player.resting || player.isFullyRested()) {
           player.toggleRest()
         }
       }

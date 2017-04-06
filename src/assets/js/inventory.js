@@ -3,6 +3,8 @@
 
 import { player } from './player.js'
 
+import store from '../../vuex/store'
+
 const Inventory = function() {
   let gold = 0
   let keys = 0
@@ -566,10 +568,10 @@ const Inventory = function() {
       self.unequipWeapon()
     }
     equippedWeapon = weapon
-    player.setStrengthBonus(player.getStrengthBonus() + (weapon.damage * weapon.rarity))
-    player.setDexterityBonus(player.getDexterityBonus() + (weapon.speed * weapon.rarity))
-    player.setConstitutionBonus(player.getConstitutionBonus() + (weapon.defense * weapon.rarity))
-    player.setMagicBonus(player.getMagicBonus() + (weapon.magic * weapon.rarity))
+    player.setStrengthBonus(store.state.player.strength.bonus + (weapon.damage * weapon.rarity))
+    player.setDexterityBonus(store.state.player.dexterity.bonus + (weapon.speed * weapon.rarity))
+    player.setConstitutionBonus(store.state.player.constitution.bonus + (weapon.defense * weapon.rarity))
+    player.setMagicBonus(store.state.player.magic.bonus + (weapon.magic * weapon.rarity))
     bag.splice(number, 1)
     self.updateInventory(sellMode)
     self.updateEquipment()
@@ -581,9 +583,9 @@ const Inventory = function() {
       self.unequipArmor()
     }
     equippedArmor = armor
-    player.setConstitutionBonus(player.getConstitutionBonus() + (armor.defense * armor.rarity))
-    player.setSpeedBonus(player.getSpeedBonus() + (armor.movement * armor.rarity))
-    player.setMagicBonus(player.getMagicBonus() + (armor.magic * armor.rarity))
+    player.setConstitutionBonus(store.state.player.constitution.bonus + (armor.defense * armor.rarity))
+    player.setSpeedBonus(store.state.player.speed.bonus + (armor.movement * armor.rarity))
+    player.setMagicBonus(store.state.player.magic.bonus + (armor.magic * armor.rarity))
     bag.splice(number, 1)
     self.updateInventory(sellMode)
     self.updateEquipment()
@@ -591,12 +593,12 @@ const Inventory = function() {
 
   self.unequipWeapon = function() {
     bag.push(equippedWeapon)
-    player.setStrengthBonus(player.getStrengthBonus() - (equippedWeapon.damage * equippedWeapon.rarity))
-    player.setDexterityBonus(player.getDexterityBonus() - (equippedWeapon.speed * equippedWeapon.rarity))
-    player.setConstitutionBonus(player.getConstitutionBonus() - (equippedWeapon.defense * equippedWeapon.rarity))
-    player.setMagicBonus(player.getMagicBonus() - (equippedWeapon.magic * equippedWeapon.rarity))
-    player.setHealthCurrentValue(player.getHealthCurrentValue())
-    player.setManaCurrentValue(player.getManaCurrentValue())
+    player.setStrengthBonus(store.state.player.strength.bonus - (equippedWeapon.damage * equippedWeapon.rarity))
+    player.setDexterityBonus(store.state.player.dexterity.bonus - (equippedWeapon.speed * equippedWeapon.rarity))
+    player.setConstitutionBonus(store.state.player.constitution.bonus - (equippedWeapon.defense * equippedWeapon.rarity))
+    player.setMagicBonus(store.state.player.magic.bonus - (equippedWeapon.magic * equippedWeapon.rarity))
+    player.setHealthCurrentValue(store.state.player.health.currentValue)
+    player.setManaCurrentValue(store.state.player.mana.currentValue)
     equippedWeapon = undefined
     self.updateEquipment()
     self.updateInventory(sellMode)
@@ -604,11 +606,11 @@ const Inventory = function() {
 
   self.unequipArmor = function() {
     bag.push(equippedArmor)
-    player.setConstitutionBonus(player.getConstitutionBonus() - (equippedArmor.defense * equippedArmor.rarity))
-    player.setSpeedBonus(player.getSpeedBonus() - (equippedArmor.movement * equippedArmor.rarity))
-    player.setMagicBonus(player.getMagicBonus() - (equippedArmor.magic * equippedArmor.rarity))
-    player.setHealthCurrentValue(player.getHealthCurrentValue())
-    player.setManaCurrentValue(player.getManaCurrentValue())
+    player.setConstitutionBonus(store.state.player.constitution.bonus - (equippedArmor.defense * equippedArmor.rarity))
+    player.setSpeedBonus(store.state.player.speed.bonus - (equippedArmor.movement * equippedArmor.rarity))
+    player.setMagicBonus(store.state.player.magic.bonus - (equippedArmor.magic * equippedArmor.rarity))
+    player.setHealthCurrentValue(store.state.player.health.currentValue)
+    player.setManaCurrentValue(store.state.player.mana.currentValue)
     equippedArmor = undefined
     self.updateEquipment()
     self.updateInventory(sellMode)
@@ -621,19 +623,19 @@ const Inventory = function() {
   self.useCrystal = function(slot, all) {
     const crystal = bag[slot]
     if (crystal.stat === "Strength") {
-      player.setStrengthExperience(player.getStrengthExperience() + crystal.experience)
+      player.setStrengthExperience(store.state.player.strength.experience + crystal.experience)
     }
     else if (crystal.stat === "Dexterity") {
-      player.setDexterityExperience(player.getDexterityExperience() + crystal.experience)
+      player.setDexterityExperience(store.state.player.dexterity.experience + crystal.experience)
     }
     else if (crystal.stat === "Constitution") {
-      player.setConstitutionExperience(player.getConstitutionExperience() + crystal.experience)
+      player.setConstitutionExperience(store.state.player.constitution.experience + crystal.experience)
     }
     else if (crystal.stat === "Speed") {
-      player.setSpeedExperience(player.getSpeedExperience() + crystal.experience)
+      player.setSpeedExperience(store.state.player.speed.experience + crystal.experience)
     }
     else if (crystal.stat === "Magic") {
-      player.setMagicExperience(player.getMagicExperience() + crystal.experience)
+      player.setMagicExperience(store.state.player.magic.experience + crystal.experience)
     }
     bag.splice(slot, 1)
     if (all === undefined) {

@@ -8,6 +8,8 @@ import { spells } from './spells.js'
 import { tower } from './tower.js'
 import { upgrades } from './upgrades.js'
 
+import store from '../../vuex/store'
+
 const Monsters = function() {
   let inBossBattle = false
   /* beautify preserve:start */
@@ -218,7 +220,7 @@ const Monsters = function() {
 
   // Other Methods
   self.attackMelee = function() {
-    if (player.getInBattle()) {
+    if (store.state.player.inBattle) {
       self.battle(instancedMonster, false)
     }
   }
@@ -250,7 +252,7 @@ const Monsters = function() {
   }
 
   const playerAttacks = function(monster) {
-    let damage = damageFormula(player.getStrengthLevel() + player.getStrengthBonus(), player.getDexterityLevel() + player.getDexterityBonus(), monster.constitution, monster.currentHealth) // eslint-disable-line
+    let damage = damageFormula(store.state.player.strength.level + store.state.player.strength.bonus, store.state.player.dexterity.level + store.state.player.dexterity.bonus, monster.constitution, monster.currentHealth) // eslint-disable-line
     if (buffs.getRageTimeLeft() !== 0) {
       damage *= 5
     }
@@ -263,7 +265,7 @@ const Monsters = function() {
   }
 
   const monsterAttacks = function(monster) {
-    let damage = damageFormula(monster.strength, monster.dexterity, player.getConstitutionLevel() + player.getConstitutionBonus(), player.getHealthCurrentValue()) // eslint-disable-line
+    let damage = damageFormula(monster.strength, monster.dexterity, store.state.player.constitution.level + store.state.player.constitution.bonus, store.state.player.health.currentValue) // eslint-disable-line
     if (buffs.getRageTimeLeft() !== 0) {
       damage *= 2
     }
@@ -285,10 +287,10 @@ const Monsters = function() {
         buffs.setBarrierLeft(0)
         buffs.updateTemporaryBuffs(false)
       }
-      player.setHealthCurrentValue(player.getHealthCurrentValue() - damage)
+      player.setHealthCurrentValue(store.state.player.health.currentValue - damage)
       document.getElementById("combatlog").innerHTML +=
       `You took ${Math.round(damage)} damage from the ${monster.name}'s attack.<br>`
-      if (player.getHealthCurrentValue() === 0) {
+      if (store.state.player.health.currentValue === 0) {
         player.death(monster)
         return true
       }
@@ -302,7 +304,7 @@ const Monsters = function() {
   }
 
   self.battle = function(monster, spellCast) {
-    if (!player.getInBattle()) {
+    if (!store.state.player.inBattle) {
       player.setInBattle(true)
       player.loadRestButton()
       player.loadExploreButton()
@@ -315,7 +317,7 @@ const Monsters = function() {
       let isDead = false
       if (!spellCast) {
         document.getElementById("combatlog").innerHTML = ''
-        if (buffs.getCastCureInBattle() && player.getHealthCurrentValue() <= player.getHealthMaximumValue() / 2) {
+        if (buffs.getCastCureInBattle() && store.state.player.health.currentValue <= store.state.player.health.maximumValue / 2) {
           if (!spells.castSpell("cure")) {
             isDead = playerAttacks(monster)
           }
@@ -378,7 +380,7 @@ const Monsters = function() {
       document.getElementById("combatlog").innerHTML +=
       `You have defeated a floor boss! ${monster.name} recognizes your strength and allows you to advance.`
       tower.setBossFound(false)
-      tower.setLastBossDefeated(player.getCurrentFloor())
+      tower.setLastBossDefeated(store.state.player.currentFloor)
       tower.bossDefeated()
       inBossBattle = false
     }
@@ -441,7 +443,7 @@ const Monsters = function() {
 
   const createMonster = function(number) {
     const tempMonster = { name: "", currentHealth: 0, maximumHealth: 0, strength: 0, dexterity: 0, constitution: 0, status: 0 }
-    let statPool = Math.round(((player.getCurrentFloor() * 15) + (1.1 ** (player.getCurrentFloor() - 1))) - 1)
+    let statPool = Math.round(((store.state.player.currentFloor * 15) + (1.1 ** (store.state.player.currentFloor - 1))) - 1)
     tempMonster.name = monsterList[number].name
     tempMonster.strength += 1
     tempMonster.dexterity += 1
@@ -454,7 +456,7 @@ const Monsters = function() {
   }
 
   const rollMonster = function() {
-    const tier = Math.floor((player.getCurrentFloor() - 1) / 10)
+    const tier = Math.floor((store.state.player.currentFloor - 1) / 10)
     let monster = Math.floor(Math.random() * 10)
     while (monster === 10) {
       monster = Math.floor(Math.random() * 10)
@@ -470,7 +472,7 @@ const Monsters = function() {
     }
 
     const check = Math.random() * 100
-    if (check <= tower.getFloorMonsterDensity(player.getCurrentFloor())) {
+    if (check <= tower.getFloorMonsterDensity(store.state.player.currentFloor)) {
       rollMonster()
       return true
     }
@@ -478,13 +480,13 @@ const Monsters = function() {
   }
 
   self.runAway = function() {
-    if (player.getInBattle()) {
+    if (store.state.player.inBattle) {
       document.getElementById("combatlog").innerHTML = ""
       const runRoll = Math.random() * (instancedMonster.strength + instancedMonster.dexterity + instancedMonster.constitution)
-      if (runRoll < player.getSpeedLevel()) {
+      if (runRoll < store.state.player.speed.level) {
         document.getElementById("combatlog").innerHTML += `You escaped from the battle against ${instancedMonster.name}.`
         self.loadMonsterInfo()
-        player.setSpeedExperience(player.getSpeedExperience() + runRoll)
+        player.setSpeedExperience(store.state.player.speed.experience + runRoll)
         player.setInBattle(false)
         player.loadExploreButton()
         player.loadRestButton()

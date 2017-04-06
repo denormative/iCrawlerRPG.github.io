@@ -6,6 +6,8 @@ import { inventory } from './inventory.js'
 import { monsters } from './monsters.js'
 import { player } from './player.js'
 
+import store from '../../vuex/store'
+
 const Spells = function() {
   let arcania = 0
 
@@ -291,13 +293,13 @@ const Spells = function() {
   const curePotency = function(cure) {
     const cureBasePotency = 25
     const cureLevelPotency = 15 * cure.level
-    const cureMagicPotency = 3 * ((player.getMagicLevel() + player.getMagicBonus()) - 5)
+    const cureMagicPotency = 3 * ((store.state.player.magic.level + store.state.player.magic.bonus) - 5)
     return Math.floor(cureBasePotency + cureLevelPotency + cureMagicPotency)
   }
 
   const castCure = function(cure) {
-    const currentHealth = player.getHealthCurrentValue()
-    const maximumHealth = player.getHealthMaximumValue()
+    const currentHealth = store.state.player.health.currentValue
+    const maximumHealth = store.state.player.health.maximumValue
     if (currentHealth === maximumHealth) {
       return false
     }
@@ -307,7 +309,7 @@ const Spells = function() {
       cureValue = maximumHealth - currentHealth
     }
     player.setHealthCurrentValue(currentHealth + cureValue)
-    if (player.getInBattle()) {
+    if (store.state.player.inBattle) {
       document.getElementById("combatlog").innerHTML = ''
       document.getElementById("combatlog").innerHTML += `You healed yourself for ${Math.round(cureValue)} HP with Cure.<br>`
       monsters.battle(monsters.getInstancedMonster(), true)
@@ -318,12 +320,12 @@ const Spells = function() {
   const fireballPotency = function(fireball) {
     const fireballBasePotency = 15
     const fireballLevelPotency = 5 * fireball.level
-    const fireballMagicPotency = 1 * ((player.getMagicLevel() + player.getMagicBonus()) - 5)
+    const fireballMagicPotency = 1 * ((store.state.player.magic.level + store.state.player.magic.bonus) - 5)
     return Math.floor(fireballBasePotency + fireballLevelPotency + fireballMagicPotency)
   }
 
   const castFireball = function(fireball) {
-    if (!player.getInBattle()) {
+    if (!store.state.player.inBattle) {
       return false
     }
 
@@ -344,7 +346,7 @@ const Spells = function() {
   const barrierPotency = function(barrier) {
     const barrierBasePotency = 50
     const barrierLevelPotency = 50 * barrier.level
-    const barrierMagicPotency = 10 * ((player.getMagicLevel() + player.getMagicBonus()) - 10)
+    const barrierMagicPotency = 10 * ((store.state.player.magic.level + store.state.player.magic.bonus) - 10)
     return Math.floor(barrierBasePotency + barrierLevelPotency + barrierMagicPotency)
   }
 
@@ -356,7 +358,7 @@ const Spells = function() {
 
     buffs.setBarrierLeft(barrierValue)
     buffs.updateTemporaryBuffs(false)
-    if (player.getInBattle()) {
+    if (store.state.player.inBattle) {
       document.getElementById("combatlog").innerHTML = ''
       document.getElementById("combatlog").innerHTML += "You created a magical barrier.<br>"
       monsters.battle(monsters.getInstancedMonster(), true)
@@ -367,7 +369,7 @@ const Spells = function() {
   const aegisPotency = function(aegis) {
     const aegisBasePotency = 5
     const aegisLevelPotency = 1 * aegis.level
-    const aegisMagicPotency = 0.2 * ((player.getMagicLevel() + player.getMagicBonus()) - 50)
+    const aegisMagicPotency = 0.2 * ((store.state.player.magic.level + store.state.player.magic.bonus) - 50)
     return Math.floor(aegisBasePotency + aegisLevelPotency + aegisMagicPotency)
   }
 
@@ -378,7 +380,7 @@ const Spells = function() {
 
     buffs.setAegisTimeLeft(aegisPotency(aegis))
     buffs.updateTemporaryBuffs(false)
-    if (player.getInBattle()) {
+    if (store.state.player.inBattle) {
       document.getElementById("combatlog").innerHTML = ''
       document.getElementById("combatlog").innerHTML += "You summon the heavenly shield, Aegis.<br>"
       monsters.battle(monsters.getInstancedMonster(), true)
@@ -389,13 +391,13 @@ const Spells = function() {
   const slowPotency = function(slow) {
     const slowBasePotency = 5
     const slowLevelPotency = 1 * slow.level
-    const slowMagicPotency = 0.2 * ((player.getMagicLevel() + player.getMagicBonus()) - 20)
+    const slowMagicPotency = 0.2 * ((store.state.player.magic.level + store.state.player.magic.bonus) - 20)
     return Math.floor(slowBasePotency + slowLevelPotency + slowMagicPotency)
   }
 
   const castSlow = function(slow) {
     const monster = monsters.getInstancedMonster()
-    if (!player.getInBattle() || monster.dexterity <= 1) {
+    if (!store.state.player.inBattle || monster.dexterity <= 1) {
       return false
     }
 
@@ -416,12 +418,12 @@ const Spells = function() {
   const ragePotency = function(rage) {
     const rageBasePotency = 5
     const rageLevelPotency = 1 * rage.level
-    const rageMagicPotency = 0.2 * ((player.getMagicLevel() + player.getMagicBonus()) - 25)
+    const rageMagicPotency = 0.2 * ((store.state.player.magic.level + store.state.player.magic.bonus) - 25)
     return Math.floor(rageBasePotency + rageLevelPotency + rageMagicPotency)
   }
 
   const castRage = function(rage) {
-    if (!player.getInBattle()) {
+    if (!store.state.player.inBattle) {
       return false
     }
 
@@ -436,12 +438,12 @@ const Spells = function() {
   const transmutationPotency = function(transmutation) {
     const transmutationBasePotency = 1
     const transmutationLevelPotency = 1 * transmutation.level
-    const transmutationMagicPotency = 0.2 * ((player.getMagicLevel() + player.getMagicBonus()) - 5)
+    const transmutationMagicPotency = 0.2 * ((store.state.player.magic.level + store.state.player.magic.bonus) - 5)
     return Math.floor(transmutationBasePotency + transmutationLevelPotency + transmutationMagicPotency)
   }
 
   const castTransmutation = function(transmutation) {
-    if (arcania < 100 || player.getInBattle()) {
+    if (arcania < 100 || store.state.player.inBattle) {
       return false
     }
 
@@ -453,12 +455,12 @@ const Spells = function() {
   const shadowBallPotency = function(shadowBall) {
     const shadowBallBasePotency = 300
     const shadowBallLevelPotency = 50 * shadowBall.level
-    const shadowBallMagicPotency = 10 * ((player.getMagicLevel() + player.getMagicBonus()) - 30)
+    const shadowBallMagicPotency = 10 * ((store.state.player.magic.level + store.state.player.magic.bonus) - 30)
     return Math.floor(shadowBallBasePotency + shadowBallLevelPotency + shadowBallMagicPotency)
   }
 
   const castShadowBall = function(shadowBall) {
-    if (!player.getInBattle()) {
+    if (!store.state.player.inBattle) {
       return false
     }
 
@@ -480,7 +482,7 @@ const Spells = function() {
     const spell = findSpell(spellId)
     const manaCost = spellCost(spellbook[spell])
 
-    if (player.getManaCurrentValue() >= manaCost && buffs.getRageTimeLeft() === 0 && self.isSpellLearned(spellId)) {
+    if (store.state.player.mana.currentValue >= manaCost && buffs.getRageTimeLeft() === 0 && self.isSpellLearned(spellId)) {
       let castSuccessful
       if (spellbook[spell].id === "cure") {
         castSuccessful = castCure(spellbook[spell])
@@ -510,9 +512,9 @@ const Spells = function() {
         if (spellbook[spell].id !== "transmutation") {
           arcania += spellbook[spell].level + (manaCost / 100)
         }
-        player.setManaCurrentValue(player.getManaCurrentValue() - manaCost)
+        player.setManaCurrentValue(store.state.player.mana.currentValue - manaCost)
         levelSpell(spellbook[spell], buffs.getSpellLevelingMultiplier() * manaCost)
-        player.setMagicExperience(player.getMagicExperience() + (buffs.getLevelingSpeedMultiplier() * (spellbook[spell].level + 1 + manaCost / 10))) // eslint-disable-line
+        player.setMagicExperience(store.state.player.magic.experience + (buffs.getLevelingSpeedMultiplier() * (spellbook[spell].level + 1 + manaCost / 10))) // eslint-disable-line
         return true
       }
     }
@@ -555,7 +557,7 @@ const Spells = function() {
     }
     updateSpellDescriptions()
     for (let i = 0; i < spellbook.length; i++) {
-      if (player.getMagicLevel() >= spellbook[i].requiredMagic && spellbook[i].learned === false) {
+      if (store.state.player.magic.level >= spellbook[i].requiredMagic && spellbook[i].learned === false) {
         const spellColor = spellType(spellbook[i].type)
         document.getElementById("spellbook").innerHTML += `<div class="row"><div class="col-5"><button class="btn ${spellColor} btn-block" data-toggle="tooltip" data-placement="top" title="${spellbook[i].description}" onclick="spells.buySpell('${spellbook[i].id}')"> Buy ${spellbook[i].name}</button></div><div class="col-7"><p class="text-right">Arcania Cost: <span id="${spellbook[i].id}arcaniacostall">0</span></p></div></div>` // eslint-disable-line
         document.getElementById(`spellbook${spellbook[i].type}`).innerHTML += `<div class="row"><div class="col-5"><button class="btn ${spellColor} btn-block" data-toggle="tooltip" data-placement="top" title="${spellbook[i].description}" onclick="spells.buySpell('${spellbook[i].id}')"> Buy ${spellbook[i].name}</button></div><div class="col-7"><p class="text-right">Arcania Cost: <span id="${spellbook[i].id}arcaniacost">0</span></p></div></div>` // eslint-disable-line
