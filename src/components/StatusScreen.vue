@@ -18,13 +18,13 @@
                 <span id="name">Crawler</span>
               </div>
             </div>
-            <stat-panel name="CON" title="Constitution. Increase your health and decrease damage taken." stat-id="con"></stat-panel>
-            <stat-panel name="SPD" title="Speed. Allows you to explore the floor faster, and also increases the chance of running away." stat-id="spd"></stat-panel>
+            <stat-panel name="CON" title="Constitution. Increase your health and decrease damage taken." stat="constitution"></stat-panel>
+            <stat-panel name="SPD" title="Speed. Allows you to explore the floor faster, and also increases the chance of running away." stat="speed"></stat-panel>
           </div>
           <div class="col-6">
-            <stat-panel name="STR" title="Strength. Allows you to hit harder." stat-id="str"></stat-panel>
-            <stat-panel name="DEX" title="Dexterity. Slight damage increase." stat-id="dex"></stat-panel>
-            <stat-panel name="MGC" title="Magic. Increase your mana and slightly boost your spell efficiency. Also unlocks new spells." stat-id="mgc"></stat-panel>
+            <stat-panel name="STR" title="Strength. Allows you to hit harder." stat="strength"></stat-panel>
+            <stat-panel name="DEX" title="Dexterity. Slight damage increase." stat="dexterity"></stat-panel>
+            <stat-panel name="MGC" title="Magic. Increase your mana and slightly boost your spell efficiency. Also unlocks new spells." stat="magic"></stat-panel>
           </div>
         </div>
       </div>

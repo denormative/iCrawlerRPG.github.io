@@ -82,13 +82,6 @@ const Player = function() {
     loadConditionScreen("mp", store.state.player.mana)
   }
 
-  const loadStatScreen = function(statId, statName) {
-    document.getElementById(statId).innerHTML = Math.round(100 * (statName.level + statName.bonus)) / 100
-    document.getElementById(`${statId}per`).innerHTML =
-    `${Math.round(100 * (100 * (statName.experience / statName.nextLevel))) / 100}%`
-    document.getElementById(`${statId}prog`).style.width = `${100 * (statName.experience / statName.nextLevel)}%`
-  }
-
   const neededExperience = function(level) {
     return (((level ** 2) + level) * 3)
   }
@@ -96,7 +89,6 @@ const Player = function() {
   const setStrengthLevel = function(newLevel) {
     store.state.player.strength.level = newLevel
     store.state.player.strength.nextLevel = neededExperience(store.state.player.strength.level + 1)
-    loadStatScreen("str", store.state.player.strength)
   }
 
   self.setStrengthExperience = function(experience) {
@@ -105,13 +97,11 @@ const Player = function() {
       store.state.player.strength.experience -= store.state.player.strength.nextLevel
       setStrengthLevel(store.state.player.strength.level + 1)
     }
-    loadStatScreen("str", store.state.player.strength)
   }
 
   const setDexterityLevel = function(newLevel) {
     store.state.player.dexterity.level = newLevel
     store.state.player.dexterity.nextLevel = neededExperience(store.state.player.dexterity.level + 1)
-    loadStatScreen("dex", store.state.player.dexterity)
   }
 
   self.setDexterityExperience = function(experience) {
@@ -120,14 +110,12 @@ const Player = function() {
       store.state.player.dexterity.experience -= store.state.player.dexterity.nextLevel
       setDexterityLevel(store.state.player.dexterity.level + 1)
     }
-    loadStatScreen("dex", store.state.player.dexterity)
   }
 
   const setConstitutionLevel = function(newLevel) {
     store.state.player.constitution.level = newLevel
     store.state.player.constitution.nextLevel = neededExperience(store.state.player.constitution.level + 1)
     self.setHealthMaximumValue(((store.state.player.constitution.level + store.state.player.constitution.bonus) ** 2) * 4)
-    loadStatScreen("con", store.state.player.constitution)
   }
 
   self.setConstitutionExperience = function(experience) {
@@ -136,13 +124,11 @@ const Player = function() {
       store.state.player.constitution.experience -= store.state.player.constitution.nextLevel
       setConstitutionLevel(store.state.player.constitution.level + 1)
     }
-    loadStatScreen("con", store.state.player.constitution)
   }
 
   const setSpeedLevel = function(newLevel) {
     store.state.player.speed.level = newLevel
     store.state.player.speed.nextLevel = neededExperience(store.state.player.speed.level + 1)
-    loadStatScreen("spd", store.state.player.speed)
   }
 
   self.setSpeedExperience = function(experience) {
@@ -151,7 +137,6 @@ const Player = function() {
       store.state.player.speed.experience -= store.state.player.speed.nextLevel
       setSpeedLevel(store.state.player.speed.level + 1)
     }
-    loadStatScreen("spd", store.state.player.speed)
   }
 
   const setMagicLevel = function(newLevel) {
@@ -159,7 +144,6 @@ const Player = function() {
     store.state.player.magic.nextLevel = neededExperience(store.state.player.magic.level + 1)
     spells.updateSpellbook()
     self.setManaMaximumValue(((store.state.player.magic.level + store.state.player.magic.bonus) ** 2) * 2)
-    loadStatScreen("mgc", store.state.player.magic)
   }
 
   self.setMagicExperience = function(experience) {
@@ -168,44 +152,33 @@ const Player = function() {
       store.state.player.magic.experience -= store.state.player.magic.nextLevel
       setMagicLevel(store.state.player.magic.level + 1)
     }
-    loadStatScreen("mgc", store.state.player.magic)
   }
 
   self.setStrengthBonus = function(bonus) {
     store.state.player.strength.bonus = bonus
-    loadStatScreen("str", store.state.player.strength)
   }
 
   self.setDexterityBonus = function(bonus) {
     store.state.player.dexterity.bonus = bonus
-    loadStatScreen("dex", store.state.player.dexterity)
   }
 
   self.setConstitutionBonus = function(bonus) {
     store.state.player.constitution.bonus = bonus
     self.setHealthMaximumValue(((store.state.player.constitution.level + store.state.player.constitution.bonus) ** 2) * 4)
-    loadStatScreen("con", store.state.player.constitution)
   }
 
   self.setSpeedBonus = function(bonus) {
     store.state.player.speed.bonus = bonus
-    loadStatScreen("spd", store.state.player.speed)
   }
 
   self.setMagicBonus = function(bonus) {
     store.state.player.magic.bonus = bonus
     self.setManaMaximumValue(((store.state.player.magic.level + store.state.player.magic.bonus) ** 2) * 2)
-    loadStatScreen("mgc", store.state.player.magic)
   }
 
   // Other Methods
   self.loadPlayerScreen = function() {
     document.getElementById("name").innerHTML = store.state.player.name
-    loadStatScreen("str", store.state.player.strength)
-    loadStatScreen("dex", store.state.player.dexterity)
-    loadStatScreen("con", store.state.player.constitution)
-    loadStatScreen("spd", store.state.player.speed)
-    loadStatScreen("mgc", store.state.player.magic)
     loadConditionScreen("hp", store.state.player.health)
     loadConditionScreen("mp", store.state.player.mana)
   }
