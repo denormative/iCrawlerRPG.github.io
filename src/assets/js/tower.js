@@ -195,7 +195,7 @@ const Tower = function() {
     const currentFloor = store.state.player.currentFloor
     player.setManaCurrentValue(store.state.player.mana.currentValue + buffs.getManaPerSecond())
     if (!self.floorExplorationComplete(currentFloor)) {
-      let explored = buffs.getExplorationSpeedMultiplier() * ((store.state.player.speed.level + store.state.player.speed.bonus) / 10)
+      let explored = buffs.getExplorationSpeedMultiplier() * ((store.state.player.speed.level + store.state.player.speed.bonus) / 10) // eslint-disable-line max-len
       const explorationLeft = floors[currentFloor].size - floors[currentFloor].explored
       if (explored > explorationLeft) {
         explored = explorationLeft
